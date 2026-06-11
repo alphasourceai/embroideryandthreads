@@ -1,20 +1,13 @@
 import { useEffect, useState } from "react";
-import img1 from "@assets/Screenshot_2026-06-11_at_10.16.06_1781194733295.png";
-import img2 from "@assets/Screenshot_2026-06-11_at_10.16.13_1781194733295.png";
-import img3 from "@assets/Screenshot_2026-06-11_at_10.16.22_1781194733295.png";
-import img4 from "@assets/Screenshot_2026-06-11_at_10.16.29_1781194733295.png";
-import img5 from "@assets/Screenshot_2026-06-11_at_10.16.36_1781194733294.png";
 import { Button } from "@/components/ui/button";
 import { Instagram, MapPin, Mail, Phone, ChevronRight } from "lucide-react";
+import InstagramFeed from "@/components/InstagramFeed";
 
-// TODO: Instagram Integration
-// Replace the static images below with live posts from the Instagram Basic Display API.
-// API endpoint: https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink&access_token=YOUR_ACCESS_TOKEN
-// Steps to connect:
-//   1. Register app at https://developers.facebook.com/
-//   2. Add Instagram Basic Display product
-//   3. Get a long-lived access token for @embroideryandthreads
-//   4. Replace STATIC_POSTS below with fetched posts from the API
+const img1 = "/ig-post-1.png";
+const img2 = "/ig-post-2.png";
+const img3 = "/ig-post-3.png";
+const img4 = "/ig-post-4.png";
+const img5 = "/ig-post-5.png";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -211,6 +204,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Instagram Feed Section */}
+      <InstagramFeed />
 
       {/* Process Section */}
       <section className="py-24 bg-[#B1C2B1]/10 px-6 md:px-12">
