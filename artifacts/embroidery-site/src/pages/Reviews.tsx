@@ -39,9 +39,7 @@ export default function Reviews() {
       <nav className="bg-background/90 backdrop-blur-md border-b border-border sticky top-0 z-50">
         <div className="container mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group" data-testid="reviews-nav-home">
-            <div className="w-9 h-9 rounded-full bg-[#E5B5C4] flex items-center justify-center text-white font-serif italic text-lg shadow-sm">
-              B
-            </div>
+            <img src="/logo-b.jpg" alt="Embroidery & Threads" className="w-9 h-9 rounded-full object-cover shadow-sm" />
             <span className="font-serif tracking-wide text-foreground">Embroidery & Threads</span>
           </Link>
           <Link href="/" data-testid="reviews-nav-back">

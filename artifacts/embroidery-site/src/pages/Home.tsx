@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Instagram, MapPin, Mail, Phone, ChevronRight, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import InstagramFeed from "@/components/InstagramFeed";
 import { Link } from "wouter";
 
 const GALLERY_IMAGES = [
   { src: "/gallery-1.png", alt: "Castle Rock Christmas sweatshirts — custom embroidered holiday collection" },
-  { src: "/gallery-2.png", alt: "Merry & Bright Christmas trees sweatshirt and beanie set" },
   { src: "/gallery-3.png", alt: "Merry & Bright holiday embroidery on cream sweatshirt" },
   { src: "/gallery-4.png", alt: "MAMA lavender floral applique sweatshirt with custom name tag" },
   { src: "/gallery-5.png", alt: "Faith-based and patriotic embroidered pieces — God Bless the USA" },
@@ -23,11 +22,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (lightbox) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    if (lightbox) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
     return () => { document.body.style.overflow = ""; };
   }, [lightbox]);
 
@@ -49,10 +45,7 @@ export default function Home() {
           >
             <X className="w-5 h-5" />
           </button>
-          <div
-            className="relative max-w-2xl w-full"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="relative max-w-2xl w-full" onClick={(e) => e.stopPropagation()}>
             <img
               src={lightbox.src}
               alt={lightbox.alt}
@@ -64,16 +57,14 @@ export default function Home() {
       )}
 
       {/* Navigation */}
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled ? "bg-background/90 backdrop-blur-md shadow-sm py-4" : "bg-transparent py-6"
-        }`}
-      >
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-background/90 backdrop-blur-md shadow-sm py-4" : "bg-transparent py-6"}`}>
         <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
           <div className="flex items-center gap-3 cursor-pointer" data-testid="nav-logo">
-            <div className="w-10 h-10 rounded-full bg-[#E5B5C4] flex items-center justify-center text-white font-serif italic text-xl shadow-sm">
-              B
-            </div>
+            <img
+              src="/logo-b.jpg"
+              alt="Embroidery & Threads"
+              className="w-10 h-10 rounded-full object-cover shadow-sm"
+            />
             <span className={`font-serif tracking-wide transition-opacity duration-300 ${isScrolled ? "opacity-100" : "opacity-0 md:opacity-100"}`}>
               Embroidery & Threads
             </span>
@@ -95,20 +86,15 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Local Orders Banner */}
-      <div className="fixed top-0 left-0 right-0 z-40 pointer-events-none">
-        <div className="mt-[72px] mx-auto max-w-fit">
-        </div>
-      </div>
-
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex flex-col justify-center pt-24 pb-12 px-6 md:px-12">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -z-10 animate-in fade-in duration-1000"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-[100px] -z-10 animate-in fade-in duration-1000 delay-500"></div>
+      <section className="relative min-h-[92vh] flex flex-col justify-center pt-24 pb-16 px-6 md:px-12">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -z-10 animate-in fade-in duration-1000" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-[100px] -z-10 animate-in fade-in duration-1000 delay-500" />
 
-        <div className="container mx-auto max-w-5xl">
+        <div className="container mx-auto max-w-5xl flex-1 flex flex-col justify-center">
           <div className="flex flex-col md:flex-row items-center gap-12 md:gap-24">
-            <div className="flex-1 space-y-8 animate-in slide-in-from-bottom-8 fade-in duration-1000 fill-mode-both delay-100">
+            {/* Left — copy */}
+            <div className="flex-1 space-y-7 animate-in slide-in-from-bottom-8 fade-in duration-1000 fill-mode-both delay-100">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/30 text-secondary-foreground text-xs font-medium tracking-widest uppercase">
                 <MapPin className="w-3 h-3" />
                 <span>Castle Rock, Colorado</span>
@@ -124,48 +110,50 @@ export default function Home() {
                 From cozy Mama & Mini sets to custom holiday stockings, everything is made by hand with care.
               </p>
 
-              <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-primary/10 border border-primary/20 text-sm text-primary font-medium">
-                <MapPin className="w-3.5 h-3.5 shrink-0" />
-                Currently serving Castle Rock &amp; surrounding areas — local orders only, no shipping at this time
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <Button
-                  size="lg"
-                  className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-base font-medium shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5"
-                  onClick={() => window.open("https://www.instagram.com/embroideryandthreads/", "_blank")}
+              {/* Refined CTA row */}
+              <div className="flex flex-wrap items-center gap-5 pt-1">
+                <a
+                  href="https://www.instagram.com/embroideryandthreads/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-7 py-3 text-sm font-medium transition-all hover:-translate-y-0.5 shadow-sm"
                   data-testid="hero-button-instagram"
                 >
-                  <Instagram className="w-5 h-5 mr-2" />
+                  <Instagram className="w-4 h-4" />
                   DM to Order
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="lg"
-                  className="rounded-full px-8 py-6 text-base font-medium hover:bg-transparent hover:text-primary transition-colors group"
+                </a>
+                <button
+                  className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors group"
                   onClick={() => document.getElementById("gallery")?.scrollIntoView({ behavior: "smooth" })}
                   data-testid="hero-button-explore"
                 >
                   Explore the Work
-                  <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                  <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </button>
               </div>
             </div>
 
-            {/* Hero image with B logo overlay */}
+            {/* Right — hero image with B logo overlay */}
             <div className="flex-1 relative w-full max-w-md mx-auto aspect-[4/5] animate-in slide-in-from-right-12 fade-in duration-1000 fill-mode-both delay-300">
-              <div className="absolute inset-0 bg-[#E5B5C4]/20 rounded-t-full transform -rotate-6 scale-105 transition-transform duration-700 hover:rotate-0"></div>
+              <div className="absolute inset-0 bg-[#E5B5C4]/20 rounded-t-full transform -rotate-6 scale-105 transition-transform duration-700 hover:rotate-0" />
               <img
                 src="/ig-post-3.png"
                 alt="Custom embroidery pieces from Embroidery & Threads"
                 className="absolute inset-0 w-full h-full object-cover rounded-t-full shadow-lg"
               />
-              {/* B logo overlay */}
-              <div className="absolute bottom-6 right-6 w-16 h-16 rounded-full bg-[#E5B5C4] flex items-center justify-center text-white font-serif italic text-3xl shadow-lg border-2 border-white/60 z-10">
-                B
-              </div>
+              {/* B logo overlay — larger, actual logo */}
+              <img
+                src="/logo-b.jpg"
+                alt="Embroidery & Threads logo"
+                className="absolute bottom-5 right-5 w-20 h-20 rounded-full object-cover shadow-xl border-2 border-white z-10"
+              />
             </div>
           </div>
+
+          {/* Soft local orders note — centered at bottom of hero */}
+          <p className="mt-14 text-center text-xs text-muted-foreground/70 font-light italic tracking-wide">
+            Currently taking local orders in the Castle Rock area &mdash; no shipping at this time
+          </p>
         </div>
       </section>
 
@@ -184,10 +172,11 @@ export default function Home() {
             <div className="inline-flex items-start gap-3 px-6 py-4 rounded-2xl bg-primary/8 border border-primary/15 text-left max-w-xl mx-auto">
               <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
               <p className="text-sm text-foreground/80 font-light leading-relaxed">
-                <span className="font-medium text-primary">Local orders only.</span> I'm currently taking custom orders in the Castle Rock area. I'm not shipping at this time — reach out on Instagram and we'll work out a local pickup.
+                <span className="font-medium text-primary">Local orders only.</span>{" "}
+                I'm currently taking custom orders in the Castle Rock area. I'm not shipping at this time — reach out on Instagram or use the contact form below and we'll work out a local pickup.
               </p>
             </div>
-            <div className="w-16 h-px bg-primary/30 mx-auto mt-12"></div>
+            <div className="w-16 h-px bg-primary/30 mx-auto mt-12" />
           </div>
         </div>
       </section>
@@ -213,77 +202,27 @@ export default function Home() {
             </Button>
           </div>
 
-          {/* 5-image masonry-style grid with click-to-enlarge */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-            {/* Large featured image */}
-            <div
-              className="col-span-2 md:col-span-2 row-span-1 relative group overflow-hidden rounded-2xl aspect-[16/9] cursor-pointer"
-              onClick={() => setLightbox(GALLERY_IMAGES[0])}
-              data-testid="gallery-image-0"
-            >
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-500 z-10 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 text-foreground text-xs font-medium tracking-widest uppercase px-4 py-2 rounded-full">
-                  View
-                </span>
+          {/* 4-image centered grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
+            {GALLERY_IMAGES.map((img, i) => (
+              <div
+                key={i}
+                className="relative group overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer"
+                onClick={() => setLightbox(img)}
+                data-testid={`gallery-image-${i}`}
+              >
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-500 z-10 flex items-center justify-center">
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 text-foreground text-xs font-medium tracking-widest uppercase px-4 py-2 rounded-full">
+                    View
+                  </span>
+                </div>
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+                />
               </div>
-              <img src={GALLERY_IMAGES[0].src} alt={GALLERY_IMAGES[0].alt} className="w-full h-full object-cover transform group-hover:scale-103 transition-transform duration-700 ease-out" />
-            </div>
-
-            {/* Tall right image */}
-            <div
-              className="col-span-1 row-span-2 relative group overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer"
-              onClick={() => setLightbox(GALLERY_IMAGES[1])}
-              data-testid="gallery-image-1"
-            >
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-500 z-10 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 text-foreground text-xs font-medium tracking-widest uppercase px-4 py-2 rounded-full">
-                  View
-                </span>
-              </div>
-              <img src={GALLERY_IMAGES[1].src} alt={GALLERY_IMAGES[1].alt} className="w-full h-full object-cover transform group-hover:scale-103 transition-transform duration-700 ease-out" />
-            </div>
-
-            {/* Bottom-left square */}
-            <div
-              className="col-span-1 relative group overflow-hidden rounded-2xl aspect-square cursor-pointer"
-              onClick={() => setLightbox(GALLERY_IMAGES[2])}
-              data-testid="gallery-image-2"
-            >
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-500 z-10 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 text-foreground text-xs font-medium tracking-widest uppercase px-4 py-2 rounded-full">
-                  View
-                </span>
-              </div>
-              <img src={GALLERY_IMAGES[2].src} alt={GALLERY_IMAGES[2].alt} className="w-full h-full object-cover transform group-hover:scale-103 transition-transform duration-700 ease-out" />
-            </div>
-
-            {/* Bottom-middle square */}
-            <div
-              className="col-span-1 relative group overflow-hidden rounded-2xl aspect-square cursor-pointer"
-              onClick={() => setLightbox(GALLERY_IMAGES[3])}
-              data-testid="gallery-image-3"
-            >
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-500 z-10 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 text-foreground text-xs font-medium tracking-widest uppercase px-4 py-2 rounded-full">
-                  View
-                </span>
-              </div>
-              <img src={GALLERY_IMAGES[3].src} alt={GALLERY_IMAGES[3].alt} className="w-full h-full object-cover transform group-hover:scale-103 transition-transform duration-700 ease-out" />
-            </div>
-
-            {/* Wide bottom spanning image */}
-            <div
-              className="col-span-2 md:col-span-2 relative group overflow-hidden rounded-2xl aspect-[16/9] cursor-pointer"
-              onClick={() => setLightbox(GALLERY_IMAGES[4])}
-              data-testid="gallery-image-4"
-            >
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-500 z-10 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 text-foreground text-xs font-medium tracking-widest uppercase px-4 py-2 rounded-full">
-                  View
-                </span>
-              </div>
-              <img src={GALLERY_IMAGES[4].src} alt={GALLERY_IMAGES[4].alt} className="w-full h-full object-cover transform group-hover:scale-103 transition-transform duration-700 ease-out" />
-            </div>
+            ))}
           </div>
 
           <div className="mt-10 flex justify-center md:hidden">
@@ -313,14 +252,31 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
             {[
-              { step: "01", title: "Say Hello", desc: "Send me a DM on Instagram or fill out the contact form below with what you're looking for — a gift, a custom piece, or something for yourself." },
-              { step: "02", title: "The Details", desc: "We'll chat about colors, fonts, and sizing. I'll make sure the design is exactly what you envision before I start stitching." },
-              { step: "03", title: "Local Pickup", desc: "I'll get to stitching! Once it's ready, I'll package it beautifully for local pickup in the Castle Rock area." },
+              {
+                icon: "/logo-needle.jpg",
+                title: "Say Hello",
+                desc: "Send me a DM on Instagram or fill out the contact form below with what you're looking for — a gift, a custom piece, or something for yourself.",
+              },
+              {
+                icon: "/logo-dressform.jpg",
+                title: "The Details",
+                desc: "We'll chat about colors, fonts, and sizing. I'll make sure the design is exactly what you envision before I start stitching.",
+              },
+              {
+                icon: "/logo-machine.jpg",
+                title: "Local Pickup",
+                desc: "I'll get to stitching! Once it's ready, I'll package it beautifully for local pickup in the Castle Rock area.",
+              },
             ].map((item, i) => (
-              <div key={i} className="flex flex-col items-center text-center space-y-4 animate-in slide-in-from-bottom-8 fade-in duration-700 fill-mode-both [animation-timeline:view()] [animation-range:entry_10%_cover_30%]">
-                <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-sm border border-border">
-                  <span className="font-serif italic text-3xl text-primary">{item.step}</span>
-                </div>
+              <div
+                key={i}
+                className="flex flex-col items-center text-center space-y-4 animate-in slide-in-from-bottom-8 fade-in duration-700 fill-mode-both [animation-timeline:view()] [animation-range:entry_10%_cover_30%]"
+              >
+                <img
+                  src={item.icon}
+                  alt={item.title}
+                  className="w-24 h-24 rounded-full object-cover shadow-sm"
+                />
                 <h3 className="text-xl font-medium tracking-wide">{item.title}</h3>
                 <p className="text-muted-foreground font-light text-sm leading-relaxed">{item.desc}</p>
               </div>

@@ -22,7 +22,7 @@ export interface InstagramPost {
 const STATIC_POSTS: InstagramPost[] = [
   { id: "1", mediaUrl: "/ig-post-1.png", permalink: "https://www.instagram.com/embroideryandthreads/", caption: "Our Instagram" },
   { id: "2", mediaUrl: "/ig-post-2.png", permalink: "https://www.instagram.com/embroideryandthreads/", caption: "Recent work" },
-  { id: "3", mediaUrl: "/ig-post-3.png", permalink: "https://www.instagram.com/embroideryandthreads/", caption: "Custom pieces" },
+  { id: "3", mediaUrl: "/gallery-2.png", permalink: "https://www.instagram.com/embroideryandthreads/", caption: "Merry & Bright holiday set" },
 ];
 
 interface InstagramFeedProps {
