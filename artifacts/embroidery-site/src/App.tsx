@@ -3,11 +3,13 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
+import Reviews from "@/pages/Reviews";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/reviews" component={Reviews} />
       <Route component={NotFound} />
     </Switch>
   );
