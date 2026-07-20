@@ -6,33 +6,13 @@ import Phone from "lucide-react/dist/esm/icons/phone";
 import X from "lucide-react/dist/esm/icons/x";
 import { Link } from "wouter";
 import InstagramFeed from "@/components/InstagramFeed";
+import OptimizedImage from "@/components/OptimizedImage";
+import SiteFooter from "@/components/SiteFooter";
+import siteContent from "@/content/site.json";
 import { usePageMetadata } from "@/hooks/use-page-metadata";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const INSTAGRAM_URL = "https://www.instagram.com/embroideryandthreads/";
-
-const GALLERY_IMAGES = [
-  {
-    src: "/gallery-1.png",
-    alt: "Castle Rock Christmas sweatshirts — custom embroidered holiday collection",
-  },
-  {
-    src: "/gallery-2.png",
-    alt: "Merry & Bright holiday embroidery on cream sweatshirt",
-  },
-  {
-    src: "/gallery-3.png",
-    alt: "MAMA lavender floral applique sweatshirt with custom name tag",
-  },
-  {
-    src: "/gallery-4.png",
-    alt: "Personalized embroidered pieces from Embroidery & Threads",
-  },
-  {
-    src: "/gallery-5.png",
-    alt: "Faith-based and patriotic embroidered pieces — God Bless the USA",
-  },
-];
 
 const PROCESS_STEPS = [
   {
@@ -52,24 +32,6 @@ const PROCESS_STEPS = [
     title: "Local Pickup",
     description:
       "I'll get to stitching! Once it's ready, I'll package it beautifully for local pickup in the Castle Rock area.",
-  },
-];
-
-const REVIEW_IMAGES = [
-  {
-    src: "/review-1.png",
-    handle: "@ambermnolan",
-    alt: "Aggies Texas A&M custom embroidered sweatshirt shared by @ambermnolan",
-  },
-  {
-    src: "/review-2.png",
-    handle: "@stewards_of_stoke",
-    alt: "Behind-the-scenes custom embroidery shared by @stewards_of_stoke",
-  },
-  {
-    src: "/review-3.png",
-    handle: "@natasha.kenton1",
-    alt: "Beautifully packaged Embroidery & Threads gifts shared by @natasha.kenton1",
   },
 ];
 
@@ -311,11 +273,13 @@ export default function Home() {
               <div className="hoop-knob" aria-hidden="true" />
               <div className="hoop-ring">
                 <div className="hoop-stitches">
-                  <img
-                    src="/gallery-2.png"
-                    alt="Merry & Bright holiday embroidery on cream sweatshirt"
+                  <OptimizedImage
+                    src={siteContent.hero.image}
+                    alt={siteContent.hero.alt}
                     width="677"
                     height="1201"
+                    widths={[480, 800, 1100]}
+                    sizes="(max-width: 920px) 82vw, 38vw"
                   />
                 </div>
               </div>
@@ -348,12 +312,14 @@ export default function Home() {
             <div className="story-grid">
               <div className="fabric-patch" data-reveal>
                 <div className="fabric-patch-inner">
-                  <img
-                    src="/gallery-3.png"
-                    alt="MAMA lavender floral applique sweatshirt with custom name tag"
+                  <OptimizedImage
+                    src={siteContent.story.image}
+                    alt={siteContent.story.alt}
                     width="677"
                     height="1201"
                     loading="lazy"
+                    widths={[480, 800, 1100]}
+                    sizes="(max-width: 920px) min(520px, 100vw), 40vw"
                   />
                 </div>
               </div>
@@ -391,23 +357,27 @@ export default function Home() {
               look. Every stitch is placed with purpose.
             </p>
             <div className="gallery-grid">
-              {GALLERY_IMAGES.map((image, index) => (
+              {siteContent.gallery.map((image, index) => (
                 <button
-                  key={image.src}
+                  key={`${image.image}-${index}`}
                   className={`gallery-patch gallery-patch-${index + 1}`}
                   type="button"
-                  onClick={() => setLightbox(image)}
+                  onClick={() =>
+                    setLightbox({ src: image.image, alt: image.alt })
+                  }
                   data-testid={`gallery-image-${index}`}
                   data-reveal
                   aria-label={`View ${image.alt}`}
                 >
                   <span className="gallery-patch-inner">
-                    <img
-                      src={image.src}
+                    <OptimizedImage
+                      src={image.image}
                       alt={image.alt}
                       width="677"
                       height="1201"
                       loading="lazy"
+                      widths={[360, 640, 900]}
+                      sizes="(max-width: 920px) min(520px, 100vw), 33vw"
                     />
                   </span>
                 </button>
@@ -472,22 +442,24 @@ export default function Home() {
               it back. Here are a few favorites.
             </p>
             <div className="review-polaroid-grid">
-              {REVIEW_IMAGES.map((review) => (
+              {siteContent.reviews.map((review, index) => (
                 <Link
                   href="/reviews"
                   className="polaroid-card"
-                  key={review.handle}
+                  key={`${review.reviewer}-${index}`}
                   data-reveal
                 >
                   <span className="washi-tape" aria-hidden="true" />
-                  <img
-                    src={review.src}
+                  <OptimizedImage
+                    src={review.image}
                     alt={review.alt}
                     width="486"
                     height="867"
                     loading="lazy"
+                    widths={[420, 720, 972]}
+                    sizes="(max-width: 920px) min(460px, 100vw), 33vw"
                   />
-                  <span className="polaroid-handle">{review.handle}</span>
+                  <span className="polaroid-handle">{review.reviewer}</span>
                 </Link>
               ))}
             </div>
@@ -502,7 +474,32 @@ export default function Home() {
           </div>
         </section>
 
-        <InstagramFeed />
+        <InstagramFeed posts={siteContent.instagram} />
+
+        {siteContent.pricing.enabled && (
+          <section id="pricing" className="storybook-section pricing-section">
+            <div className="content-wrap">
+              <SectionHeading
+                eyebrow={siteContent.pricing.eyebrow}
+                title={siteContent.pricing.title}
+              />
+              <p className="section-intro" data-reveal>
+                {siteContent.pricing.intro}
+              </p>
+              <div className="pricing-grid">
+                {siteContent.pricing.items.map((item) => (
+                  <article className="pricing-item" key={item.name} data-reveal>
+                    <div>
+                      <h3>{item.name}</h3>
+                      <p>{item.description}</p>
+                    </div>
+                    <strong>{item.price}</strong>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         <section id="contact" className="storybook-section contact-section">
           <div className="scallop scallop-top" aria-hidden="true" />
@@ -643,18 +640,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="storybook-footer">
-        <span className="script-accent">Embroidery & Threads</span>
-        <p>
-          Castle Rock, CO · Local Pickup Only ·{" "}
-          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
-            Instagram
-          </a>
-        </p>
-        <p className="footer-copyright">
-          © {new Date().getFullYear()} Embroidery & Threads. All rights reserved.
-        </p>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

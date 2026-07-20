@@ -1,0 +1,79 @@
+backend:
+  name: git-gateway
+  branch: main
+
+site_url: https://embroideryandthreads.com
+display_url: https://embroideryandthreads.com
+logo_url: https://embroideryandthreads.com/logo-b.jpg
+media_folder: artifacts/embroidery-site/public/uploads
+public_folder: /uploads
+publish_mode: simple
+
+collections:
+  - label: Website
+    name: website
+    files:
+      - label: Page Images, Reviews, and Pricing
+        name: site_content
+        file: artifacts/embroidery-site/src/content/site.json
+        format: json
+        fields:
+          - label: Hero Image
+            name: hero
+            widget: object
+            fields:
+              - { label: Image, name: image, widget: image, hint: "Drag a replacement image here or choose one from the media library." }
+              - { label: Image Description, name: alt, widget: string, hint: "Describe what is visible for accessibility and search." }
+          - label: Story Image
+            name: story
+            widget: object
+            fields:
+              - { label: Image, name: image, widget: image }
+              - { label: Image Description, name: alt, widget: string }
+          - label: Gallery
+            name: gallery
+            widget: list
+            min: 1
+            summary: "{{fields.alt}}"
+            fields:
+              - { label: Image, name: image, widget: image }
+              - { label: Image Description, name: alt, widget: string }
+          - label: Customer Stories
+            name: reviews
+            widget: list
+            min: 1
+            summary: "{{fields.reviewer}}"
+            fields:
+              - { label: Customer Name or Handle, name: reviewer, widget: string }
+              - { label: Quote, name: quote, widget: text }
+              - { label: Owner Reply, name: reply, widget: text, required: false }
+              - { label: Image, name: image, widget: image }
+              - { label: Image Description, name: alt, widget: string }
+              - { label: Date Label, name: dateLabel, widget: string, default: "Customer share" }
+          - label: Instagram Highlights
+            name: instagram
+            widget: list
+            min: 1
+            summary: "{{fields.caption}}"
+            fields:
+              - { label: Image, name: image, widget: image }
+              - { label: Caption, name: caption, widget: string }
+              - { label: Instagram Link, name: permalink, widget: string, pattern: ['^https://(www\\.)?instagram\\.com/.+', 'Enter a full Instagram URL.'] }
+          - label: Pricing
+            name: pricing
+            widget: object
+            hint: "Pricing remains hidden on the public site until Show Pricing is enabled."
+            fields:
+              - { label: Show Pricing on Website, name: enabled, widget: boolean, default: false }
+              - { label: Small Heading, name: eyebrow, widget: string }
+              - { label: Section Title, name: title, widget: string }
+              - { label: Introduction, name: intro, widget: text }
+              - label: Price Items
+                name: items
+                widget: list
+                min: 1
+                summary: "{{fields.name}} - {{fields.price}}"
+                fields:
+                  - { label: Service, name: name, widget: string }
+                  - { label: Price, name: price, widget: string, hint: "Examples: $35, Starting at $45, or Contact for pricing" }
+                  - { label: Description, name: description, widget: text }

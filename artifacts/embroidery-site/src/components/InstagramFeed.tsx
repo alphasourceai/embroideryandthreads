@@ -1,39 +1,19 @@
+import OptimizedImage from "@/components/OptimizedImage";
+
 export interface InstagramPost {
-  id: string;
-  mediaUrl: string;
+  image: string;
   permalink: string;
   caption?: string;
 }
 
 const INSTAGRAM_URL = "https://www.instagram.com/embroideryandthreads/";
 
-const STATIC_POSTS: InstagramPost[] = [
-  {
-    id: "1",
-    mediaUrl: "/ig-post-1.png",
-    permalink: INSTAGRAM_URL,
-    caption: "Our Instagram",
-  },
-  {
-    id: "2",
-    mediaUrl: "/ig-post-2.png",
-    permalink: INSTAGRAM_URL,
-    caption: "Recent work",
-  },
-  {
-    id: "3",
-    mediaUrl: "/ig-post-3.png",
-    permalink: INSTAGRAM_URL,
-    caption: "Recent custom embroidery",
-  },
-];
-
 interface InstagramFeedProps {
   posts?: InstagramPost[];
 }
 
 export default function InstagramFeed({
-  posts = STATIC_POSTS,
+  posts = [],
 }: InstagramFeedProps) {
   return (
     <section id="instagram" className="storybook-section instagram-section">
@@ -48,26 +28,30 @@ export default function InstagramFeed({
         </p>
 
         <div className="instagram-polaroid-grid">
-          {posts.map((post) => (
+          {posts.map((post, index) => (
             <a
-              key={post.id}
+              key={`${post.image}-${index}`}
               href={post.permalink}
               target="_blank"
               rel="noopener noreferrer"
               className="instagram-polaroid"
               data-testid={
-                post.id === "1" ? "instagram-featured" : `instagram-post-${post.id}`
+                index === 0
+                  ? "instagram-featured"
+                  : `instagram-post-${index + 1}`
               }
               aria-label={post.caption ?? "View Instagram post"}
               data-reveal
             >
               <span className="washi-tape" aria-hidden="true" />
-              <img
-                src={post.mediaUrl}
+              <OptimizedImage
+                src={post.image}
                 alt={post.caption ?? "Embroidery & Threads on Instagram"}
                 width="1384"
                 height="1249"
                 loading="lazy"
+                widths={[420, 720, 1000]}
+                sizes="(max-width: 920px) min(460px, 100vw), 33vw"
               />
               <span className="instagram-caption">
                 {post.caption ?? "View on Instagram"}

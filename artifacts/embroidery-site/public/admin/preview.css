@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;600&family=Pinyon+Script&family=Playfair+Display:wght@500&display=swap");
+
+:root {
+  --cream: #fbf6ef;
+  --blush: #f4e3e3;
+  --rose: #c98b97;
+  --rose-deep: #a5606f;
+  --ink: #3d3430;
+  --soft: #6e625b;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "Karla", sans-serif;
+}
+
+.editor-preview { min-height: 100vh; }
+.preview-header { display: flex; align-items: center; gap: 12px; padding: 16px 28px; border-bottom: 2px dashed var(--rose); }
+.preview-header img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; }
+.preview-header div, .preview-header span { display: flex; flex-direction: column; }
+.preview-header strong { font: 500 19px "Playfair Display", serif; }
+.preview-header span { color: var(--soft); font-size: 9px; text-transform: uppercase; }
+.preview-hero { display: grid; grid-template-columns: 1fr 0.8fr; align-items: center; gap: 36px; padding: 52px 7%; }
+.preview-hero h1 { max-width: 11ch; margin: 10px 0; font: 500 48px/1.08 "Playfair Display", serif; }
+.preview-hero h1 em, .preview-section > em { color: var(--rose-deep); font: 400 1.25em "Pinyon Script", cursive; }
+.preview-hero p { color: var(--soft); }
+.preview-hero > img { width: 100%; max-height: 420px; aspect-ratio: 1; border-radius: 50%; object-fit: cover; outline: 12px solid var(--blush); }
+.preview-section { padding: 48px 7%; text-align: center; }
+.preview-section h2 { margin: 2px 0 28px; font: 500 34px "Playfair Display", serif; }
+.preview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
+.preview-grid figure { margin: 0; padding: 10px; background: white; box-shadow: 0 12px 30px rgba(61, 52, 48, 0.14); }
+.preview-grid img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.preview-grid figcaption { padding: 9px 5px 2px; color: var(--soft); font-size: 12px; }
+.preview-grid figcaption span { display: block; margin-top: 5px; }
+.preview-reviews { background: #f4ede3; }
+.preview-pricing { background: var(--blush); }
+.preview-pricing > p { max-width: 54ch; margin: -15px auto 24px; color: var(--soft); }
+.preview-price { display: flex; align-items: center; justify-content: space-between; gap: 20px; max-width: 680px; margin: 0 auto; padding: 16px; border-top: 1px dashed var(--rose); text-align: left; }
+.preview-price span, .preview-price strong { display: block; }
+.preview-price span { color: var(--soft); }
+.preview-price strong, .preview-price b { color: var(--ink); }
+
+@media (max-width: 700px) {
+  .preview-hero, .preview-grid { grid-template-columns: 1fr; }
+  .preview-hero h1 { font-size: 38px; }
+  .preview-hero > img { max-width: 360px; margin: 20px auto 0; }
+}

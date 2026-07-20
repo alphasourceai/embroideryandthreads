@@ -1,0 +1,88 @@
+{
+  "hero": {
+    "image": "/gallery-2.png",
+    "alt": "Merry & Bright holiday embroidery on cream sweatshirt"
+  },
+  "story": {
+    "image": "/gallery-3.png",
+    "alt": "MAMA lavender floral applique sweatshirt with custom name tag"
+  },
+  "gallery": [
+    {
+      "image": "/gallery-1.png",
+      "alt": "Castle Rock Christmas sweatshirts - custom embroidered holiday collection"
+    },
+    {
+      "image": "/gallery-2.png",
+      "alt": "Merry & Bright holiday embroidery on cream sweatshirt"
+    },
+    {
+      "image": "/gallery-3.png",
+      "alt": "MAMA lavender floral applique sweatshirt with custom name tag"
+    },
+    {
+      "image": "/gallery-4.png",
+      "alt": "Personalized embroidered pieces from Embroidery & Threads"
+    },
+    {
+      "image": "/gallery-5.png",
+      "alt": "Faith-based and patriotic embroidered pieces - God Bless the USA"
+    }
+  ],
+  "reviews": [
+    {
+      "reviewer": "@ambermnolan",
+      "quote": "had @embroideryandthreads make a sweatshirt for me",
+      "reply": "so glad you like it!!!",
+      "image": "/review-1.png",
+      "alt": "Aggies Texas A&M custom embroidered sweatshirt shared by @ambermnolan",
+      "dateLabel": "Customer share"
+    },
+    {
+      "reviewer": "@stewards_of_stoke",
+      "quote": "Custom embroidery in action - tagged @EMBROIDERYANDTHREADS",
+      "reply": "",
+      "image": "/review-2.png",
+      "alt": "Behind-the-scenes of the embroidery machine making a custom design for @stewards_of_stoke",
+      "dateLabel": "Customer share"
+    },
+    {
+      "reviewer": "@natasha.kenton1",
+      "quote": "So many beautiful gifts to give from @embroideryandthreads",
+      "reply": "",
+      "image": "/review-3.png",
+      "alt": "Beautifully packaged Embroidery & Threads gifts under the Christmas tree, shared by @natasha.kenton1",
+      "dateLabel": "Customer share"
+    }
+  ],
+  "instagram": [
+    {
+      "image": "/ig-post-1.png",
+      "permalink": "https://www.instagram.com/embroideryandthreads/",
+      "caption": "Our Instagram"
+    },
+    {
+      "image": "/ig-post-2.png",
+      "permalink": "https://www.instagram.com/embroideryandthreads/",
+      "caption": "Recent work"
+    },
+    {
+      "image": "/ig-post-3.png",
+      "permalink": "https://www.instagram.com/embroideryandthreads/",
+      "caption": "Recent custom embroidery"
+    }
+  ],
+  "pricing": {
+    "enabled": false,
+    "eyebrow": "starting points",
+    "title": "Custom Embroidery Pricing",
+    "intro": "Every custom piece is quoted individually based on the item, design, and personalization.",
+    "items": [
+      {
+        "name": "Example service",
+        "price": "Contact for pricing",
+        "description": "Replace this placeholder after pricing is approved."
+      }
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const SITE_URL = "https://embroideryandthreads.netlify.app";
+const SITE_URL = "https://embroideryandthreads.com";
 
 type PageMetadata = {
   title: string;

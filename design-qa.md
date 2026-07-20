@@ -10,8 +10,8 @@
 ## Viewports and routes
 
 - Desktop: 1440 x 1000, `/`
-- Mobile: 390 x 844, `/` and `/reviews`
-- Direct route load: `/reviews`
+- Mobile: 390 x 844, `/`, `/reviews`, and `/privacy`
+- Direct route loads: `/reviews`, `/privacy`, and `/admin/`
 
 ## Visual comparison
 
@@ -33,6 +33,9 @@ The implementation matches the supplied storybook direction across the main fide
 - Mobile page width equals the document width on both `/` and `/reviews`; no horizontal overflow was found.
 - Focus-visible styles, reduced-motion handling, semantic headings, image alt text, and practical mobile tap targets are present.
 - Browser console contained no application warnings or errors during the final route checks.
+- The client editor loads its Netlify Identity login surface at `/admin/` with no console errors.
+- Desktop and mobile checks confirmed the custom-domain canonical URL, hidden-until-enabled pricing, and non-wrapping contact email.
+- CMS configuration YAML and structured content JSON parse successfully; uploaded media is constrained to the public uploads folder.
 
 ## Comparison history
 
@@ -40,6 +43,7 @@ The implementation matches the supplied storybook direction across the main fide
 2. Compared hero, story, and process sections side by side.
 3. Verified mobile home, open navigation, and reviews layouts.
 4. Rechecked route loading, overflow, accessibility tree, and gallery interaction after the final build.
+5. Rechecked the editor login, privacy route, custom-domain metadata, and CMS-managed image/review/pricing data at 1440 x 1000 and 390 x 844.
 
 ## Findings
 

@@ -21,8 +21,9 @@ Customers can request an order through the contact form or by sending a direct m
 
 ## Pages
 
-- [Home and services](https://embroideryandthreads.netlify.app/)
-- [Customer stories and reviews](https://embroideryandthreads.netlify.app/reviews)
+- [Home and services](https://embroideryandthreads.com/)
+- [Customer stories and reviews](https://embroideryandthreads.com/reviews)
+- [Privacy policy](https://embroideryandthreads.com/privacy)
 
 ## Important details
 

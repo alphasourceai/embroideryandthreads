@@ -2,43 +2,13 @@ import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left";
 import Instagram from "lucide-react/dist/esm/icons/instagram";
 import MapPin from "lucide-react/dist/esm/icons/map-pin";
 import { Link } from "wouter";
+import OptimizedImage from "@/components/OptimizedImage";
+import SiteFooter from "@/components/SiteFooter";
 import { usePageMetadata } from "@/hooks/use-page-metadata";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import siteContent from "@/content/site.json";
 
 const INSTAGRAM_URL = "https://www.instagram.com/embroideryandthreads/";
-
-const REVIEWS = [
-  {
-    id: "1",
-    reviewer: "@ambermnolan",
-    quote: "had @embroideryandthreads make a sweatshirt for me",
-    reply: "so glad you like it!!!",
-    imageSrc: "/review-1.png",
-    altText:
-      "Aggies Texas A&M custom embroidered sweatshirt shared by @ambermnolan",
-    timeAgo: "27 weeks ago",
-  },
-  {
-    id: "2",
-    reviewer: "@stewards_of_stoke",
-    quote: "Custom embroidery in action — tagged @EMBROIDERYANDTHREADS",
-    reply: null,
-    imageSrc: "/review-2.png",
-    altText:
-      "Behind-the-scenes of the embroidery machine making a custom design for @stewards_of_stoke",
-    timeAgo: "14 weeks ago",
-  },
-  {
-    id: "3",
-    reviewer: "@natasha.kenton1",
-    quote: "So many beautiful gifts to give from @embroideryandthreads",
-    reply: null,
-    imageSrc: "/review-3.png",
-    altText:
-      "Beautifully packaged Embroidery & Threads gifts under the Christmas tree, shared by @natasha.kenton1",
-    timeAgo: "24 weeks ago",
-  },
-];
 
 export default function Reviews() {
   usePageMetadata({
@@ -95,25 +65,27 @@ export default function Reviews() {
             </p>
 
             <div className="reviews-page-grid">
-              {REVIEWS.map((review) => (
+              {siteContent.reviews.map((review, index) => (
                 <article
-                  key={review.id}
+                  key={`${review.reviewer}-${index}`}
                   className="reviews-page-card"
-                  data-testid={`review-card-${review.id}`}
+                  data-testid={`review-card-${index + 1}`}
                   data-reveal
                 >
                   <span className="washi-tape" aria-hidden="true" />
-                  <img
-                    src={review.imageSrc}
-                    alt={review.altText}
+                  <OptimizedImage
+                    src={review.image}
+                    alt={review.alt}
                     width="486"
                     height="867"
                     loading="lazy"
+                    widths={[420, 720, 972]}
+                    sizes="(max-width: 920px) min(460px, 100vw), 33vw"
                   />
                   <div className="review-card-copy">
                     <div className="review-card-meta">
                       <span className="polaroid-handle">{review.reviewer}</span>
-                      <span>{review.timeAgo}</span>
+                      <span>{review.dateLabel}</span>
                     </div>
                     <p>“{review.quote}”</p>
                     {review.reply && (
@@ -164,18 +136,7 @@ export default function Reviews() {
         </section>
       </main>
 
-      <footer className="storybook-footer">
-        <span className="script-accent">Embroidery & Threads</span>
-        <p>
-          Castle Rock, CO · Local Pickup Only ·{" "}
-          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
-            Instagram
-          </a>
-        </p>
-        <p className="footer-copyright">
-          © {new Date().getFullYear()} Embroidery & Threads. All rights reserved.
-        </p>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
