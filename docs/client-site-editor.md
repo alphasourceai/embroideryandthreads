@@ -22,8 +22,12 @@ Identity library is not downloaded during normal public visits.
 1. Sign in at `/admin/` and open **Page Images, Reviews, and Pricing**.
 2. Drag a replacement image onto an image field or choose one from the media library.
 3. Update the image description so it accurately describes the replacement image.
-4. Review the page preview beside the editor.
-5. Select **Publish**. The editor commits the change to GitHub and Netlify automatically rebuilds the site.
+4. Select **Publish**. The editor commits the change to GitHub and Netlify automatically rebuilds the site.
+5. Use **View Live** to confirm the published change on the website.
+
+The editor uses a full-width form rather than an embedded visual preview. This
+keeps the editing runtime isolated from the public React app and avoids a
+version conflict between Decap CMS and preview-only React components.
 
 ## Pricing guardrail
 

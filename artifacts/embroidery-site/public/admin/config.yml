@@ -14,6 +14,8 @@ publish_mode: simple
 collections:
   - label: Website
     name: website
+    editor:
+      preview: false
     files:
       - label: Page Images, Reviews, and Pricing
         name: site_content
