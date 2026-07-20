@@ -6,6 +6,7 @@ type PageMetadata = {
   title: string;
   description: string;
   path: string;
+  robots?: string;
 };
 
 function upsertMeta(
@@ -26,7 +27,12 @@ function upsertMeta(
   element.content = content;
 }
 
-export function usePageMetadata({ title, description, path }: PageMetadata) {
+export function usePageMetadata({
+  title,
+  description,
+  path,
+  robots = "index, follow, max-image-preview:large",
+}: PageMetadata) {
   useEffect(() => {
     const url = `${SITE_URL}${path}`;
     document.title = title;
@@ -37,6 +43,7 @@ export function usePageMetadata({ title, description, path }: PageMetadata) {
     upsertMeta("property", "og:url", url);
     upsertMeta("name", "twitter:title", title);
     upsertMeta("name", "twitter:description", description);
+    upsertMeta("name", "robots", robots);
 
     let canonical = document.head.querySelector<HTMLLinkElement>(
       'link[rel="canonical"]',
@@ -49,5 +56,5 @@ export function usePageMetadata({ title, description, path }: PageMetadata) {
     }
 
     canonical.href = url;
-  }, [description, path, title]);
+  }, [description, path, robots, title]);
 }

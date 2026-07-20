@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Instagram from "lucide-react/dist/esm/icons/instagram";
 import Mail from "lucide-react/dist/esm/icons/mail";
 import Menu from "lucide-react/dist/esm/icons/menu";
@@ -57,6 +57,8 @@ export default function Home() {
     alt: string;
   } | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const lightboxCloseRef = useRef<HTMLButtonElement>(null);
+  const lightboxTriggerRef = useRef<HTMLButtonElement>(null);
   const [formStatus, setFormStatus] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
@@ -75,15 +77,26 @@ export default function Home() {
       return;
     }
 
+    const trigger = lightboxTriggerRef.current;
     document.body.style.overflow = "hidden";
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setLightbox(null);
+    lightboxCloseRef.current?.focus();
+
+    const handleLightboxKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setLightbox(null);
+      }
+
+      if (event.key === "Tab") {
+        event.preventDefault();
+        lightboxCloseRef.current?.focus();
+      }
     };
-    window.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("keydown", handleLightboxKeyDown);
 
     return () => {
       document.body.style.overflow = "";
-      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("keydown", handleLightboxKeyDown);
+      trigger?.focus();
     };
   }, [lightbox]);
 
@@ -118,7 +131,7 @@ export default function Home() {
   };
 
   return (
-    <div className="storybook-site">
+    <div className="storybook-site" id="top">
       {lightbox && (
         <div
           className="storybook-lightbox"
@@ -127,8 +140,10 @@ export default function Home() {
           role="dialog"
           aria-modal="true"
           aria-label={lightbox.alt}
+          aria-describedby="lightbox-caption"
         >
           <button
+            ref={lightboxCloseRef}
             className="lightbox-close"
             onClick={() => setLightbox(null)}
             data-testid="lightbox-close"
@@ -142,7 +157,7 @@ export default function Home() {
             onClick={(event) => event.stopPropagation()}
           >
             <img src={lightbox.src} alt={lightbox.alt} />
-            <p>{lightbox.alt}</p>
+            <p id="lightbox-caption">{lightbox.alt}</p>
           </div>
         </div>
       )}
@@ -195,7 +210,9 @@ export default function Home() {
           <button
             className="mobile-menu-button"
             type="button"
-            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={
+              menuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
           >
@@ -234,7 +251,7 @@ export default function Home() {
         <div className="stitch-horizontal" aria-hidden="true" />
       </nav>
 
-      <main id="top">
+      <main id="main-content" tabIndex={-1}>
         <header className="storybook-hero">
           <div className="content-wrap hero-grid">
             <div className="hero-copy" data-reveal>
@@ -245,9 +262,9 @@ export default function Home() {
                 detail.
               </h1>
               <p className="hero-description">
-                A small, faith-based embroidery shop specializing in personalized
-                pieces. From cozy Mama & Mini sets to custom holiday stockings,
-                everything is made by hand with care.
+                A small, faith-based embroidery shop specializing in
+                personalized pieces. From cozy Mama & Mini sets to custom
+                holiday stockings, everything is made by hand with care.
               </p>
               <div className="hero-actions">
                 <a
@@ -308,7 +325,10 @@ export default function Home() {
         <section id="about" className="storybook-section story-section">
           <div className="scallop scallop-top" aria-hidden="true" />
           <div className="content-wrap">
-            <SectionHeading eyebrow="the story" title="The Heart Behind the Hoop" />
+            <SectionHeading
+              eyebrow="the story"
+              title="The Heart Behind the Hoop"
+            />
             <div className="story-grid">
               <div className="fabric-patch" data-reveal>
                 <div className="fabric-patch-inner">
@@ -328,17 +348,17 @@ export default function Home() {
                 <p>
                   I started Embroidery & Threads because I believe the things we
                   wear and carry should tell a story. Based in beautiful Castle
-                  Rock, Colorado, this little shop is built on faith, family, and
-                  the joy of creating something truly yours. Ordering from me
-                  isn't like checking out online — it's a conversation. We'll
+                  Rock, Colorado, this little shop is built on faith, family,
+                  and the joy of creating something truly yours. Ordering from
+                  me isn't like checking out online — it's a conversation. We'll
                   dream up the perfect design together, whether it's a matching
                   sweatshirt for you and your little one, or a custom tote that
                   makes the perfect gift.
                 </p>
                 <p>
-                  I'm currently taking custom orders in the Castle Rock area. I'm
-                  not shipping at this time — reach out on Instagram or use the
-                  contact form below and we'll work out a local pickup.
+                  I'm currently taking custom orders in the Castle Rock area.
+                  I'm not shipping at this time — reach out on Instagram or use
+                  the contact form below and we'll work out a local pickup.
                 </p>
                 <span className="script-accent story-signature">
                   made with love, every time
@@ -362,9 +382,10 @@ export default function Home() {
                   key={`${image.image}-${index}`}
                   className={`gallery-patch gallery-patch-${index + 1}`}
                   type="button"
-                  onClick={() =>
-                    setLightbox({ src: image.image, alt: image.alt })
-                  }
+                  onClick={(event) => {
+                    lightboxTriggerRef.current = event.currentTarget;
+                    setLightbox({ src: image.image, alt: image.alt });
+                  }}
                   data-testid={`gallery-image-${index}`}
                   data-reveal
                   aria-label={`View ${image.alt}`}
@@ -436,7 +457,10 @@ export default function Home() {
 
         <section id="reviews" className="storybook-section reviews-band">
           <div className="content-wrap">
-            <SectionHeading eyebrow="shared with love" title="From Their Feeds" />
+            <SectionHeading
+              eyebrow="shared with love"
+              title="From Their Feeds"
+            />
             <p className="section-intro" data-reveal>
               Every piece leaves here with love — and sometimes customers share
               it back. Here are a few favorites.
@@ -506,7 +530,9 @@ export default function Home() {
           <div className="content-wrap">
             <div className="contact-tag" data-reveal>
               <div className="tag-hole" aria-hidden="true" />
-              <p className="overline">Serving Castle Rock & surrounding areas</p>
+              <p className="overline">
+                Serving Castle Rock & surrounding areas
+              </p>
               <h2>
                 <span className="script-accent">let's make</span>
                 something personal
@@ -612,7 +638,9 @@ export default function Home() {
                     data-testid="contact-form-submit"
                     disabled={formStatus === "submitting"}
                   >
-                    {formStatus === "submitting" ? "Sending..." : "Send Message"}
+                    {formStatus === "submitting"
+                      ? "Sending..."
+                      : "Send Message"}
                   </button>
                   <a
                     className="stitched-button stitched-button-ghost"

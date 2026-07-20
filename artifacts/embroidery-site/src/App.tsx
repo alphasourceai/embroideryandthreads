@@ -1,5 +1,4 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
@@ -19,12 +18,15 @@ function Router() {
 
 function App() {
   return (
-    <TooltipProvider>
+    <>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
       <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
         <Router />
       </WouterRouter>
       <Toaster />
-    </TooltipProvider>
+    </>
   );
 }
 

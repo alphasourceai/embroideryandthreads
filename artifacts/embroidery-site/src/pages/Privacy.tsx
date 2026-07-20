@@ -13,7 +13,10 @@ export default function Privacy() {
 
   return (
     <div className="storybook-site privacy-page">
-      <nav className="storybook-nav reviews-nav" aria-label="Privacy navigation">
+      <nav
+        className="storybook-nav reviews-nav"
+        aria-label="Privacy navigation"
+      >
         <div className="nav-inner">
           <Link href="/" className="brand-lockup">
             <img src="/logo-b.jpg" alt="Embroidery & Threads" />
@@ -30,7 +33,11 @@ export default function Privacy() {
         <div className="stitch-horizontal" aria-hidden="true" />
       </nav>
 
-      <main className="storybook-section privacy-section">
+      <main
+        id="main-content"
+        className="storybook-section privacy-section"
+        tabIndex={-1}
+      >
         <article className="content-wrap privacy-content">
           <p className="overline">Last updated July 20, 2026</p>
           <h1>Privacy Policy</h1>

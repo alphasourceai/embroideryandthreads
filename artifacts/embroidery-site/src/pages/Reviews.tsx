@@ -26,7 +26,10 @@ export default function Reviews() {
         <span className="script-accent">no shipping at this time</span>
       </div>
 
-      <nav className="storybook-nav reviews-nav" aria-label="Reviews navigation">
+      <nav
+        className="storybook-nav reviews-nav"
+        aria-label="Reviews navigation"
+      >
         <div className="nav-inner">
           <Link
             href="/"
@@ -51,7 +54,7 @@ export default function Reviews() {
         <div className="stitch-horizontal" aria-hidden="true" />
       </nav>
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="reviews-page-hero storybook-section">
           <div className="content-wrap">
             <div className="section-heading" data-reveal>

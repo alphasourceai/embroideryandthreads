@@ -1,21 +1,67 @@
-import { Card, CardContent } from "@/components/ui/card";
-import AlertCircle from "lucide-react/dist/esm/icons/circle-alert";
+import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left";
+import { Link } from "wouter";
+import SiteFooter from "@/components/SiteFooter";
+import { usePageMetadata } from "@/hooks/use-page-metadata";
 
 export default function NotFound() {
-  return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md mx-4">
-        <CardContent className="pt-6">
-          <div className="flex mb-4 gap-2">
-            <AlertCircle className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">404 Page Not Found</h1>
-          </div>
+  usePageMetadata({
+    title: "Page Not Found | Embroidery & Threads",
+    description:
+      "The requested page could not be found. Return to Embroidery & Threads for custom embroidery in Castle Rock, Colorado.",
+    path: window.location.pathname,
+    robots: "noindex, nofollow",
+  });
 
-          <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
+  return (
+    <div className="storybook-site not-found-page">
+      <nav
+        className="storybook-nav reviews-nav"
+        aria-label="Page not found navigation"
+      >
+        <div className="nav-inner">
+          <Link href="/" className="brand-lockup">
+            <img src="/logo-b.jpg" alt="Embroidery & Threads" />
+            <span>
+              <span className="brand-name">Embroidery & Threads</span>
+              <span className="brand-location">Castle Rock, Colorado</span>
+            </span>
+          </Link>
+          <Link href="/" className="reviews-back">
+            <ArrowLeft aria-hidden="true" />
+            Back
+          </Link>
+        </div>
+        <div className="stitch-horizontal" aria-hidden="true" />
+      </nav>
+
+      <main
+        id="main-content"
+        className="storybook-section not-found-section"
+        tabIndex={-1}
+      >
+        <div className="content-wrap not-found-content">
+          <p className="overline">A stitch went missing</p>
+          <span className="script-accent">404</span>
+          <h1>We couldn't find that page.</h1>
+          <p>
+            The link may be outdated, but the custom embroidery shop is still
+            right here.
           </p>
-        </CardContent>
-      </Card>
+          <div className="hero-actions">
+            <Link href="/" className="stitched-button">
+              Return Home
+            </Link>
+            <Link
+              href="/#contact"
+              className="stitched-button stitched-button-ghost"
+            >
+              Contact the Shop
+            </Link>
+          </div>
+        </div>
+      </main>
+
+      <SiteFooter />
     </div>
   );
 }
