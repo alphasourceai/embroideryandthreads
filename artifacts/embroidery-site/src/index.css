@@ -90,6 +90,19 @@ img {
   max-width: 100%;
 }
 
+.netlify-form-detection,
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 ::selection {
   background: var(--rose);
   color: #ffffff;
@@ -980,6 +993,18 @@ img {
   gap: 16px;
   justify-content: center;
   margin-top: 6px;
+}
+
+.form-status {
+  min-height: 22px;
+  margin: -4px 0 0;
+  color: var(--rose-deep);
+  font-size: 14px;
+  text-align: center;
+}
+
+.form-status-error {
+  color: #8f3030;
 }
 
 .storybook-footer {

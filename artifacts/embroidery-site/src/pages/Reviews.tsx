@@ -2,6 +2,7 @@ import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left";
 import Instagram from "lucide-react/dist/esm/icons/instagram";
 import MapPin from "lucide-react/dist/esm/icons/map-pin";
 import { Link } from "wouter";
+import { usePageMetadata } from "@/hooks/use-page-metadata";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const INSTAGRAM_URL = "https://www.instagram.com/embroideryandthreads/";
@@ -40,6 +41,12 @@ const REVIEWS = [
 ];
 
 export default function Reviews() {
+  usePageMetadata({
+    title: "Customer Reviews | Embroidery & Threads Castle Rock",
+    description:
+      "See customer stories and custom embroidery shared by Embroidery & Threads customers in Castle Rock, Colorado.",
+    path: "/reviews",
+  });
   useScrollReveal();
 
   return (

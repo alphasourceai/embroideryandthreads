@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Instagram from "lucide-react/dist/esm/icons/instagram";
 import Mail from "lucide-react/dist/esm/icons/mail";
 import Menu from "lucide-react/dist/esm/icons/menu";
@@ -6,6 +6,7 @@ import Phone from "lucide-react/dist/esm/icons/phone";
 import X from "lucide-react/dist/esm/icons/x";
 import { Link } from "wouter";
 import InstagramFeed from "@/components/InstagramFeed";
+import { usePageMetadata } from "@/hooks/use-page-metadata";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const INSTAGRAM_URL = "https://www.instagram.com/embroideryandthreads/";
@@ -94,7 +95,16 @@ export default function Home() {
     alt: string;
   } | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [formStatus, setFormStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
 
+  usePageMetadata({
+    title: "Custom Embroidery in Castle Rock, CO | Embroidery & Threads",
+    description:
+      "Shop custom embroidery in Castle Rock, Colorado, including personalized sweatshirts, gifts, stockings, totes, and made-to-order pieces for local pickup.",
+    path: "/",
+  });
   useScrollReveal();
 
   useEffect(() => {
@@ -116,6 +126,34 @@ export default function Home() {
   }, [lightbox]);
 
   const closeMenu = () => setMenuOpen(false);
+
+  const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setFormStatus("submitting");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const body = new URLSearchParams();
+
+    formData.forEach((value, key) => {
+      if (typeof value === "string") body.append(key, value);
+    });
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+      });
+
+      if (!response.ok) throw new Error("Form submission failed");
+
+      form.reset();
+      setFormStatus("success");
+    } catch {
+      setFormStatus("error");
+    }
+  };
 
   return (
     <div className="storybook-site">
@@ -515,9 +553,26 @@ export default function Home() {
 
               <form
                 className="storybook-form"
-                onSubmit={(event) => event.preventDefault()}
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                onSubmit={handleContactSubmit}
                 data-testid="contact-form"
               >
+                <input type="hidden" name="form-name" value="contact" />
+                <input
+                  type="hidden"
+                  name="subject"
+                  value="New Embroidery & Threads inquiry"
+                  data-remove-prefix
+                />
+                <p className="visually-hidden">
+                  <label>
+                    Do not fill this out if you are human:
+                    <input name="bot-field" tabIndex={-1} autoComplete="off" />
+                  </label>
+                </p>
                 <div className="form-heading">
                   <h3>Send a Message</h3>
                   <p>I'll get back to you as soon as possible.</p>
@@ -528,6 +583,9 @@ export default function Home() {
                     <span>Name</span>
                     <input
                       type="text"
+                      name="name"
+                      autoComplete="name"
+                      required
                       placeholder="Your name"
                       data-testid="contact-input-name"
                     />
@@ -536,6 +594,9 @@ export default function Home() {
                     <span>Email</span>
                     <input
                       type="email"
+                      name="email"
+                      autoComplete="email"
+                      required
                       placeholder="your@email.com"
                       data-testid="contact-input-email"
                     />
@@ -545,6 +606,8 @@ export default function Home() {
                 <label>
                   <span>What are you looking for?</span>
                   <textarea
+                    name="message"
+                    required
                     rows={4}
                     placeholder="Describe your custom order idea — item type, names, colors, occasion..."
                     data-testid="contact-input-message"
@@ -556,8 +619,9 @@ export default function Home() {
                     type="submit"
                     className="stitched-button"
                     data-testid="contact-form-submit"
+                    disabled={formStatus === "submitting"}
                   >
-                    Send Message
+                    {formStatus === "submitting" ? "Sending..." : "Send Message"}
                   </button>
                   <a
                     className="stitched-button stitched-button-ghost"
@@ -568,6 +632,16 @@ export default function Home() {
                     Order via DM
                   </a>
                 </div>
+                <p
+                  className={`form-status${formStatus === "error" ? " form-status-error" : ""}`}
+                  aria-live="polite"
+                  data-testid="contact-form-status"
+                >
+                  {formStatus === "success" &&
+                    "Thank you. Your message has been sent."}
+                  {formStatus === "error" &&
+                    "Your message could not be sent. Please try again or email us directly."}
+                </p>
               </form>
             </div>
           </div>

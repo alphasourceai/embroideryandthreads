@@ -1,0 +1,30 @@
+# Embroidery & Threads
+
+> Embroidery & Threads is a small, faith-based custom embroidery shop serving Castle Rock, Colorado and surrounding communities. Each piece is made to order for local pickup; shipping is not currently available.
+
+## Services
+
+- Custom embroidered sweatshirts and matching Mama & Mini sets
+- Personalized gifts, holiday stockings, totes, and keepsake pieces
+- Collaborative custom design, including colors, fonts, sizing, and personalization
+- Local pickup in the Castle Rock, Colorado area
+
+## Ordering
+
+Customers can request an order through the contact form or by sending a direct message on Instagram. Embroidery & Threads works with each customer to confirm the design before stitching begins.
+
+## Contact
+
+- Email: embroideryandthreads@gmail.com
+- Instagram: https://www.instagram.com/embroideryandthreads/
+- Service area: Castle Rock, Colorado and surrounding areas
+
+## Pages
+
+- [Home and services](https://embroideryandthreads.netlify.app/)
+- [Customer stories and reviews](https://embroideryandthreads.netlify.app/reviews)
+
+## Important details
+
+- Custom orders are handled personally.
+- Orders are currently available for local pickup only.
