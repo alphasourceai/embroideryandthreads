@@ -1092,12 +1092,13 @@ img {
 
 .storybook-footer a {
   color: #efc9cf;
+  text-decoration: underline;
   text-decoration-color: rgba(239, 201, 207, 0.5);
   text-underline-offset: 3px;
 }
 
 .footer-copyright {
-  color: #a99991;
+  color: #b5a49c;
   font-size: 11px;
   text-transform: none;
 }

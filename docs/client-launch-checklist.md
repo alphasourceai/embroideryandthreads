@@ -9,16 +9,17 @@
 
 ## Account ownership and access
 
-- Invite the client to Netlify Identity using `embroideryandthreads@gmail.com` after Identity and Git Gateway are enabled.
-- Keep Netlify Identity registration set to invite-only.
+- Client editor is enabled at `https://embroideryandthreads.com/admin/`.
+- Netlify Identity registration is set to invite-only and Git Gateway is enabled.
 - Transfer or share appropriate Netlify, Cloudflare, GitHub, Google Search Console, and Google Business Profile access.
 - Enable two-factor authentication on all owner and administrator accounts.
 - Record recovery codes in the client's password manager.
 
 ## Search and local visibility
 
-- Verify `embroideryandthreads.com` as a Google Search Console domain property.
-- Submit `https://embroideryandthreads.com/sitemap.xml` in Search Console.
+- Google Search Console domain ownership is verified and the sitemap is accepted.
+- Bing Webmaster Tools has imported the verified site and accepted the sitemap.
+- Cloudflare Web Analytics is enabled without individual visitor tracking.
 - Claim or update the Google Business Profile with the final phone number, service area, hours, categories, photos, and website URL.
 - Keep the business name, address or service area, and phone details consistent everywhere they are published.
 
@@ -28,3 +29,4 @@
 - Test all Instagram, email, telephone, privacy, and navigation links.
 - Confirm custom-domain HTTPS and the `www` redirect.
 - Review image crops, image descriptions, pricing, spelling, and mobile layout after every substantial content update.
+- Confirm the client can sign in, replace one image, publish it, and view the result without assistance.

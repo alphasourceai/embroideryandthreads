@@ -26,22 +26,22 @@ collections:
             name: hero
             widget: object
             fields:
-              - { label: Image, name: image, widget: image, hint: "Drag a replacement image here or choose one from the media library." }
-              - { label: Image Description, name: alt, widget: string, hint: "Describe what is visible for accessibility and search." }
+              - { label: Image, name: image, widget: image, hint: "Drag in a JPG, PNG, or WebP image. Use an original photo at least 1200px wide and no larger than 12 MB." }
+              - { label: Image Description, name: alt, widget: string, hint: "Briefly describe the visible product, wording, and colors for accessibility and search." }
           - label: Story Image
             name: story
             widget: object
             fields:
-              - { label: Image, name: image, widget: image }
-              - { label: Image Description, name: alt, widget: string }
+              - { label: Image, name: image, widget: image, hint: "Use an original JPG, PNG, or WebP photo at least 1200px wide and no larger than 12 MB." }
+              - { label: Image Description, name: alt, widget: string, hint: "Briefly describe the visible product, wording, and colors." }
           - label: Gallery
             name: gallery
             widget: list
             min: 1
             summary: "{{fields.alt}}"
             fields:
-              - { label: Image, name: image, widget: image }
-              - { label: Image Description, name: alt, widget: string }
+              - { label: Image, name: image, widget: image, hint: "Use an original JPG, PNG, or WebP photo at least 1200px wide and no larger than 12 MB." }
+              - { label: Image Description, name: alt, widget: string, hint: "Briefly describe the visible product, wording, and colors. Do not write 'image of.'" }
           # These values remain in site.json but are intentionally unavailable
           # in the client editor. Restore the pricing object documented in
           # docs/client-site-editor.md when the public pricing section is ready.

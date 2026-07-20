@@ -295,6 +295,7 @@ export default function Home() {
                     alt={siteContent.hero.alt}
                     width="677"
                     height="1201"
+                    fetchPriority="high"
                     widths={[480, 800, 1100]}
                     sizes="(max-width: 920px) 82vw, 38vw"
                   />

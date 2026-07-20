@@ -4,14 +4,14 @@ The client editor is available at:
 
 `https://embroideryandthreads.com/admin/`
 
-## One-time Netlify setup
+## Signing in
 
-1. Open the Embroidery & Threads project in Netlify.
-2. Enable Netlify Identity.
-3. Set registration to **Invite only**.
-4. Enable **Git Gateway** under Identity services.
-5. Invite `embroideryandthreads@gmail.com` as an Identity user.
-6. Have the client accept the invitation and set a password.
+1. Visit `https://embroideryandthreads.com/admin/`.
+2. Select **Login with Netlify Identity**.
+3. Enter the invited email address and password.
+
+The account is invite-only. Do not create a second user if a password is
+forgotten; use **Recover password** from the login window instead.
 
 Invitation and password-recovery links are redirected immediately to the site
 editor, where the Identity widget handles the token before Decap starts. The
@@ -21,9 +21,22 @@ Identity library is not downloaded during normal public visits.
 
 1. Sign in at `/admin/` and open **Page Photos**.
 2. Drag a replacement image onto an image field or choose one from the media library.
-3. Update the image description so it accurately describes the replacement image.
+3. Update the image description so it accurately describes the visible product, wording, and colors.
 4. Select **Publish**. The editor commits the change to GitHub and Netlify automatically rebuilds the site.
 5. Use **View Live** to confirm the published change on the website.
+
+## Image requirements
+
+- Use only original photos the business owns or has permission to publish.
+- Use JPG, PNG, or WebP files no larger than 12 MB.
+- Prefer portrait or square photos at least 1200 pixels wide.
+- Keep the main product centered so automatic mobile crops remain useful.
+- Do not include customer names, addresses, or other private information in a photo.
+- Write a specific image description; do not begin with "image of."
+
+The deployment checks reject missing files, unsupported formats, undersized
+images, oversized files, and empty image descriptions before a bad update can
+reach the live site.
 
 The editor uses a full-width form rather than an embedded visual preview. This
 keeps the editing runtime isolated from the public React app and avoids a
@@ -66,7 +79,6 @@ Enabling it publishes the pricing section during the next Netlify build.
 
 ## Operational notes
 
-- Use original photos that the client owns or has permission to publish.
-- Prefer clear portrait or square images at least 1200 pixels wide.
 - Check the live site on a phone after replacing several images at once.
 - Netlify keeps deploy history, and GitHub keeps content revision history, so prior versions can be restored.
+- If a deployment fails, leave the editor content unchanged and notify the site administrator with a screenshot of the failed deploy.

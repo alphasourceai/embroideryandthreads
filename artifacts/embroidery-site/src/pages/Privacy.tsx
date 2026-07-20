@@ -59,6 +59,12 @@ export default function Privacy() {
             advertising. Information may be shared with service providers only
             when needed to operate the website or respond to an inquiry.
           </p>
+          <h2>Website analytics</h2>
+          <p>
+            The website uses Cloudflare Web Analytics to understand aggregate
+            page visits and site performance. This service does not use cookies
+            or track individual visitors across websites.
+          </p>
           <h2>Contact</h2>
           <p>
             Questions or requests about your information can be sent to{" "}
