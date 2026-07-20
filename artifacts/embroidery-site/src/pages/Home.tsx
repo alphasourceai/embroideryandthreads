@@ -254,7 +254,7 @@ export default function Home() {
       <main id="main-content" tabIndex={-1}>
         <header className="storybook-hero">
           <div className="content-wrap hero-grid">
-            <div className="hero-copy" data-reveal>
+            <div className="hero-copy">
               <p className="overline">Handmade in Castle Rock</p>
               <h1>
                 Sewn into
@@ -286,7 +286,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="embroidery-hoop" data-reveal>
+            <div className="embroidery-hoop">
               <div className="hoop-knob" aria-hidden="true" />
               <div className="hoop-ring">
                 <div className="hoop-stitches">
