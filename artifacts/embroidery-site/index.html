@@ -91,6 +91,18 @@
       <textarea name="message" tabindex="-1"></textarea>
     </form>
     <div id="root"></div>
+    <script>
+      if (/#(?:invite|confirmation|recovery|email_change)_token=/.test(location.hash)) {
+        const identityScript = document.createElement("script");
+        identityScript.src = "https://identity.netlify.com/v1/netlify-identity-widget.js";
+        identityScript.onload = () => {
+          window.netlifyIdentity?.on("login", () => {
+            location.assign("/admin/");
+          });
+        };
+        document.head.appendChild(identityScript);
+      }
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

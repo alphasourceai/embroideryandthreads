@@ -13,6 +13,10 @@ The client editor is available at:
 5. Invite `embroideryandthreads@gmail.com` as an Identity user.
 6. Have the client accept the invitation and set a password.
 
+Invitation and password-recovery links are handled by a token-only Identity
+loader on the home page. The Identity library is not downloaded during normal
+public visits.
+
 ## Updating the site
 
 1. Sign in at `/admin/` and open **Page Images, Reviews, and Pricing**.
