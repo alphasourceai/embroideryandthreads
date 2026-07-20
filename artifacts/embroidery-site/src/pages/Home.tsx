@@ -561,12 +561,6 @@ export default function Home() {
                 data-testid="contact-form"
               >
                 <input type="hidden" name="form-name" value="contact" />
-                <input
-                  type="hidden"
-                  name="subject"
-                  value="New Embroidery & Threads inquiry"
-                  data-remove-prefix
-                />
                 <p className="visually-hidden">
                   <label>
                     Do not fill this out if you are human:
