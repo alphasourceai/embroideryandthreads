@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <script>
+      if (/#(?:invite|confirmation|recovery|email_change)_token=/.test(location.hash)) {
+        location.replace(`/admin/${location.hash}`);
+      }
+    </script>
     <title>Custom Embroidery in Castle Rock, CO | Embroidery &amp; Threads</title>
     <meta name="description" content="Shop custom embroidery in Castle Rock, Colorado, including personalized sweatshirts, gifts, stockings, totes, and made-to-order pieces for local pickup." />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -91,18 +96,6 @@
       <textarea name="message" tabindex="-1"></textarea>
     </form>
     <div id="root"></div>
-    <script>
-      if (/#(?:invite|confirmation|recovery|email_change)_token=/.test(location.hash)) {
-        const identityScript = document.createElement("script");
-        identityScript.src = "https://identity.netlify.com/v1/netlify-identity-widget.js";
-        identityScript.onload = () => {
-          window.netlifyIdentity?.on("login", () => {
-            location.assign("/admin/");
-          });
-        };
-        document.head.appendChild(identityScript);
-      }
-    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

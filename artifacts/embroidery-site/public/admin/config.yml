@@ -1,6 +1,8 @@
 backend:
   name: git-gateway
   branch: main
+  identity_url: https://embroideryandthreads.netlify.app/.netlify/identity
+  gateway_url: https://embroideryandthreads.netlify.app/.netlify/git/github
 
 site_url: https://embroideryandthreads.com
 display_url: https://embroideryandthreads.com
