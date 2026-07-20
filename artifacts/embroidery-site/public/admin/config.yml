@@ -17,7 +17,7 @@ collections:
     editor:
       preview: false
     files:
-      - label: Page Images, Reviews, and Pricing
+      - label: Page Photos
         name: site_content
         file: artifacts/embroidery-site/src/content/site.json
         format: json
@@ -42,42 +42,9 @@ collections:
             fields:
               - { label: Image, name: image, widget: image }
               - { label: Image Description, name: alt, widget: string }
-          - label: Customer Stories
-            name: reviews
-            widget: list
-            min: 1
-            summary: "{{fields.reviewer}}"
-            fields:
-              - { label: Customer Name or Handle, name: reviewer, widget: string }
-              - { label: Quote, name: quote, widget: text }
-              - { label: Owner Reply, name: reply, widget: text, required: false }
-              - { label: Image, name: image, widget: image }
-              - { label: Image Description, name: alt, widget: string }
-              - { label: Date Label, name: dateLabel, widget: string, default: "Customer share" }
-          - label: Instagram Highlights
-            name: instagram
-            widget: list
-            min: 1
-            summary: "{{fields.caption}}"
-            fields:
-              - { label: Image, name: image, widget: image }
-              - { label: Caption, name: caption, widget: string }
-              - { label: Instagram Link, name: permalink, widget: string, pattern: ['^https://(www\\.)?instagram\\.com/.+', 'Enter a full Instagram URL.'] }
-          - label: Pricing
-            name: pricing
-            widget: object
-            hint: "Pricing remains hidden on the public site until Show Pricing is enabled."
-            fields:
-              - { label: Show Pricing on Website, name: enabled, widget: boolean, default: false }
-              - { label: Small Heading, name: eyebrow, widget: string }
-              - { label: Section Title, name: title, widget: string }
-              - { label: Introduction, name: intro, widget: text }
-              - label: Price Items
-                name: items
-                widget: list
-                min: 1
-                summary: "{{fields.name}} - {{fields.price}}"
-                fields:
-                  - { label: Service, name: name, widget: string }
-                  - { label: Price, name: price, widget: string, hint: "Examples: $35, Starting at $45, or Contact for pricing" }
-                  - { label: Description, name: description, widget: text }
+          # These values remain in site.json but are intentionally unavailable
+          # in the client editor. Restore the pricing object documented in
+          # docs/client-site-editor.md when the public pricing section is ready.
+          - { label: Customer Stories, name: reviews, widget: hidden }
+          - { label: Instagram Highlights, name: instagram, widget: hidden }
+          - { label: Pricing, name: pricing, widget: hidden }

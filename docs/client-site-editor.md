@@ -19,7 +19,7 @@ Identity library is not downloaded during normal public visits.
 
 ## Updating the site
 
-1. Sign in at `/admin/` and open **Page Images, Reviews, and Pricing**.
+1. Sign in at `/admin/` and open **Page Photos**.
 2. Drag a replacement image onto an image field or choose one from the media library.
 3. Update the image description so it accurately describes the replacement image.
 4. Select **Publish**. The editor commits the change to GitHub and Netlify automatically rebuilds the site.
@@ -29,9 +29,40 @@ The editor uses a full-width form rather than an embedded visual preview. This
 keeps the editing runtime isolated from the public React app and avoids a
 version conflict between Decap CMS and preview-only React components.
 
-## Pricing guardrail
+## Hidden content
 
-Pricing content can be prepared without displaying it publicly. Keep **Show Pricing on Website** disabled until all pricing is approved. Enabling that switch publishes the pricing section on the home page during the next Netlify build.
+The client currently sees only **Hero Image**, **Story Image**, and **Gallery**.
+Customer stories, Instagram highlights, and pricing remain in `site.json`, but
+their hidden widgets prevent them from appearing in the editor.
+
+## Enabling pricing controls
+
+When a public pricing section is ready, replace the hidden `pricing` field in
+`artifacts/embroidery-site/public/admin/config.yml` with this object field:
+
+```yml
+- label: Pricing
+  name: pricing
+  widget: object
+  hint: "Pricing remains hidden on the public site until Show Pricing is enabled."
+  fields:
+    - { label: Show Pricing on Website, name: enabled, widget: boolean, default: false }
+    - { label: Small Heading, name: eyebrow, widget: string }
+    - { label: Section Title, name: title, widget: string }
+    - { label: Introduction, name: intro, widget: text }
+    - label: Price Items
+      name: items
+      widget: list
+      min: 1
+      summary: "{{fields.name}} - {{fields.price}}"
+      fields:
+        - { label: Service, name: name, widget: string }
+        - { label: Price, name: price, widget: string, hint: "Examples: $35, Starting at $45, or Contact for pricing" }
+        - { label: Description, name: description, widget: text }
+```
+
+Keep **Show Pricing on Website** disabled until all pricing is approved.
+Enabling it publishes the pricing section during the next Netlify build.
 
 ## Operational notes
 
