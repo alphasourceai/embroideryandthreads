@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Complete Your Embroidery &amp; Threads Sign-In</title>
+    <style>
+      :root {
+        color: #332b28;
+        background: #f5f6fa;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        display: grid;
+        min-height: 100vh;
+        margin: 0;
+        place-items: center;
+      }
+
+      main {
+        max-width: 32rem;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      img {
+        width: 9rem;
+        height: 9rem;
+        object-fit: cover;
+      }
+
+      p {
+        line-height: 1.6;
+      }
+
+      a {
+        color: #9f5d70;
+      }
+    </style>
+    <script>
+      if (!/#(?:invite|confirmation|recovery|email_change)_token=/.test(location.hash)) {
+        location.replace("/admin/");
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <img src="/logo-b.jpg" alt="Embroidery &amp; Threads" />
+      <p id="auth-status" aria-live="polite">Preparing your site editor sign-in...</p>
+      <p><a href="/admin/">Return to the site editor</a></p>
+    </main>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+      const status = document.getElementById("auth-status");
+
+      window.netlifyIdentity.on("init", (user) => {
+        if (user) {
+          location.replace("/admin/");
+        }
+      });
+
+      window.netlifyIdentity.on("login", () => {
+        location.replace("/admin/");
+      });
+
+      window.netlifyIdentity.on("error", () => {
+        status.textContent =
+          "This sign-in link could not be completed. Request a new invitation or password reset and use only the newest email.";
+      });
+
+      window.netlifyIdentity.init();
+    </script>
+  </body>
+</html>

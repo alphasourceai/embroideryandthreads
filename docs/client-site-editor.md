@@ -13,9 +13,10 @@ The client editor is available at:
 5. Invite `embroideryandthreads@gmail.com` as an Identity user.
 6. Have the client accept the invitation and set a password.
 
-Invitation and password-recovery links are redirected immediately to the site
-editor, where the Identity widget handles the token. The Identity library is
-not downloaded during normal public visits.
+Invitation and password-recovery links are redirected immediately to a small
+authentication callback page. The Identity widget handles the token there
+before loading the site editor, so Decap cannot replace the token-bearing URL.
+The Identity library is not downloaded during normal public visits.
 
 ## Updating the site
 
