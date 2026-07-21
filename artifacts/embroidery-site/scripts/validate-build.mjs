@@ -10,6 +10,7 @@ const errors = [];
 const pages = [
   ["index.html", "Custom Embroidery in Castle Rock, CO", "https://embroideryandthreads.com/", "index"],
   ["reviews.html", "Customer Reviews", "https://embroideryandthreads.com/reviews", "index"],
+  ["faq.html", "Custom Embroidery FAQ", "https://embroideryandthreads.com/faq", "index"],
   ["privacy.html", "Privacy Policy", "https://embroideryandthreads.com/privacy", "index"],
   ["404.html", "Page Not Found", "https://embroideryandthreads.com/404", "noindex"],
 ];
@@ -49,6 +50,10 @@ for (const [file, titleNeedle, canonical, robotsNeedle] of pages) {
   if (canonicalHref !== canonical) errors.push(`${file}: canonical URL is incorrect.`);
   if (!robots?.includes(robotsNeedle)) errors.push(`${file}: robots directive is incorrect.`);
   if (/replit/i.test(html)) errors.push(`${file}: contains Replit placeholder metadata.`);
+
+  if (file === "faq.html" && !html.includes('"@type":"FAQPage"')) {
+    errors.push("faq.html: FAQPage structured data is missing.");
+  }
 
   if (file === "index.html") {
     const contactForm = forms.find((form) => form.name === "contact");

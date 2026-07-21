@@ -23,6 +23,7 @@ async function request(path, expectedStatus) {
 
 const home = await request("/", 200);
 const reviews = await request("/reviews", 200);
+const faq = await request("/faq", 200);
 const privacy = await request("/privacy", 200);
 await request("/admin/", 200);
 await request(`/monitor-missing-${Date.now()}`, 404);
@@ -30,6 +31,7 @@ await request(`/monitor-missing-${Date.now()}`, 404);
 for (const [name, page, title] of [
   ["home", home, "Custom Embroidery in Castle Rock, CO"],
   ["reviews", reviews, "Customer Reviews"],
+  ["faq", faq, "Custom Embroidery FAQ"],
   ["privacy", privacy, "Privacy Policy"],
 ]) {
   if (!page.body.includes(`<title>${title}`) && !page.body.includes(title)) {

@@ -12,14 +12,34 @@ const maxBytes = 12 * 1024 * 1024;
 const allowedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp"]);
 
 const gallery = Array.isArray(content.gallery) ? content.gallery : [];
-if (!Array.isArray(content.gallery) || content.gallery.length < 1) {
-  errors.push("Gallery: include at least one image.");
+if (!Array.isArray(content.gallery) || content.gallery.length !== 6) {
+  errors.push("Gallery: include exactly six galleries.");
+}
+
+const galleryNames = new Set();
+for (const [index, item] of gallery.entries()) {
+  const name = typeof item?.name === "string" ? item.name.trim() : "";
+  if (!name) errors.push(`Gallery ${index + 1}: name is required.`);
+  if (galleryNames.has(name.toLowerCase())) {
+    errors.push(`Gallery ${index + 1}: gallery names must be unique.`);
+  }
+  galleryNames.add(name.toLowerCase());
+  if (!Array.isArray(item?.images) || item.images.length < 1) {
+    errors.push(`Gallery ${index + 1}: include at least one photo.`);
+  }
 }
 
 const images = [
   ["Hero image", content.hero],
   ["Story image", content.story],
-  ...gallery.map((item, index) => [`Gallery image ${index + 1}`, item]),
+  ...gallery.flatMap((galleryItem, galleryIndex) =>
+    (Array.isArray(galleryItem?.images) ? galleryItem.images : []).map(
+      (item, imageIndex) => [
+        `Gallery ${galleryIndex + 1} image ${imageIndex + 1}`,
+        item,
+      ],
+    ),
+  ),
 ];
 
 for (const [label, item] of images) {
@@ -66,4 +86,6 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Validated ${images.length} editable images and descriptions.`);
+console.log(
+  `Validated ${gallery.length} galleries and ${images.length} editable images and descriptions.`,
+);

@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import ChevronLeft from "lucide-react/dist/esm/icons/chevron-left";
+import ChevronRight from "lucide-react/dist/esm/icons/chevron-right";
 import Instagram from "lucide-react/dist/esm/icons/instagram";
 import Mail from "lucide-react/dist/esm/icons/mail";
 import Menu from "lucide-react/dist/esm/icons/menu";
-import Phone from "lucide-react/dist/esm/icons/phone";
+import MessageCircle from "lucide-react/dist/esm/icons/message-circle";
 import X from "lucide-react/dist/esm/icons/x";
 import { Link } from "wouter";
 import InstagramFeed from "@/components/InstagramFeed";
@@ -31,7 +33,7 @@ const PROCESS_STEPS = [
     icon: "/logo-machine.jpg",
     title: "Local Pickup",
     description:
-      "I'll get to stitching! Once it's ready, I'll package it beautifully for local pickup in the Castle Rock area.",
+      "I'll get to stitching! Once it's ready, I'll package it for pickup at my Castle Rock home studio. Address and instructions are shared after payment.",
   },
 ];
 
@@ -53,10 +55,11 @@ function SectionHeading({
 
 export default function Home() {
   const [lightbox, setLightbox] = useState<{
-    src: string;
-    alt: string;
+    galleryIndex: number;
+    imageIndex: number;
   } | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const lightboxRef = useRef<HTMLDivElement>(null);
   const lightboxCloseRef = useRef<HTMLButtonElement>(null);
   const lightboxTriggerRef = useRef<HTMLButtonElement>(null);
   const [formStatus, setFormStatus] = useState<
@@ -71,8 +74,26 @@ export default function Home() {
   });
   useScrollReveal();
 
+  const lightboxOpen = lightbox !== null;
+  const activeGallery = lightbox
+    ? siteContent.gallery[lightbox.galleryIndex]
+    : null;
+  const activeImage =
+    activeGallery && lightbox ? activeGallery.images[lightbox.imageIndex] : null;
+
+  const showAdjacentImage = (offset: number) => {
+    setLightbox((current) => {
+      if (!current) return null;
+      const gallery = siteContent.gallery[current.galleryIndex];
+      const imageIndex =
+        (current.imageIndex + offset + gallery.images.length) %
+        gallery.images.length;
+      return { ...current, imageIndex };
+    });
+  };
+
   useEffect(() => {
-    if (!lightbox) {
+    if (!lightboxOpen) {
       document.body.style.overflow = "";
       return;
     }
@@ -86,9 +107,31 @@ export default function Home() {
         setLightbox(null);
       }
 
+      if (event.key === "ArrowLeft") {
+        showAdjacentImage(-1);
+      }
+
+      if (event.key === "ArrowRight") {
+        showAdjacentImage(1);
+      }
+
       if (event.key === "Tab") {
-        event.preventDefault();
-        lightboxCloseRef.current?.focus();
+        const controls = Array.from(
+          lightboxRef.current?.querySelectorAll<HTMLElement>(
+            "button:not([disabled])",
+          ) ?? [],
+        );
+        if (!controls.length) return;
+
+        const first = controls[0];
+        const last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     };
     window.addEventListener("keydown", handleLightboxKeyDown);
@@ -98,7 +141,7 @@ export default function Home() {
       window.removeEventListener("keydown", handleLightboxKeyDown);
       trigger?.focus();
     };
-  }, [lightbox]);
+  }, [lightboxOpen]);
 
   const closeMenu = () => setMenuOpen(false);
 
@@ -132,14 +175,15 @@ export default function Home() {
 
   return (
     <div className="storybook-site" id="top">
-      {lightbox && (
+      {lightbox && activeGallery && activeImage && (
         <div
+          ref={lightboxRef}
           className="storybook-lightbox"
           onClick={() => setLightbox(null)}
           data-testid="lightbox-overlay"
           role="dialog"
           aria-modal="true"
-          aria-label={lightbox.alt}
+          aria-labelledby="lightbox-title"
           aria-describedby="lightbox-caption"
         >
           <button
@@ -147,7 +191,7 @@ export default function Home() {
             className="lightbox-close"
             onClick={() => setLightbox(null)}
             data-testid="lightbox-close"
-            aria-label="Close image"
+            aria-label="Close gallery"
             type="button"
           >
             <X aria-hidden="true" />
@@ -156,8 +200,36 @@ export default function Home() {
             className="lightbox-content"
             onClick={(event) => event.stopPropagation()}
           >
-            <img src={lightbox.src} alt={lightbox.alt} />
-            <p id="lightbox-caption">{lightbox.alt}</p>
+            <h2 id="lightbox-title">{activeGallery.name}</h2>
+            <div className="lightbox-image-wrap">
+              {activeGallery.images.length > 1 && (
+                <button
+                  className="lightbox-arrow lightbox-arrow-previous"
+                  type="button"
+                  onClick={() => showAdjacentImage(-1)}
+                  aria-label={`Previous photo in ${activeGallery.name}`}
+                  data-testid="lightbox-previous"
+                >
+                  <ChevronLeft aria-hidden="true" />
+                </button>
+              )}
+              <img src={activeImage.image} alt={activeImage.alt} />
+              {activeGallery.images.length > 1 && (
+                <button
+                  className="lightbox-arrow lightbox-arrow-next"
+                  type="button"
+                  onClick={() => showAdjacentImage(1)}
+                  aria-label={`Next photo in ${activeGallery.name}`}
+                  data-testid="lightbox-next"
+                >
+                  <ChevronRight aria-hidden="true" />
+                </button>
+              )}
+            </div>
+            <p id="lightbox-caption">{activeImage.alt}</p>
+            <p className="lightbox-count" aria-live="polite">
+              {lightbox.imageIndex + 1} of {activeGallery.images.length}
+            </p>
           </div>
         </div>
       )}
@@ -193,6 +265,7 @@ export default function Home() {
             <Link href="/reviews" data-testid="nav-link-reviews">
               Reviews
             </Link>
+            <Link href="/faq">FAQ</Link>
             <a href="#contact" data-testid="nav-link-contact">
               Contact
             </a>
@@ -233,6 +306,9 @@ export default function Home() {
             </a>
             <Link href="/reviews" onClick={closeMenu}>
               Reviews
+            </Link>
+            <Link href="/faq" onClick={closeMenu}>
+              FAQ
             </Link>
             <a href="#contact" onClick={closeMenu}>
               Contact
@@ -374,27 +450,29 @@ export default function Home() {
           <div className="content-wrap">
             <SectionHeading eyebrow="a few favorites" title="The Gallery" />
             <p className="section-intro" data-reveal>
-              A selection of custom pieces — click any image to take a closer
-              look. Every stitch is placed with purpose.
+              Explore custom work by category. Select a gallery to browse its
+              pieces, and check back as new projects are added.
             </p>
             <div className="gallery-grid">
-              {siteContent.gallery.map((image, index) => (
+              {siteContent.gallery.map((gallery, index) => {
+                const cover = gallery.images[0];
+                return (
                 <button
-                  key={`${image.image}-${index}`}
+                  key={`${gallery.name}-${index}`}
                   className={`gallery-patch gallery-patch-${index + 1}`}
                   type="button"
                   onClick={(event) => {
                     lightboxTriggerRef.current = event.currentTarget;
-                    setLightbox({ src: image.image, alt: image.alt });
+                    setLightbox({ galleryIndex: index, imageIndex: 0 });
                   }}
                   data-testid={`gallery-image-${index}`}
                   data-reveal
-                  aria-label={`View ${image.alt}`}
+                  aria-label={`Open ${gallery.name} gallery`}
                 >
                   <span className="gallery-patch-inner">
                     <OptimizedImage
-                      src={image.image}
-                      alt={image.alt}
+                      src={cover.image}
+                      alt={cover.alt}
                       width="677"
                       height="1201"
                       loading="lazy"
@@ -402,8 +480,16 @@ export default function Home() {
                       sizes="(max-width: 920px) min(520px, 100vw), 33vw"
                     />
                   </span>
+                  <span className="gallery-label">
+                    <strong>{gallery.name}</strong>
+                    <span>
+                      {gallery.images.length}{" "}
+                      {gallery.images.length === 1 ? "photo" : "photos"}
+                    </span>
+                  </span>
                 </button>
-              ))}
+                );
+              })}
             </div>
             <div className="centered-action" data-reveal>
               <a
@@ -566,11 +652,11 @@ export default function Home() {
                     embroideryandthreads@gmail.com
                   </span>
                 </a>
-                <a href="tel:7205550199" data-testid="footer-link-phone">
-                  <Phone aria-hidden="true" />
+                <a href="sms:+17204651414" data-testid="footer-link-phone">
+                  <MessageCircle aria-hidden="true" />
                   <span>
-                    <strong>Phone</strong>
-                    (720) 555-0199
+                    <strong>Text preferred</strong>
+                    (720) 465-1414
                   </span>
                 </a>
               </div>
@@ -593,7 +679,7 @@ export default function Home() {
                 </p>
                 <div className="form-heading">
                   <h3>Send a Message</h3>
-                  <p>I'll get back to you as soon as possible.</p>
+                  <p>I'll reply within 24 to 48 hours.</p>
                 </div>
 
                 <div className="form-grid">

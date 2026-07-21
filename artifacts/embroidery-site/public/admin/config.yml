@@ -17,7 +17,7 @@ collections:
     editor:
       preview: false
     files:
-      - label: Page Photos
+      - label: Page Photos & Galleries
         name: site_content
         file: artifacts/embroidery-site/src/content/site.json
         format: json
@@ -34,14 +34,24 @@ collections:
             fields:
               - { label: Image, name: image, widget: image, hint: "Use an original JPG, PNG, or WebP photo at least 1200px wide and no larger than 12 MB." }
               - { label: Image Description, name: alt, widget: string, hint: "Briefly describe the visible product, wording, and colors." }
-          - label: Gallery
+          - label: Photo Galleries
             name: gallery
             widget: list
-            min: 1
-            summary: "{{fields.alt}}"
+            min: 6
+            max: 6
+            summary: "{{fields.name}}"
+            hint: "Keep all six galleries. You can rename a gallery and add, remove, or reorder its photos. The first photo is used as the gallery cover."
             fields:
-              - { label: Image, name: image, widget: image, hint: "Use an original JPG, PNG, or WebP photo at least 1200px wide and no larger than 12 MB." }
-              - { label: Image Description, name: alt, widget: string, hint: "Briefly describe the visible product, wording, and colors. Do not write 'image of.'" }
+              - { label: Gallery Name, name: name, widget: string }
+              - label: Gallery Photos
+                name: images
+                widget: list
+                min: 1
+                summary: "{{fields.alt}}"
+                hint: "Drag photos to reorder them. The first photo becomes the cover shown on the home page."
+                fields:
+                  - { label: Image, name: image, widget: image, hint: "Use an original JPG, PNG, or WebP photo at least 1200px wide and no larger than 12 MB." }
+                  - { label: Image Description, name: alt, widget: string, hint: "Briefly describe the visible product, wording, and colors. Do not write 'image of.'" }
           # These values remain in site.json but are intentionally unavailable
           # in the client editor. Restore the pricing object documented in
           # docs/client-site-editor.md when the public pricing section is ready.

@@ -8,6 +8,9 @@ const appRoot = path.resolve(
 );
 const outputDir = path.join(appRoot, "dist", "public");
 const source = await readFile(path.join(outputDir, "index.html"), "utf8");
+const faqItems = JSON.parse(
+  await readFile(path.join(appRoot, "src", "content", "faq.json"), "utf8"),
+);
 
 const home = {
   title: "Custom Embroidery in Castle Rock, CO | Embroidery & Threads",
@@ -27,6 +30,26 @@ const pages = [
       "See customer stories and custom embroidery shared by Embroidery & Threads customers in Castle Rock, Colorado.",
     url: "https://embroideryandthreads.com/reviews",
     robots: home.robots,
+  },
+  {
+    file: "faq.html",
+    title: "Custom Embroidery FAQ | Embroidery & Threads Castle Rock",
+    description:
+      "Find answers about custom embroidery turnaround, rush orders, local pickup, payment, cancellations, and garment care from Embroidery & Threads in Castle Rock.",
+    url: "https://embroideryandthreads.com/faq",
+    robots: home.robots,
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqItems.map(({ question, answer }) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: answer,
+        },
+      })),
+    },
   },
   {
     file: "privacy.html",
@@ -86,6 +109,14 @@ function renderPage(page) {
     `<meta property="og:url" content="${page.url}" />`,
   );
   html = replaceRequired(html, home.robots, page.robots);
+  if (page.structuredData) {
+    const json = JSON.stringify(page.structuredData).replaceAll("<", "\\u003c");
+    html = replaceRequired(
+      html,
+      "</head>",
+      `    <script type="application/ld+json">${json}</script>\n  </head>`,
+    );
+  }
   return html;
 }
 

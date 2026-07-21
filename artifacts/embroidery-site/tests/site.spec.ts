@@ -4,6 +4,7 @@ import { expect, test } from "@playwright/test";
 const publicPages = [
   ["home", "/", /Sewn into/],
   ["reviews", "/reviews", /Customer Stories/],
+  ["faq", "/faq", /Frequently Asked Questions/],
   ["privacy", "/privacy", /Privacy Policy/],
   ["not found", "/missing-page-for-test", /couldn't find that page/i],
 ] as const;
@@ -43,15 +44,19 @@ test("contact form has usable fields and a non-JavaScript fallback", async ({ pa
   await expect(page.getByTestId("contact-form-submit")).toBeEnabled();
 });
 
-test("gallery lightbox traps focus, closes with Escape, and restores focus", async ({ page }) => {
+test("gallery album supports navigation, closes with Escape, and restores focus", async ({ page }) => {
   await page.goto("/#gallery");
-  const firstImage = page.getByTestId("gallery-image-0");
-  await firstImage.click();
+  const galleryTrigger = page.getByTestId("gallery-image-2");
+  await galleryTrigger.click();
   await expect(page.getByRole("dialog")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Seasonal & Holiday" })).toBeVisible();
   await expect(page.getByTestId("lightbox-close")).toBeFocused();
+  await expect(page.getByText("1 of 3")).toBeVisible();
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByText("2 of 3")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toBeHidden();
-  await expect(firstImage).toBeFocused();
+  await expect(galleryTrigger).toBeFocused();
 });
 
 test("mobile navigation opens without obscuring its controls", async ({ page }, testInfo) => {

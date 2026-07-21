@@ -1,32 +1,74 @@
 {
   "hero": {
     "image": "/gallery-2.png",
-    "alt": "Merry & Bright holiday embroidery on cream sweatshirt"
+    "alt": "Cream sweatshirt and pink beanie embroidered with Christmas trees"
   },
   "story": {
-    "image": "/gallery-3.png",
-    "alt": "MAMA lavender floral applique sweatshirt with custom name tag"
+    "image": "/gallery-4.png",
+    "alt": "White MAMA sweatshirt with lavender floral applique and personalized Nora tag"
   },
   "gallery": [
     {
-      "image": "/gallery-1.png",
-      "alt": "Castle Rock Christmas sweatshirts - custom embroidered holiday collection"
+      "name": "Apparel",
+      "images": [
+        {
+          "image": "/gallery-5.png",
+          "alt": "Red Jesus Saves embroidered T-shirt styled with a God Bless the USA tote"
+        }
+      ]
     },
     {
-      "image": "/gallery-2.png",
-      "alt": "Merry & Bright holiday embroidery on cream sweatshirt"
+      "name": "Baby and Kids",
+      "images": [
+        {
+          "image": "/gallery-4.png",
+          "alt": "White MAMA sweatshirt with lavender floral applique and personalized Nora tag"
+        }
+      ]
     },
     {
-      "image": "/gallery-3.png",
-      "alt": "MAMA lavender floral applique sweatshirt with custom name tag"
+      "name": "Seasonal & Holiday",
+      "images": [
+        {
+          "image": "/gallery-1.png",
+          "alt": "Three Castle Rock Christmas sweatshirts with plaid applique lettering"
+        },
+        {
+          "image": "/gallery-2.png",
+          "alt": "Cream sweatshirt and pink beanie embroidered with Christmas trees"
+        },
+        {
+          "image": "/gallery-3.png",
+          "alt": "Merry and Bright cream sweatshirt embroidered with three Christmas trees"
+        }
+      ]
     },
     {
-      "image": "/gallery-4.png",
-      "alt": "Personalized embroidered pieces from Embroidery & Threads"
+      "name": "Gifts & Personalized Items",
+      "images": [
+        {
+          "image": "/gallery-4.png",
+          "alt": "White MAMA sweatshirt with lavender floral applique and personalized Nora tag"
+        }
+      ]
     },
     {
-      "image": "/gallery-5.png",
-      "alt": "Faith-based and patriotic embroidered pieces - God Bless the USA"
+      "name": "Matching & Gift Sets",
+      "images": [
+        {
+          "image": "/gallery-2.png",
+          "alt": "Matching cream sweatshirt and pink beanie embroidered with Christmas trees"
+        }
+      ]
+    },
+    {
+      "name": "Custom Orders",
+      "images": [
+        {
+          "image": "/gallery-5.png",
+          "alt": "Custom Jesus Saves embroidered T-shirt and God Bless the USA tote"
+        }
+      ]
     }
   ],
   "reviews": [

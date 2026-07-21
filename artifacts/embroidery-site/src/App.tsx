@@ -2,6 +2,7 @@ import { Switch, Route, Router as WouterRouter } from "wouter";
 import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
+import Faq from "@/pages/Faq";
 import Reviews from "@/pages/Reviews";
 import Privacy from "@/pages/Privacy";
 
@@ -10,6 +11,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/reviews" component={Reviews} />
+      <Route path="/faq" component={Faq} />
       <Route path="/privacy" component={Privacy} />
       <Route component={NotFound} />
     </Switch>

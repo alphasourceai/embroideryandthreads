@@ -29,7 +29,7 @@ pnpm audit --audit-level=high
 
 ## Monitoring
 
-- GitHub **Production Monitor** checks the home, reviews, privacy, admin, and 404 responses every six hours.
+- GitHub **Production Monitor** checks the home, reviews, FAQ, privacy, admin, and 404 responses every six hours.
 - It also checks DNS, HTTPS certificate lifetime, the `www` redirect, security headers, canonical metadata, and the Netlify form shell.
 - GitHub **Monthly Form Delivery Check** opens one issue on the first day of each month. Close it after submitting a real test and confirming both Netlify capture and email delivery.
 - Cloudflare Web Analytics provides aggregate page-view and performance data without identifying individual visitors.

@@ -11,7 +11,7 @@ export default function SiteFooter() {
         <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
           Instagram
         </a>{" "}
-        · <Link href="/privacy">Privacy</Link>
+        · <Link href="/faq">FAQ</Link> · <Link href="/privacy">Privacy</Link>
       </p>
       <p className="footer-copyright">
         © {new Date().getFullYear()} Embroidery & Threads. All rights reserved.
