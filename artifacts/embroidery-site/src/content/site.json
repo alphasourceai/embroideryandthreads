@@ -12,8 +12,56 @@
       "name": "Apparel",
       "images": [
         {
-          "image": "/gallery-5.png",
-          "alt": "Red Jesus Saves embroidered T-shirt styled with a God Bless the USA tote"
+          "image": "/uploads/apparel-castle-rock-colorado-sweatshirt.jpg",
+          "alt": "Gray sweatshirt embroidered with Castle Rock Colorado lettering and elevation details"
+        },
+        {
+          "image": "/uploads/apparel-personalized-trucker-caps.jpg",
+          "alt": "Four black, white, and gray trucker caps embroidered with personalized names"
+        },
+        {
+          "image": "/uploads/apparel-lighthouse-cap.jpg",
+          "alt": "Navy baseball cap embroidered with a red, white, and blue lighthouse"
+        },
+        {
+          "image": "/uploads/apparel-god-is-good-tshirt.jpg",
+          "alt": "Gray T-shirt embroidered with the words God is good in red, white, and blue"
+        },
+        {
+          "image": "/uploads/apparel-castle-rock-coordinates-sweatshirt.jpg",
+          "alt": "Light blue sweatshirt embroidered with Castle Rock and local coordinates"
+        },
+        {
+          "image": "/uploads/apparel-mama-sweatshirts.jpg",
+          "alt": "Pink and white sweatshirts with bold floral applique MAMA lettering"
+        },
+        {
+          "image": "/uploads/apparel-jesus-is-king-sweatshirt.jpg",
+          "alt": "Olive green sweatshirt embroidered with Jesus is King and small sleeve details"
+        },
+        {
+          "image": "/uploads/apparel-god-is-good-sweatshirt.jpg",
+          "alt": "Peach sweatshirt embroidered with subtle tonal God is good lettering"
+        },
+        {
+          "image": "/uploads/apparel-dog-mama-sweatshirt.jpg",
+          "alt": "Mauve sweatshirt embroidered with Dog Mama lettering and personalized sleeve names"
+        },
+        {
+          "image": "/uploads/apparel-floral-mama-sweatshirt.jpg",
+          "alt": "Sage green MAMA sweatshirt with floral applique lettering"
+        },
+        {
+          "image": "/uploads/apparel-mama-applique-sweatshirt.jpg",
+          "alt": "Pink MAMA sweatshirt with mixed fabric applique letters and a bee sleeve detail"
+        },
+        {
+          "image": "/uploads/apparel-grandma-sweatshirt.jpg",
+          "alt": "Gray GRANDMA sweatshirt with blue applique letters and personalized sleeve details"
+        },
+        {
+          "image": "/uploads/apparel-personalized-dog-mama-sweatshirt.jpg",
+          "alt": "Mauve Dog Mama sweatshirt personalized with embroidered names on the sleeve"
         }
       ]
     },
@@ -21,8 +69,48 @@
       "name": "Baby and Kids",
       "images": [
         {
-          "image": "/gallery-4.png",
-          "alt": "White MAMA sweatshirt with lavender floral applique and personalized Nora tag"
+          "image": "/uploads/baby-floral-personalized-romper.jpg",
+          "alt": "Floral baby romper with a matching bow and personalized name patch"
+        },
+        {
+          "image": "/uploads/baby-personalized-bear-lovey.jpg",
+          "alt": "Soft brown bear lovey embroidered with the name Theodore"
+        },
+        {
+          "image": "/uploads/baby-striped-newborn-outfit.jpg",
+          "alt": "Striped newborn outfit and hat embroidered with a personalized name"
+        },
+        {
+          "image": "/uploads/baby-monogrammed-socks.jpg",
+          "alt": "Set of white baby socks embroidered with individual monogram initials"
+        },
+        {
+          "image": "/uploads/baby-personalized-animal-romper.jpg",
+          "alt": "Personalized baby romper with colorful animal print and matching hat"
+        },
+        {
+          "image": "/uploads/kids-personalized-dinosaur-tote-set.jpg",
+          "alt": "Personalized dinosaur tote with coordinating embroidered name pieces"
+        },
+        {
+          "image": "/uploads/kids-personalized-dinosaur-tote.jpg",
+          "alt": "Dinosaur print tote bag embroidered with the name Marshall"
+        },
+        {
+          "image": "/uploads/kids-personalized-name-tshirt.jpg",
+          "alt": "Light blue children's T-shirt embroidered with the name Jack"
+        },
+        {
+          "image": "/uploads/kids-girls-football-sweatshirt.jpg",
+          "alt": "White youth sweatshirt embroidered with a football and pink ribbon accents"
+        },
+        {
+          "image": "/uploads/baby-floral-romper.jpg",
+          "alt": "Pink floral baby romper with a matching bow and personalized embroidery"
+        },
+        {
+          "image": "/uploads/baby-marshall-green-outfit.jpg",
+          "alt": "Sage green baby outfit and hat embroidered with the name Marshall"
         }
       ]
     },
@@ -30,16 +118,24 @@
       "name": "Seasonal & Holiday",
       "images": [
         {
-          "image": "/gallery-1.png",
-          "alt": "Three Castle Rock Christmas sweatshirts with plaid applique lettering"
+          "image": "/uploads/seasonal-christmas-tree-sweatshirt.jpg",
+          "alt": "Red Christmas sweatshirt embroidered with script lettering and a green tree"
         },
         {
-          "image": "/gallery-2.png",
-          "alt": "Cream sweatshirt and pink beanie embroidered with Christmas trees"
+          "image": "/uploads/seasonal-god-bless-usa-tshirt.jpg",
+          "alt": "Navy T-shirt embroidered with God Bless the USA in patriotic colors"
         },
         {
-          "image": "/gallery-3.png",
-          "alt": "Merry and Bright cream sweatshirt embroidered with three Christmas trees"
+          "image": "/uploads/seasonal-personalized-christmas-sacks.jpg",
+          "alt": "Two red and white striped Christmas gift sacks with personalized embroidery"
+        },
+        {
+          "image": "/uploads/seasonal-castle-rock-winter-beanies.jpg",
+          "alt": "Gray and black winter beanies embroidered with Castle Rock Colorado"
+        },
+        {
+          "image": "/uploads/seasonal-tis-the-season-sweatshirt.jpg",
+          "alt": "Dark sweatshirt embroidered with a hockey stick and the words tis the season"
         }
       ]
     },
@@ -47,8 +143,48 @@
       "name": "Gifts & Personalized Items",
       "images": [
         {
-          "image": "/gallery-4.png",
-          "alt": "White MAMA sweatshirt with lavender floral applique and personalized Nora tag"
+          "image": "/uploads/gift-personalized-family-towels.jpg",
+          "alt": "Pair of white towels embroidered with The Beckers and evergreen trees"
+        },
+        {
+          "image": "/uploads/gift-personalized-corduroy-pouches.jpg",
+          "alt": "Three colorful corduroy zipper pouches with personalized embroidery"
+        },
+        {
+          "image": "/uploads/gift-monogrammed-canvas-tote.jpg",
+          "alt": "Natural canvas tote embroidered with a colorful personalized monogram"
+        },
+        {
+          "image": "/uploads/gift-personalized-wedding-sweatshirt.jpg",
+          "alt": "Green Mrs McClain sweatshirt with wedding year and embroidered sleeve initials"
+        },
+        {
+          "image": "/uploads/gift-personalized-bride-sweatshirt.jpg",
+          "alt": "White bride sweatshirt embroidered with a wedding date and initials"
+        },
+        {
+          "image": "/uploads/gift-ribbon-music-zipper-pouch.jpg",
+          "alt": "Black quilted zipper pouch embroidered with a pink ribbon and music note"
+        },
+        {
+          "image": "/uploads/gift-embroidered-name-pouches.jpg",
+          "alt": "Four dark fabric pouches embroidered with personalized script names"
+        },
+        {
+          "image": "/uploads/gift-personalized-wedding-blanket.jpg",
+          "alt": "Mauve throw blanket embroidered with a couple's names and wedding date"
+        },
+        {
+          "image": "/uploads/gift-anderson-family-blanket.jpg",
+          "alt": "Navy plush blanket embroidered with The Andersons in cream script"
+        },
+        {
+          "image": "/uploads/gift-teresa-personalized-blanket.jpg",
+          "alt": "Soft gray blanket personalized with the embroidered name Teresa"
+        },
+        {
+          "image": "/uploads/gift-grandma-personalized-sweatshirt.jpg",
+          "alt": "Gray GRANDMA sweatshirt with plaid applique and embroidered family names"
         }
       ]
     },
@@ -56,8 +192,44 @@
       "name": "Matching & Gift Sets",
       "images": [
         {
-          "image": "/gallery-2.png",
-          "alt": "Matching cream sweatshirt and pink beanie embroidered with Christmas trees"
+          "image": "/uploads/matching-mama-and-child-sweatshirts.jpg",
+          "alt": "Matching green MAMA and child sweatshirts with floral applique lettering"
+        },
+        {
+          "image": "/uploads/matching-patriotic-memorial-shirts.jpg",
+          "alt": "Pair of navy memorial shirts embroidered with patriotic bows and dates"
+        },
+        {
+          "image": "/uploads/matching-whiskey-and-beer-shirts.jpg",
+          "alt": "Matching gray and black shirts embroidered Whiskey for My Men and Beer for My Horses"
+        },
+        {
+          "image": "/uploads/matching-patriotic-two-fiddy-shirts.jpg",
+          "alt": "Matching gray, white, and navy Two Fiddy shirts with small American flags"
+        },
+        {
+          "image": "/uploads/matching-mama-and-violet-outfits.jpg",
+          "alt": "Matching pink MAMA shirt and personalized floral baby outfit for Violet"
+        },
+        {
+          "image": "/uploads/matching-mama-and-floral-baby-set.jpg",
+          "alt": "Matching MAMA sweatshirt and floral baby romper with applique lettering"
+        },
+        {
+          "image": "/uploads/matching-loved-faith-sweatshirts.jpg",
+          "alt": "Matching adult and child sweatshirts embroidered Loved with John 3:16"
+        },
+        {
+          "image": "/uploads/matching-personalized-newborn-gift-set.jpg",
+          "alt": "Personalized newborn outfit, hat, and blanket gift set for Henry"
+        },
+        {
+          "image": "/uploads/matching-mama-and-striped-baby-set.jpg",
+          "alt": "Coordinating MAMA sweatshirt and striped newborn outfit with applique letters"
+        },
+        {
+          "image": "/uploads/matching-mama-sweatshirt-and-blanket.jpg",
+          "alt": "Gray MAMA sweatshirt paired with a personalized black and white plaid blanket"
         }
       ]
     },
@@ -65,8 +237,28 @@
       "name": "Custom Orders",
       "images": [
         {
-          "image": "/gallery-5.png",
-          "alt": "Custom Jesus Saves embroidered T-shirt and God Bless the USA tote"
+          "image": "/uploads/custom-sports-duffel-bags.jpg",
+          "alt": "Two black sports duffel bags embroidered with player names and jersey numbers"
+        },
+        {
+          "image": "/uploads/custom-player-duffel-bag.jpg",
+          "alt": "Gray sports duffel bag embroidered with McClain and the number 12"
+        },
+        {
+          "image": "/uploads/custom-embroidered-work-shirt.jpg",
+          "alt": "Navy work shirt embroidered with a small red and white custom logo"
+        },
+        {
+          "image": "/uploads/custom-podcast-sweatshirt.jpg",
+          "alt": "Charcoal sweatshirt embroidered for the Stewards of Story podcast"
+        },
+        {
+          "image": "/uploads/custom-hca-healthcare-sweatshirt.jpg",
+          "alt": "Navy sweatshirt embroidered with an HCA Healthcare logo and sleeve details"
+        },
+        {
+          "image": "/uploads/custom-podcast-apparel-set.jpg",
+          "alt": "Custom embroidered cap, beanie, and shirt for the Stewards of Stoke podcast"
         }
       ]
     }

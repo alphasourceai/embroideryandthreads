@@ -92,9 +92,9 @@ test("gallery album supports navigation, closes with Escape, and restores focus"
   await expect(page.getByRole("dialog")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Seasonal & Holiday" })).toBeVisible();
   await expect(page.getByTestId("lightbox-close")).toBeFocused();
-  await expect(page.getByText("1 of 3")).toBeVisible();
+  await expect(page.getByText(/^1 of \d+$/)).toBeVisible();
   await page.keyboard.press("ArrowRight");
-  await expect(page.getByText("2 of 3")).toBeVisible();
+  await expect(page.getByText(/^2 of \d+$/)).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toBeHidden();
   await expect(galleryTrigger).toBeFocused();
