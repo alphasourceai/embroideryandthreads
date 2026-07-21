@@ -42,7 +42,7 @@ test("contact form has usable fields and a non-JavaScript fallback", async ({ pa
   await expect(page.getByLabel("Email", { exact: true })).toHaveAttribute("type", "email");
   await expect(page.getByLabel("What are you looking for?")).toBeVisible();
   await expect(form).toHaveAttribute("data-netlify-recaptcha", "true");
-  await expect(page.getByTestId("contact-form-captcha")).toBeVisible();
+  await expect(page.getByTestId("captcha-modal")).toBeHidden();
   await expect(page.getByTestId("contact-form-submit")).toBeEnabled();
 });
 
@@ -62,7 +62,7 @@ test("Netlify's generated CAPTCHA is mounted in the visible form", async ({ page
   ).toHaveCount(0);
 });
 
-test("contact form requires a completed security challenge", async ({ page }) => {
+test("contact form opens its security challenge only when submitted", async ({ page }) => {
   let submitted = false;
   await page.route("/", async (route) => {
     if (route.request().method() === "POST") submitted = true;
@@ -77,10 +77,49 @@ test("contact form requires a completed security challenge", async ({ page }) =>
     .fill("Testing CAPTCHA enforcement.");
   await page.getByTestId("contact-form-submit").click();
 
-  await expect(page.getByTestId("contact-form-status")).toHaveText(
-    "Please complete the security check before sending your message.",
-  );
+  await expect(page.getByTestId("captcha-modal")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Confirm you're human" })).toBeVisible();
+  await expect(page.getByTestId("captcha-close")).toBeFocused();
   expect(submitted).toBe(false);
+});
+
+test("contact form submits automatically after the security challenge", async ({ page }) => {
+  let submittedBody = "";
+  await page.route("/", async (route) => {
+    if (route.request().method() === "POST") {
+      submittedBody = route.request().postData() ?? "";
+      await route.fulfill({ status: 200, contentType: "text/html", body: "ok" });
+      return;
+    }
+    await route.continue();
+  });
+
+  await page.goto("/#contact");
+  await page.evaluate(() => {
+    const generatedCaptcha = document.createElement("div");
+    generatedCaptcha.className = "g-recaptcha";
+    document.querySelector(".netlify-form-detection")?.append(generatedCaptcha);
+  });
+  await page.getByLabel("Name", { exact: true }).fill("Form Test");
+  await page.getByLabel("Email", { exact: true }).fill("test@example.com");
+  await page
+    .getByLabel("What are you looking for?")
+    .fill("Testing modal CAPTCHA submission.");
+  await page.getByTestId("contact-form-submit").click();
+  await expect(page.getByTestId("captcha-modal")).toBeVisible();
+
+  await page.evaluate(() => {
+    const response = document.createElement("textarea");
+    response.name = "g-recaptcha-response";
+    response.value = "test-token";
+    document.querySelector(".g-recaptcha")?.append(response);
+  });
+
+  await expect(page.getByTestId("contact-form-status")).toHaveText(
+    "Thank you. Your message has been sent.",
+  );
+  await expect(page.getByTestId("captcha-modal")).toBeHidden();
+  expect(submittedBody).toContain("g-recaptcha-response=test-token");
 });
 
 test("public images use deployment-versioned URLs and decode successfully", async ({ page }) => {

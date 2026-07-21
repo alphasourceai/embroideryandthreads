@@ -64,8 +64,12 @@ export default function Home() {
   const lightboxCloseRef = useRef<HTMLButtonElement>(null);
   const lightboxTriggerRef = useRef<HTMLButtonElement>(null);
   const captchaRef = useRef<HTMLDivElement>(null);
+  const captchaDialogRef = useRef<HTMLDivElement>(null);
+  const captchaCloseRef = useRef<HTMLButtonElement>(null);
+  const captchaTriggerRef = useRef<HTMLButtonElement>(null);
+  const [captchaOpen, setCaptchaOpen] = useState(false);
   const [formStatus, setFormStatus] = useState<
-    "idle" | "submitting" | "success" | "captcha" | "error"
+    "idle" | "submitting" | "success" | "error"
   >("idle");
 
   usePageMetadata({
@@ -170,19 +174,68 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!captchaOpen) return;
+
+    document.body.style.overflow = "hidden";
+    captchaCloseRef.current?.focus();
+
+    const submitWhenComplete = window.setInterval(() => {
+      const form = document.querySelector<HTMLFormElement>("#contact-form");
+      if (form && new FormData(form).get("g-recaptcha-response")) {
+        window.clearInterval(submitWhenComplete);
+        form.requestSubmit();
+      }
+    }, 250);
+
+    const handleCaptchaKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setCaptchaOpen(false);
+      }
+
+      if (event.key === "Tab") {
+        const controls = Array.from(
+          captchaDialogRef.current?.querySelectorAll<HTMLElement>(
+            "button:not([disabled]), iframe",
+          ) ?? [],
+        );
+        if (!controls.length) return;
+
+        const first = controls[0];
+        const last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    window.addEventListener("keydown", handleCaptchaKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.clearInterval(submitWhenComplete);
+      window.removeEventListener("keydown", handleCaptchaKeyDown);
+      captchaTriggerRef.current?.focus();
+    };
+  }, [captchaOpen]);
+
   const closeMenu = () => setMenuOpen(false);
 
   const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setFormStatus("submitting");
 
     const form = event.currentTarget;
     const formData = new FormData(form);
     if (!formData.get("g-recaptcha-response")) {
-      setFormStatus("captcha");
+      setCaptchaOpen(true);
       return;
     }
 
+    setCaptchaOpen(false);
+    setFormStatus("submitting");
     const body = new URLSearchParams();
 
     formData.forEach((value, key) => {
@@ -696,6 +749,7 @@ export default function Home() {
               </div>
 
               <form
+                id="contact-form"
                 className="storybook-form"
                 name="contact"
                 method="POST"
@@ -754,13 +808,41 @@ export default function Home() {
                 </label>
 
                 <div
-                  ref={captchaRef}
-                  className="netlify-recaptcha"
-                  data-testid="contact-form-captcha"
-                />
+                  className={`captcha-modal${captchaOpen ? " is-open" : ""}`}
+                  aria-hidden={!captchaOpen}
+                  onClick={() => setCaptchaOpen(false)}
+                  data-testid="captcha-modal"
+                >
+                  <div
+                    ref={captchaDialogRef}
+                    className="captcha-dialog"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="captcha-title"
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    <button
+                      ref={captchaCloseRef}
+                      className="captcha-close"
+                      type="button"
+                      aria-label="Close security check"
+                      onClick={() => setCaptchaOpen(false)}
+                      data-testid="captcha-close"
+                    >
+                      <X aria-hidden="true" />
+                    </button>
+                    <h2 id="captcha-title">Confirm you're human</h2>
+                    <div
+                      ref={captchaRef}
+                      className="netlify-recaptcha"
+                      data-testid="contact-form-captcha"
+                    />
+                  </div>
+                </div>
 
                 <div className="form-actions">
                   <button
+                    ref={captchaTriggerRef}
                     type="submit"
                     className="stitched-button"
                     data-testid="contact-form-submit"
@@ -786,8 +868,6 @@ export default function Home() {
                 >
                   {formStatus === "success" &&
                     "Thank you. Your message has been sent."}
-                  {formStatus === "captcha" &&
-                    "Please complete the security check before sending your message."}
                   {formStatus === "error" &&
                     "Your message could not be sent. Please try again or email us directly."}
                 </p>
