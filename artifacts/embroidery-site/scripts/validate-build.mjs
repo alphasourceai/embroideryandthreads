@@ -50,12 +50,19 @@ for (const [file, titleNeedle, canonical, robotsNeedle] of pages) {
   if (canonicalHref !== canonical) errors.push(`${file}: canonical URL is incorrect.`);
   if (!robots?.includes(robotsNeedle)) errors.push(`${file}: robots directive is incorrect.`);
   if (/replit/i.test(html)) errors.push(`${file}: contains Replit placeholder metadata.`);
+  if (html.includes("__ASSET_VERSION__")) {
+    errors.push(`${file}: unresolved public asset version placeholder.`);
+  }
 
   if (file === "faq.html" && !html.includes('"@type":"FAQPage"')) {
     errors.push("faq.html: FAQPage structured data is missing.");
   }
 
   if (file === "index.html") {
+    const socialImage = metas.find((meta) => meta.property === "og:image")?.content;
+    if (!socialImage?.includes("opengraph.jpg?v=")) {
+      errors.push("index.html: social image is not deployment-versioned.");
+    }
     const contactForm = forms.find((form) => form.name === "contact");
     if (!contactForm || contactForm["data-netlify"] !== "true") {
       errors.push("index.html: Netlify contact form shell is missing.");

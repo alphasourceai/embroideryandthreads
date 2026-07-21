@@ -1,6 +1,7 @@
 import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left";
 import MessageCircle from "lucide-react/dist/esm/icons/message-circle";
 import { Link } from "wouter";
+import PublicImage from "@/components/PublicImage";
 import SiteFooter from "@/components/SiteFooter";
 import faqs from "@/content/faq.json";
 import { usePageMetadata } from "@/hooks/use-page-metadata";
@@ -25,7 +26,7 @@ export default function Faq() {
       <nav className="storybook-nav reviews-nav" aria-label="FAQ navigation">
         <div className="nav-inner">
           <Link href="/" className="brand-lockup">
-            <img src="/logo-b.jpg" alt="Embroidery & Threads" />
+            <PublicImage src="/logo-b.jpg" alt="Embroidery & Threads" />
             <span>
               <span className="brand-name">Embroidery & Threads</span>
               <span className="brand-location">Castle Rock, Colorado</span>

@@ -6,7 +6,7 @@ backend:
 
 site_url: https://embroideryandthreads.com
 display_url: https://embroideryandthreads.com
-logo_url: https://embroideryandthreads.com/logo-b.jpg
+logo_url: https://embroideryandthreads.com/logo-b.jpg?v=20260720-cache1
 media_folder: artifacts/embroidery-site/public/uploads
 public_folder: /uploads
 publish_mode: simple

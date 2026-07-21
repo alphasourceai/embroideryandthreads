@@ -26,11 +26,27 @@ if (!basePath) {
   );
 }
 
+const assetVersion = (
+  process.env.DEPLOY_ID ??
+  process.env.COMMIT_REF ??
+  process.env.VITE_ASSET_VERSION ??
+  "local"
+).replace(/[^a-zA-Z0-9_-]/g, "");
+
 export default defineConfig(async ({ command }) => ({
   base: basePath,
+  define: {
+    __ASSET_VERSION__: JSON.stringify(assetVersion),
+  },
   plugins: [
     react(),
     tailwindcss(),
+    {
+      name: "version-public-assets",
+      transformIndexHtml(html) {
+        return html.replaceAll("__ASSET_VERSION__", assetVersion);
+      },
+    },
     ...(command === "serve" ? [runtimeErrorOverlay()] : []),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined

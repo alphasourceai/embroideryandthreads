@@ -44,6 +44,47 @@ test("contact form has usable fields and a non-JavaScript fallback", async ({ pa
   await expect(page.getByTestId("contact-form-submit")).toBeEnabled();
 });
 
+test("public images use deployment-versioned URLs and decode successfully", async ({ page }) => {
+  await page.goto("/");
+  const images = page.locator("img");
+
+  for (let index = 0; index < (await images.count()); index += 1) {
+    await images.nth(index).scrollIntoViewIfNeeded();
+  }
+
+  await expect.poll(async () =>
+    images.evaluateAll((elements) =>
+      elements.every((image) => image.complete && image.naturalWidth > 0),
+    ),
+  ).toBe(true);
+
+  const unversioned = await images.evaluateAll((elements) =>
+    elements
+      .map((image) => image.getAttribute("src") ?? "")
+      .filter((src) => src.startsWith("/") && !src.includes("v=local")),
+  );
+  expect(unversioned).toEqual([]);
+});
+
+test("a failed logo response retries on a fresh URL", async ({ page }) => {
+  let failedFirstRequest = false;
+
+  await page.route(/\/logo-b\.jpg\?v=local$/, async (route) => {
+    if (!failedFirstRequest) {
+      failedFirstRequest = true;
+      await route.fulfill({ status: 503, contentType: "text/plain", body: "" });
+      return;
+    }
+
+    await route.continue();
+  });
+
+  await page.goto("/");
+  const logo = page.getByTestId("nav-logo").locator("img");
+  await expect.poll(() => logo.evaluate((image) => image.naturalWidth)).toBeGreaterThan(0);
+  expect(failedFirstRequest).toBe(true);
+});
+
 test("gallery album supports navigation, closes with Escape, and restores focus", async ({ page }) => {
   await page.goto("/#gallery");
   const galleryTrigger = page.getByTestId("gallery-image-2");

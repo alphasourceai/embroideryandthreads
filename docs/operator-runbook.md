@@ -16,6 +16,8 @@
 3. Netlify independently builds from the monorepo root using `netlify.toml`. The build lifecycle repeats the content and artifact checks before publishing `artifacts/embroidery-site/dist/public`.
 4. Check both the GitHub workflow and Netlify deploy log, then verify the custom domain.
 
+Public image URLs include the Netlify deploy identifier. This prevents a browser or the Netlify Image CDN from reusing a broken response from an older deploy. Do not remove the `v` query parameter or replace the long-lived media cache rules with unversioned image references.
+
 For code changes, run this from the repository root before pushing:
 
 ```sh
@@ -55,6 +57,13 @@ pnpm audit --audit-level=high
 2. Confirm Netlify still lists `embroideryandthreads.com` as the primary domain and the certificate is active.
 3. Keep the Cloudflare records in the proxy mode Netlify currently validates; do not change nameservers or DNS targets during routine maintenance.
 4. Run `node artifacts/embroidery-site/scripts/check-production.mjs` after any DNS change.
+
+## Missing image incident
+
+1. Confirm the image URL contains a `v` query parameter matching the current deploy.
+2. Open the versioned original image URL and confirm it returns a non-empty image response.
+3. Check the Netlify deploy log for content-validation failures and confirm the source file is not empty.
+4. Run the production monitor. It verifies versioned media metadata and a non-empty logo response.
 
 ## Account security
 

@@ -9,6 +9,7 @@ import X from "lucide-react/dist/esm/icons/x";
 import { Link } from "wouter";
 import InstagramFeed from "@/components/InstagramFeed";
 import OptimizedImage from "@/components/OptimizedImage";
+import PublicImage from "@/components/PublicImage";
 import SiteFooter from "@/components/SiteFooter";
 import siteContent from "@/content/site.json";
 import { usePageMetadata } from "@/hooks/use-page-metadata";
@@ -213,7 +214,7 @@ export default function Home() {
                   <ChevronLeft aria-hidden="true" />
                 </button>
               )}
-              <img src={activeImage.image} alt={activeImage.alt} />
+              <PublicImage src={activeImage.image} alt={activeImage.alt} />
               {activeGallery.images.length > 1 && (
                 <button
                   className="lightbox-arrow lightbox-arrow-next"
@@ -247,7 +248,7 @@ export default function Home() {
             data-testid="nav-logo"
             onClick={closeMenu}
           >
-            <img src="/logo-b.jpg" alt="Embroidery & Threads" />
+            <PublicImage src="/logo-b.jpg" alt="Embroidery & Threads" />
             <span>
               <span className="brand-name">Embroidery & Threads</span>
               <span className="brand-location">Castle Rock, Colorado</span>
@@ -377,7 +378,7 @@ export default function Home() {
                   />
                 </div>
               </div>
-              <img
+              <PublicImage
                 className="hoop-badge"
                 src="/logo-b.jpg"
                 alt="Embroidery & Threads logo"
@@ -522,7 +523,7 @@ export default function Home() {
               {PROCESS_STEPS.map((step, index) => (
                 <article className="process-step" key={step.title} data-reveal>
                   <div className="step-icon">
-                    <img
+                    <PublicImage
                       src={step.icon}
                       alt={step.title}
                       width="150"

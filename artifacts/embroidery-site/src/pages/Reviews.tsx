@@ -3,6 +3,7 @@ import Instagram from "lucide-react/dist/esm/icons/instagram";
 import MapPin from "lucide-react/dist/esm/icons/map-pin";
 import { Link } from "wouter";
 import OptimizedImage from "@/components/OptimizedImage";
+import PublicImage from "@/components/PublicImage";
 import SiteFooter from "@/components/SiteFooter";
 import { usePageMetadata } from "@/hooks/use-page-metadata";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
@@ -36,7 +37,7 @@ export default function Reviews() {
             className="brand-lockup"
             data-testid="reviews-nav-home"
           >
-            <img src="/logo-b.jpg" alt="Embroidery & Threads" />
+            <PublicImage src="/logo-b.jpg" alt="Embroidery & Threads" />
             <span>
               <span className="brand-name">Embroidery & Threads</span>
               <span className="brand-location">Castle Rock, Colorado</span>
@@ -93,7 +94,7 @@ export default function Reviews() {
                     <p>“{review.quote}”</p>
                     {review.reply && (
                       <p className="owner-reply">
-                        <img
+                        <PublicImage
                           src="/logo-b.jpg"
                           alt=""
                           width="150"

@@ -51,6 +51,19 @@ if (!home.body.includes("https://static.cloudflareinsights.com/beacon.min.js")) 
   errors.push("home: Cloudflare Web Analytics beacon is missing.");
 }
 
+const assetVersion = home.body.match(/opengraph\.jpg\?v=([a-zA-Z0-9_-]+)/)?.[1];
+if (!assetVersion) {
+  errors.push("home: deployment-versioned media URLs are missing.");
+} else {
+  const logo = await request(`/logo-b.jpg?v=${assetVersion}`, 200);
+  if (!logo.response?.headers.get("content-type")?.startsWith("image/jpeg")) {
+    errors.push("logo: expected JPEG content type was not returned.");
+  }
+  if (logo.body.length < 1_000) {
+    errors.push("logo: response was unexpectedly empty or truncated.");
+  }
+}
+
 for (const header of ["content-security-policy", "x-content-type-options", "x-frame-options"]) {
   if (!home.response?.headers.get(header)) errors.push(`home: ${header} header is missing.`);
 }
