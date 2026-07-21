@@ -4,21 +4,52 @@ import tls from "node:tls";
 const origin = process.argv[2] ?? "https://embroideryandthreads.com";
 const hostname = new URL(origin).hostname;
 const errors = [];
+const requestAttempts = 3;
+const requestTimeoutMs = 10_000;
 
-async function request(path, expectedStatus) {
-  try {
-    const response = await fetch(new URL(path, origin), {
-      headers: { "user-agent": "EmbroideryAndThreadsProductionMonitor/1.0" },
-      redirect: "follow",
-    });
-    if (response.status !== expectedStatus) {
-      errors.push(`${path}: expected ${expectedStatus}, received ${response.status}.`);
+function sleep(milliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
+function describeError(error) {
+  const message = error instanceof Error ? error.message : String(error);
+  const cause = error?.cause;
+  const causeDetail = cause?.code ?? cause?.message;
+  return causeDetail ? `${message} (${causeDetail})` : message;
+}
+
+async function request(path, expectedStatus, { binary = false } = {}) {
+  let lastFailure = "request failed";
+
+  for (let attempt = 1; attempt <= requestAttempts; attempt += 1) {
+    try {
+      const response = await fetch(new URL(path, origin), {
+        cache: "no-store",
+        headers: {
+          accept: binary ? "image/*" : "text/html,*/*;q=0.8",
+          "user-agent": "EmbroideryAndThreadsProductionMonitor/1.0",
+        },
+        redirect: "follow",
+        signal: AbortSignal.timeout(requestTimeoutMs),
+      });
+      const body = binary
+        ? Buffer.from(await response.arrayBuffer())
+        : await response.text();
+
+      if (response.status === expectedStatus) return { response, body };
+
+      lastFailure = `expected ${expectedStatus}, received ${response.status}`;
+    } catch (error) {
+      lastFailure = describeError(error);
     }
-    return { response, body: await response.text() };
-  } catch (error) {
-    errors.push(`${path}: ${error.message}`);
-    return { response: null, body: "" };
+
+    if (attempt < requestAttempts) await sleep(750 * attempt);
   }
+
+  errors.push(
+    `${path}: ${lastFailure} after ${requestAttempts} attempts.`,
+  );
+  return { response: null, body: binary ? Buffer.alloc(0) : "" };
 }
 
 const home = await request("/", 200);
@@ -55,12 +86,16 @@ const assetVersion = home.body.match(/opengraph\.jpg\?v=([a-zA-Z0-9_-]+)/)?.[1];
 if (!assetVersion) {
   errors.push("home: deployment-versioned media URLs are missing.");
 } else {
-  const logo = await request(`/logo-b.jpg?v=${assetVersion}`, 200);
-  if (!logo.response?.headers.get("content-type")?.startsWith("image/jpeg")) {
-    errors.push("logo: expected JPEG content type was not returned.");
-  }
-  if (logo.body.length < 1_000) {
-    errors.push("logo: response was unexpectedly empty or truncated.");
+  const logo = await request(`/logo-b.jpg?v=${assetVersion}`, 200, {
+    binary: true,
+  });
+  if (logo.response) {
+    if (!logo.response.headers.get("content-type")?.startsWith("image/jpeg")) {
+      errors.push("logo: expected JPEG content type was not returned.");
+    }
+    if (logo.body.length < 1_000) {
+      errors.push("logo: response was unexpectedly empty or truncated.");
+    }
   }
 }
 
