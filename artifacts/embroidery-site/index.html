@@ -157,6 +157,7 @@
       method="POST"
       data-netlify="true"
       data-netlify-honeypot="bot-field"
+      data-netlify-recaptcha="true"
       class="netlify-form-detection"
       aria-hidden="true"
     >
@@ -165,6 +166,7 @@
       <input type="text" name="name" tabindex="-1" />
       <input type="email" name="email" tabindex="-1" />
       <textarea name="message" tabindex="-1"></textarea>
+      <div data-netlify-recaptcha="true"></div>
     </form>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

@@ -41,7 +41,30 @@ test("contact form has usable fields and a non-JavaScript fallback", async ({ pa
   await expect(page.getByLabel("Name", { exact: true })).toBeVisible();
   await expect(page.getByLabel("Email", { exact: true })).toHaveAttribute("type", "email");
   await expect(page.getByLabel("What are you looking for?")).toBeVisible();
+  await expect(form).toHaveAttribute("data-netlify-recaptcha", "true");
+  await expect(form.locator("[data-netlify-recaptcha='true']")).toHaveCount(1);
   await expect(page.getByTestId("contact-form-submit")).toBeEnabled();
+});
+
+test("contact form requires a completed security challenge", async ({ page }) => {
+  let submitted = false;
+  await page.route("/", async (route) => {
+    if (route.request().method() === "POST") submitted = true;
+    await route.continue();
+  });
+
+  await page.goto("/#contact");
+  await page.getByLabel("Name", { exact: true }).fill("Form Test");
+  await page.getByLabel("Email", { exact: true }).fill("test@example.com");
+  await page
+    .getByLabel("What are you looking for?")
+    .fill("Testing CAPTCHA enforcement.");
+  await page.getByTestId("contact-form-submit").click();
+
+  await expect(page.getByTestId("contact-form-status")).toHaveText(
+    "Please complete the security check before sending your message.",
+  );
+  expect(submitted).toBe(false);
 });
 
 test("public images use deployment-versioned URLs and decode successfully", async ({ page }) => {

@@ -64,7 +64,7 @@ export default function Home() {
   const lightboxCloseRef = useRef<HTMLButtonElement>(null);
   const lightboxTriggerRef = useRef<HTMLButtonElement>(null);
   const [formStatus, setFormStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
+    "idle" | "submitting" | "success" | "captcha" | "error"
   >("idle");
 
   usePageMetadata({
@@ -152,6 +152,11 @@ export default function Home() {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
+    if (!formData.get("g-recaptcha-response")) {
+      setFormStatus("captcha");
+      return;
+    }
+
     const body = new URLSearchParams();
 
     formData.forEach((value, key) => {
@@ -165,7 +170,9 @@ export default function Home() {
         body: body.toString(),
       });
 
-      if (!response.ok) throw new Error("Form submission failed");
+      if (!response.ok || response.redirected) {
+        throw new Error("Form submission failed");
+      }
 
       form.reset();
       setFormStatus("success");
@@ -665,6 +672,7 @@ export default function Home() {
                 method="POST"
                 data-netlify="true"
                 data-netlify-honeypot="bot-field"
+                data-netlify-recaptcha="true"
                 onSubmit={handleContactSubmit}
                 data-testid="contact-form"
               >
@@ -716,6 +724,11 @@ export default function Home() {
                   />
                 </label>
 
+                <div
+                  className="netlify-recaptcha"
+                  data-netlify-recaptcha="true"
+                />
+
                 <div className="form-actions">
                   <button
                     type="submit"
@@ -743,6 +756,8 @@ export default function Home() {
                 >
                   {formStatus === "success" &&
                     "Thank you. Your message has been sent."}
+                  {formStatus === "captcha" &&
+                    "Please complete the security check before sending your message."}
                   {formStatus === "error" &&
                     "Your message could not be sent. Please try again or email us directly."}
                 </p>

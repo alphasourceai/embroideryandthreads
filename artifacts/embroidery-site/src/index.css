@@ -1084,6 +1084,12 @@ img {
   margin-top: 6px;
 }
 
+.netlify-recaptcha {
+  min-height: 78px;
+  display: flex;
+  justify-content: center;
+}
+
 .form-status {
   min-height: 22px;
   margin: -4px 0 0;
