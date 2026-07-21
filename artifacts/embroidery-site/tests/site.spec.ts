@@ -42,8 +42,24 @@ test("contact form has usable fields and a non-JavaScript fallback", async ({ pa
   await expect(page.getByLabel("Email", { exact: true })).toHaveAttribute("type", "email");
   await expect(page.getByLabel("What are you looking for?")).toBeVisible();
   await expect(form).toHaveAttribute("data-netlify-recaptcha", "true");
-  await expect(form.locator("[data-netlify-recaptcha='true']")).toHaveCount(1);
+  await expect(page.getByTestId("contact-form-captcha")).toBeVisible();
   await expect(page.getByTestId("contact-form-submit")).toBeEnabled();
+});
+
+test("Netlify's generated CAPTCHA is mounted in the visible form", async ({ page }) => {
+  await page.goto("/#contact");
+  await page.evaluate(() => {
+    const generatedCaptcha = document.createElement("div");
+    generatedCaptcha.className = "g-recaptcha";
+    document.querySelector(".netlify-form-detection")?.append(generatedCaptcha);
+  });
+
+  await expect(
+    page.getByTestId("contact-form-captcha").locator(".g-recaptcha"),
+  ).toHaveCount(1);
+  await expect(
+    page.locator(".netlify-form-detection .g-recaptcha"),
+  ).toHaveCount(0);
 });
 
 test("contact form requires a completed security challenge", async ({ page }) => {

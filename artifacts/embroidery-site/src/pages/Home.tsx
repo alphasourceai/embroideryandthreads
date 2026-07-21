@@ -63,6 +63,7 @@ export default function Home() {
   const lightboxRef = useRef<HTMLDivElement>(null);
   const lightboxCloseRef = useRef<HTMLButtonElement>(null);
   const lightboxTriggerRef = useRef<HTMLButtonElement>(null);
+  const captchaRef = useRef<HTMLDivElement>(null);
   const [formStatus, setFormStatus] = useState<
     "idle" | "submitting" | "success" | "captcha" | "error"
   >("idle");
@@ -144,6 +145,31 @@ export default function Home() {
     };
   }, [lightboxOpen]);
 
+  useEffect(() => {
+    const destination = captchaRef.current;
+    const source = document.querySelector<HTMLElement>(
+      ".netlify-form-detection",
+    );
+    if (!destination || !source) return;
+
+    const mountCaptcha = () => {
+      const captcha = source.querySelector<HTMLElement>(".g-recaptcha");
+      if (!captcha) return false;
+
+      destination.replaceChildren(captcha);
+      return true;
+    };
+
+    if (mountCaptcha()) return;
+
+    const observer = new MutationObserver(() => {
+      if (mountCaptcha()) observer.disconnect();
+    });
+    observer.observe(source, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
+  }, []);
+
   const closeMenu = () => setMenuOpen(false);
 
   const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -175,6 +201,9 @@ export default function Home() {
       }
 
       form.reset();
+      (
+        window as Window & { grecaptcha?: { reset: () => void } }
+      ).grecaptcha?.reset();
       setFormStatus("success");
     } catch {
       setFormStatus("error");
@@ -725,8 +754,9 @@ export default function Home() {
                 </label>
 
                 <div
+                  ref={captchaRef}
                   className="netlify-recaptcha"
-                  data-netlify-recaptcha="true"
+                  data-testid="contact-form-captcha"
                 />
 
                 <div className="form-actions">
