@@ -482,10 +482,7 @@ export default function Home() {
                   </span>
                   <span className="gallery-label">
                     <strong>{gallery.name}</strong>
-                    <span>
-                      {gallery.images.length}{" "}
-                      {gallery.images.length === 1 ? "photo" : "photos"}
-                    </span>
+                    <span>View album</span>
                   </span>
                 </button>
                 );
