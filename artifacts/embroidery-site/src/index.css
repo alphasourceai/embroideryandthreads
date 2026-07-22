@@ -419,12 +419,19 @@ img {
   border-radius: 50%;
 }
 
-.hoop-stitches img {
-  width: 100%;
+.hoop-image-frame {
   aspect-ratio: 1;
+  overflow: hidden;
   border-radius: 50%;
+}
+
+.hoop-image-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center 28%;
+  transform: translate(4%, -4%) scale(1.12);
 }
 
 .hoop-knob {

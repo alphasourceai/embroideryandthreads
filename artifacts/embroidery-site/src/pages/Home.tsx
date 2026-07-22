@@ -456,15 +456,17 @@ export default function Home() {
               <div className="hoop-knob" aria-hidden="true" />
               <div className="hoop-ring">
                 <div className="hoop-stitches">
-                  <OptimizedImage
-                    src={siteContent.hero.image}
-                    alt={siteContent.hero.alt}
-                    width="677"
-                    height="1201"
-                    fetchPriority="high"
-                    widths={[480, 800, 1100]}
-                    sizes="(max-width: 920px) 82vw, 38vw"
-                  />
+                  <div className="hoop-image-frame">
+                    <OptimizedImage
+                      src={siteContent.hero.image}
+                      alt={siteContent.hero.alt}
+                      width="677"
+                      height="1201"
+                      fetchPriority="high"
+                      widths={[480, 800, 1100]}
+                      sizes="(max-width: 920px) 82vw, 38vw"
+                    />
+                  </div>
                 </div>
               </div>
               <PublicImage
