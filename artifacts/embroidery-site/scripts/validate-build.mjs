@@ -123,9 +123,6 @@ for (const [file, titleNeedle, canonical, robotsNeedle] of pages) {
     if (!contactForm || contactForm["data-netlify"] !== "true") {
       errors.push("index.html: Netlify contact form shell is missing.");
     }
-    if (!html.includes("https://static.cloudflareinsights.com/beacon.min.js")) {
-      errors.push("index.html: Cloudflare Web Analytics beacon is missing.");
-    }
   }
 }
 
@@ -150,12 +147,24 @@ for (const file of requiredFiles) {
 }
 
 const assetsDir = path.join(outputDir, "assets");
+let cloudflareBeaconInBundle = false;
 for (const file of await readdir(assetsDir)) {
   const size = (await stat(path.join(assetsDir, file))).size;
-  if (file.endsWith(".js") && size > 350_000)
-    errors.push(`${file}: JavaScript exceeds 350 KB.`);
+  if (file.endsWith(".js")) {
+    if (size > 350_000) errors.push(`${file}: JavaScript exceeds 350 KB.`);
+    const source = await readFile(path.join(assetsDir, file), "utf8");
+    if (
+      source.includes("https://static.cloudflareinsights.com/beacon.min.js")
+    ) {
+      cloudflareBeaconInBundle = true;
+    }
+  }
   if (file.endsWith(".css") && size > 130_000)
     errors.push(`${file}: CSS exceeds 130 KB.`);
+}
+
+if (!cloudflareBeaconInBundle) {
+  errors.push("Cloudflare Web Analytics consent loader is missing.");
 }
 
 if (errors.length) {

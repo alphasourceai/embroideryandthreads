@@ -60,7 +60,8 @@ test("contact form has usable fields and a non-JavaScript fallback", async ({
     page.getByRole("checkbox", {
       name: /Save my inquiry if I leave before sending/,
     }),
-  ).not.toBeChecked();
+  ).toHaveCount(0);
+  await expect(page.getByTestId("privacy-banner")).toBeVisible();
   await expect(form).toHaveAttribute("data-netlify-recaptcha", "true");
   await expect(page.getByTestId("captcha-modal")).toBeHidden();
   await expect(page.getByTestId("contact-form-submit")).toBeEnabled();
@@ -76,13 +77,24 @@ test("anonymous form analytics never include typed contact values", async ({
   });
 
   await page.goto("/#contact");
+  expect(analyticsBodies).toHaveLength(0);
+  await expect(page.locator("#cloudflare-web-analytics")).toHaveCount(0);
+  await page.getByRole("button", { name: "Allow all" }).click();
+  await expect(page.locator("#cloudflare-web-analytics")).toHaveAttribute(
+    "src",
+    "https://static.cloudflareinsights.com/beacon.min.js",
+  );
   await page.getByLabel("Name", { exact: true }).fill("Private Form Name");
   await page.getByLabel("Email", { exact: true }).fill("private@example.com");
   await page.getByLabel("I'm interested in").selectOption("Apparel");
   await page
     .getByLabel("What are you looking for?")
     .fill("Private message content");
-  await page.waitForTimeout(1_100);
+  await expect
+    .poll(() =>
+      analyticsBodies.some((body) => body.includes('"type":"form_progress"')),
+    )
+    .toBe(true);
 
   const transmitted = analyticsBodies.join("\n");
   expect(transmitted).not.toContain("Private Form Name");
@@ -91,7 +103,7 @@ test("anonymous form analytics never include typed contact values", async ({
   expect(transmitted).toContain('"type":"form_progress"');
 });
 
-test("unfinished inquiry contents are saved only after explicit consent", async ({
+test("unfinished inquiry contents are saved only after privacy preference consent", async ({
   page,
 }) => {
   const draftBodies: string[] = [];
@@ -112,14 +124,56 @@ test("unfinished inquiry contents are saved only after explicit consent", async 
     .fill("Saved only by choice");
   expect(draftBodies).toHaveLength(0);
 
-  await page
-    .getByRole("checkbox", {
-      name: /Save my inquiry if I leave before sending/,
-    })
-    .check();
+  await page.getByRole("button", { name: "Configure preferences" }).click();
+  await expect(page.getByTestId("privacy-preferences-dialog")).toBeVisible();
+  await page.getByRole("switch", { name: "Saved inquiry follow-up" }).click();
+  await page.getByRole("button", { name: "Save preferences" }).click();
+  await page.getByLabel("Email", { exact: true }).press("Tab");
   await expect.poll(() => draftBodies.length).toBeGreaterThan(0);
   expect(draftBodies.at(-1)).toContain("consent@example.com");
   expect(draftBodies.at(-1)).toContain('"consent":true');
+});
+
+test("privacy choices can reject optional collection and reopen from the footer", async ({
+  page,
+}) => {
+  const analyticsBodies: string[] = [];
+  const draftBodies: string[] = [];
+  await page.route("**/.netlify/functions/analytics-event", async (route) => {
+    analyticsBodies.push(route.request().postData() ?? "");
+    await route.fulfill({ status: 204, body: "" });
+  });
+  await page.route("**/.netlify/functions/contact-draft", async (route) => {
+    if (route.request().method() === "POST") {
+      draftBodies.push(route.request().postData() ?? "");
+    }
+    await route.fulfill({ status: 204, body: "" });
+  });
+
+  await page.goto("/#contact");
+  await page.getByRole("button", { name: "Configure preferences" }).click();
+  await page.getByRole("button", { name: "Reject optional" }).click();
+  await page.getByLabel("Name", { exact: true }).fill("No Collection");
+  await page.getByLabel("Email", { exact: true }).fill("none@example.com");
+  await page
+    .getByLabel("What are you looking for?")
+    .fill("Do not retain this text");
+  await page.waitForTimeout(1_100);
+
+  expect(analyticsBodies).toHaveLength(0);
+  expect(draftBodies).toHaveLength(0);
+
+  await page
+    .locator("footer")
+    .getByRole("button", { name: "Privacy choices" })
+    .click();
+  await expect(page.getByTestId("privacy-preferences-dialog")).toBeVisible();
+  await expect(
+    page.getByRole("switch", { name: "Site analytics" }),
+  ).not.toBeChecked();
+  await expect(
+    page.getByRole("switch", { name: "Saved inquiry follow-up" }),
+  ).not.toBeChecked();
 });
 
 test("contact deep links settle at the contact section", async ({ page }) => {

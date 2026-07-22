@@ -1,3 +1,5 @@
+import { readPrivacyPreferences } from "@/lib/privacy-preferences";
+
 export type AnalyticsEventName =
   | "page_view"
   | "form_started"
@@ -42,6 +44,15 @@ export function getContactDraftId() {
   return memoryDraftId;
 }
 
+export function clearAnalyticsSessionId() {
+  memorySessionId = "";
+  try {
+    window.sessionStorage.removeItem(SESSION_KEY);
+  } catch {
+    // Storage can be unavailable in restrictive browser contexts.
+  }
+}
+
 function getDeviceType() {
   const width = window.innerWidth;
   const coarse = window.matchMedia("(pointer: coarse)").matches;
@@ -65,12 +76,16 @@ export function trackAnalyticsEvent(
   details: AnalyticsDetails = {},
   useBeacon = false,
 ) {
+  const preferences = readPrivacyPreferences();
+  if (preferences?.analytics !== true) return;
+
   const payload = JSON.stringify({
     id: createOpaqueId(),
     type,
     sessionId: getAnalyticsSessionId(),
     path: window.location.pathname,
-    referrerHost: getReferrerHost(),
+    referrerHost:
+      preferences.marketingAttribution === true ? getReferrerHost() : "",
     device: getDeviceType(),
     ...details,
   });
@@ -96,6 +111,10 @@ export function saveContactDraft(
   consentedAt: string,
   useBeacon = false,
 ) {
+  if (readPrivacyPreferences()?.savedInquiryFollowUp !== true) {
+    return Promise.resolve(false);
+  }
+
   const data = new FormData(form);
   const payload = JSON.stringify({
     id: getContactDraftId(),
@@ -127,10 +146,20 @@ export function saveContactDraft(
 }
 
 export function deleteContactDraft() {
+  let id = memoryDraftId;
+  if (!id) {
+    try {
+      id = window.sessionStorage.getItem(DRAFT_KEY) ?? "";
+    } catch {
+      id = "";
+    }
+  }
+  if (!id) return Promise.resolve(undefined);
+
   return fetch("/.netlify/functions/contact-draft", {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id: getContactDraftId() }),
+    body: JSON.stringify({ id }),
     keepalive: true,
   }).catch(() => undefined);
 }

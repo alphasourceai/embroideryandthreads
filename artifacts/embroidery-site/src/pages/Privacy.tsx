@@ -61,12 +61,14 @@ export default function Privacy() {
           <h2>Optional saved inquiries</h2>
           <p>
             The website does not save the contents of an unfinished form unless
-            you check the optional &ldquo;Save my inquiry if I leave before
-            sending&rdquo; box. If you choose that option, the name, email,
-            project category, and message entered at that time may be securely
-            saved so Embroidery & Threads can follow up. Saved drafts expire
-            after 30 days, are removed when the form is successfully submitted,
-            and can be deleted sooner upon request.
+            you enable &ldquo;Saved inquiry follow-up&rdquo; in Privacy choices.
+            When enabled, a valid name and email address, project category, and
+            message entered in the contact form may be securely saved so
+            Embroidery & Threads can follow up. Saved drafts expire after 30
+            days, are removed when the form is successfully submitted, and can
+            be deleted sooner upon request. Turning this preference off asks the
+            website to delete the saved draft associated with the current
+            browser tab.
           </p>
           <h2>Sharing and marketing</h2>
           <p>
@@ -76,27 +78,38 @@ export default function Privacy() {
           </p>
           <h2>Website analytics</h2>
           <p>
-            The website uses Cloudflare Web Analytics to understand aggregate
-            page visits and site performance. This service does not use cookies
-            or track individual visitors across websites.
+            If you enable &ldquo;Site analytics&rdquo; in Privacy choices, the
+            website uses first-party analytics and Cloudflare Web Analytics to
+            understand aggregate page visits, form progress, and site
+            performance. Cloudflare Web Analytics does not use cookies or track
+            individual visitors across websites.
           </p>
           <p>
-            The website also records first-party page and contact-form funnel
-            events. These records may include the page visited, date and time,
-            referring website, broad device type, a random session identifier,
-            whether the form was started, the number of completed fields, the
-            selected project category, and whether the form was submitted or
-            left unfinished. The analytics record never includes the name, email
-            address, or message typed into an unfinished form unless you
-            separately choose the saved-inquiry option described above.
+            First-party records may include the page visited, date and time,
+            broad device type, a random session identifier, whether the form was
+            started, the number of completed fields, the selected project
+            category, and whether the form was submitted or left unfinished. The
+            referring website is included only when both Site analytics and
+            Marketing attribution are enabled. Analytics records never include
+            the name, email address, or message typed into a form.
           </p>
           <p>
             The random analytics identifier is stored only in the current
             browser tab&apos;s session storage and is not used to follow you
             across websites. The site&apos;s analytics records do not store your
             raw IP address and are automatically deleted after approximately 13
-            months. Because these analytics do not use tracking cookies, the
-            site does not display a cookie-consent banner for them.
+            months.
+          </p>
+          <h2>Privacy choices</h2>
+          <p>
+            Optional analytics, marketing attribution, and saved inquiry
+            follow-up remain off until you make a choice in the site&apos;s
+            privacy banner. Your category selections and the date of your choice
+            are stored in this browser&apos;s local storage so the website can
+            remember them. Essential security, spam prevention, preference
+            storage, and form submission functions remain active. You can reopen
+            Privacy choices from the footer and change these settings at any
+            time.
           </p>
           <h2>Service providers and security</h2>
           <p>

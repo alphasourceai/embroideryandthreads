@@ -8,6 +8,9 @@ import Reviews from "@/pages/Reviews";
 import Privacy from "@/pages/Privacy";
 import Insights from "@/pages/Insights";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
+import CloudflareAnalytics from "@/components/CloudflareAnalytics";
+import PrivacyPreferencesNotice from "@/components/PrivacyPreferencesNotice";
+import { PrivacyPreferencesProvider } from "@/context/PrivacyPreferencesContext";
 
 function Router() {
   return (
@@ -25,16 +28,18 @@ function Router() {
 
 function App() {
   return (
-    <>
+    <PrivacyPreferencesProvider>
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
       <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
         <AnalyticsTracker />
+        <CloudflareAnalytics />
         <Router />
+        <PrivacyPreferencesNotice />
       </WouterRouter>
       <Toaster />
-    </>
+    </PrivacyPreferencesProvider>
   );
 }
 

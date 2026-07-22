@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
+import { usePrivacyPreferences } from "@/context/PrivacyPreferencesContext";
 import { trackAnalyticsEvent } from "@/lib/analytics";
 
 export default function AnalyticsTracker() {
   const [location] = useLocation();
+  const { analyticsEnabled } = usePrivacyPreferences();
 
   useEffect(() => {
-    if (location === "/insights") return;
+    if (!analyticsEnabled || location === "/insights") return;
     trackAnalyticsEvent("page_view");
-  }, [location]);
+  }, [analyticsEnabled, location]);
 
   return null;
 }

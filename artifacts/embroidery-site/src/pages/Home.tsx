@@ -12,6 +12,7 @@ import OptimizedImage from "@/components/OptimizedImage";
 import PublicImage from "@/components/PublicImage";
 import SiteFooter from "@/components/SiteFooter";
 import siteContent from "@/content/site.json";
+import { usePrivacyPreferences } from "@/context/PrivacyPreferencesContext";
 import { usePageMetadata } from "@/hooks/use-page-metadata";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import {
@@ -62,6 +63,8 @@ function SectionHeading({
 }
 
 export default function Home() {
+  const { analyticsEnabled, preferences, savedInquiryFollowUpEnabled } =
+    usePrivacyPreferences();
   const [lightbox, setLightbox] = useState<{
     galleryIndex: number;
     imageIndex: number;
@@ -77,17 +80,15 @@ export default function Home() {
   const contactFormRef = useRef<HTMLFormElement>(null);
   const formStartedRef = useRef(false);
   const formSubmittedRef = useRef(false);
-  const draftConsentRef = useRef(false);
-  const consentedAtRef = useRef("");
+  const savedInquiryFollowUpRef = useRef(savedInquiryFollowUpEnabled);
+  const consentedAtRef = useRef(
+    savedInquiryFollowUpEnabled ? (preferences?.updatedAt ?? "") : "",
+  );
   const progressTimerRef = useRef<number | null>(null);
   const draftTimerRef = useRef<number | null>(null);
   const [captchaOpen, setCaptchaOpen] = useState(false);
-  const [draftConsent, setDraftConsent] = useState(false);
-  const [draftStatus, setDraftStatus] = useState<"idle" | "saving" | "saved">(
-    "idle",
-  );
-  const [analyticsSessionId] = useState(getAnalyticsSessionId);
-  const [draftId] = useState(getContactDraftId);
+  const analyticsSessionId = analyticsEnabled ? getAnalyticsSessionId() : "";
+  const draftId = savedInquiryFollowUpEnabled ? getContactDraftId() : "";
   const [formStatus, setFormStatus] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
@@ -285,20 +286,27 @@ export default function Home() {
 
   const persistDraft = async (useBeacon = false) => {
     const form = contactFormRef.current;
-    if (!form || !draftConsentRef.current || !consentedAtRef.current) return;
+    if (!form || !savedInquiryFollowUpRef.current || !consentedAtRef.current)
+      return;
     const name = form.elements.namedItem("name") as HTMLInputElement | null;
     const email = form.elements.namedItem("email") as HTMLInputElement | null;
     if (!name?.value.trim() || !email?.value.trim() || !email.checkValidity())
       return;
 
-    if (!useBeacon) setDraftStatus("saving");
-    const saved = await saveContactDraft(
-      form,
-      consentedAtRef.current,
-      useBeacon,
-    );
-    if (!useBeacon && saved) setDraftStatus("saved");
+    await saveContactDraft(form, consentedAtRef.current, useBeacon);
   };
+
+  useEffect(() => {
+    savedInquiryFollowUpRef.current = savedInquiryFollowUpEnabled;
+    consentedAtRef.current = savedInquiryFollowUpEnabled
+      ? (preferences?.updatedAt ?? new Date().toISOString())
+      : "";
+
+    if (!savedInquiryFollowUpEnabled) {
+      if (draftTimerRef.current) window.clearTimeout(draftTimerRef.current);
+      void deleteContactDraft();
+    }
+  }, [preferences?.updatedAt, savedInquiryFollowUpEnabled]);
 
   const handleFormActivity = () => {
     if (formSubmittedRef.current) {
@@ -311,24 +319,9 @@ export default function Home() {
       trackAnalyticsEvent("form_progress", formProgress());
     }, 900);
 
-    if (!draftConsentRef.current) return;
-    setDraftStatus("idle");
+    if (!savedInquiryFollowUpRef.current) return;
     if (draftTimerRef.current) window.clearTimeout(draftTimerRef.current);
     draftTimerRef.current = window.setTimeout(() => void persistDraft(), 5_000);
-  };
-
-  const handleDraftConsent = (checked: boolean) => {
-    setDraftConsent(checked);
-    draftConsentRef.current = checked;
-    if (checked) {
-      const timestamp = new Date().toISOString();
-      consentedAtRef.current = timestamp;
-      void persistDraft();
-    } else {
-      consentedAtRef.current = "";
-      setDraftStatus("idle");
-      void deleteContactDraft();
-    }
   };
 
   useEffect(() => {
@@ -336,7 +329,7 @@ export default function Home() {
       if (formStartedRef.current && !formSubmittedRef.current) {
         trackAnalyticsEvent("form_abandoned", formProgress(), true);
       }
-      if (draftConsentRef.current) void persistDraft(true);
+      if (savedInquiryFollowUpRef.current) void persistDraft(true);
     };
     window.addEventListener("pagehide", handlePageHide);
     return () => {
@@ -378,10 +371,6 @@ export default function Home() {
 
       form.reset();
       formSubmittedRef.current = true;
-      draftConsentRef.current = false;
-      consentedAtRef.current = "";
-      setDraftConsent(false);
-      setDraftStatus("idle");
       void deleteContactDraft();
       (
         window as Window & { grecaptcha?: { reset: () => void } }
@@ -880,7 +869,7 @@ export default function Home() {
                 onFocusCapture={recordFormStart}
                 onInput={handleFormActivity}
                 onBlurCapture={() => {
-                  if (draftConsentRef.current) void persistDraft();
+                  if (savedInquiryFollowUpRef.current) void persistDraft();
                 }}
                 data-testid="contact-form"
               >
@@ -960,24 +949,6 @@ export default function Home() {
                     placeholder="Describe your custom order idea — item type, names, colors, occasion..."
                     data-testid="contact-input-message"
                   />
-                </label>
-
-                <label className="draft-consent">
-                  <input
-                    type="checkbox"
-                    checked={draftConsent}
-                    onChange={(event) =>
-                      handleDraftConsent(event.target.checked)
-                    }
-                  />
-                  <span>
-                    <strong>Save my inquiry if I leave before sending</strong>
-                    Your entered contact details will be saved for up to 30 days
-                    so Embroidery & Threads can follow up. This is optional. See
-                    the <Link href="/privacy">Privacy Policy</Link>.
-                    {draftStatus === "saving" && <small> Saving...</small>}
-                    {draftStatus === "saved" && <small> Saved.</small>}
-                  </span>
                 </label>
 
                 <div
