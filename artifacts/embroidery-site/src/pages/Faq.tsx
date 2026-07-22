@@ -11,7 +11,7 @@ export default function Faq() {
   usePageMetadata({
     title: "Custom Embroidery FAQ | Embroidery & Threads Castle Rock",
     description:
-      "Find answers about custom embroidery turnaround, rush orders, local pickup, payment, cancellations, and garment care from Embroidery & Threads in Castle Rock.",
+      "Find answers about custom embroidery pricing, turnaround, rush orders, local pickup, payment, cancellations, and garment care in Castle Rock.",
     path: "/faq",
   });
   useScrollReveal();
@@ -32,7 +32,7 @@ export default function Faq() {
               <span className="brand-location">Castle Rock, Colorado</span>
             </span>
           </Link>
-          <Link href="/" className="reviews-back">
+          <Link href="/" className="reviews-back" aria-label="Back to home">
             <ArrowLeft aria-hidden="true" />
             Back
           </Link>
@@ -48,8 +48,9 @@ export default function Faq() {
             <div className="stitch-horizontal" aria-hidden="true" />
           </div>
           <p className="section-intro" data-reveal>
-            Details about ordering custom embroidery, local pickup, payment,
-            and caring for your finished piece.
+            Details about custom embroidery pricing, ordering, local pickup,
+            payment, and caring for your finished piece. For item-by-item costs,
+            see the <Link href="/pricing">current starting prices</Link>.
           </p>
 
           <dl className="faq-list">

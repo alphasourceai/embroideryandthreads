@@ -337,18 +337,5 @@
       "permalink": "https://www.instagram.com/embroideryandthreads/",
       "caption": "Recent custom embroidery"
     }
-  ],
-  "pricing": {
-    "enabled": false,
-    "eyebrow": "starting points",
-    "title": "Custom Embroidery Pricing",
-    "intro": "Every custom piece is quoted individually based on the item, design, and personalization.",
-    "items": [
-      {
-        "name": "Example service",
-        "price": "Contact for pricing",
-        "description": "Replace this placeholder after pricing is approved."
-      }
-    ]
-  }
+  ]
 }

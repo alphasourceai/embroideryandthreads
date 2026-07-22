@@ -52,9 +52,33 @@ collections:
                 fields:
                   - { label: Image, name: image, widget: image, hint: "Use an original JPG, PNG, or WebP photo at least 1200px wide and no larger than 12 MB." }
                   - { label: Image Description, name: alt, widget: string, hint: "Briefly describe the visible product, wording, and colors. Do not write 'image of.'" }
-          # These values remain in site.json but are intentionally unavailable
-          # in the client editor. Restore the pricing object documented in
-          # docs/client-site-editor.md when the public pricing section is ready.
           - { label: Customer Stories, name: reviews, widget: hidden }
           - { label: Instagram Highlights, name: instagram, widget: hidden }
-          - { label: Pricing, name: pricing, widget: hidden }
+      - label: Price List
+        name: price_list
+        file: artifacts/embroidery-site/src/content/pricing.json
+        format: json
+        fields:
+          - { label: Small Heading, name: eyebrow, widget: string }
+          - { label: Page Title, name: title, widget: string }
+          - { label: Introduction, name: intro, widget: text }
+          - { label: Pricing Disclaimer, name: disclaimer, widget: text, hint: "Explain why a final quote may differ from a starting price." }
+          - { label: Sales Tax Note, name: taxNote, widget: text }
+          - label: Price Categories
+            name: categories
+            widget: list
+            min: 7
+            max: 7
+            summary: "{{fields.name}}"
+            hint: "Keep all seven categories. Open a category to update item names, prices, and optional details."
+            fields:
+              - { label: Category Name, name: name, widget: string }
+              - label: Price Items
+                name: items
+                widget: list
+                min: 1
+                summary: "{{fields.name}} - {{fields.price}}"
+                fields:
+                  - { label: Item or Service, name: name, widget: string }
+                  - { label: Starting Price, name: price, widget: string, hint: "Examples: $32, $15-$35, +$12, or Custom pricing" }
+                  - { label: Optional Details, name: note, widget: string, required: false }

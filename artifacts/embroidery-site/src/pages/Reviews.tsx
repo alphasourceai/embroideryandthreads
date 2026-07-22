@@ -46,6 +46,7 @@ export default function Reviews() {
           <Link
             href="/"
             className="reviews-back"
+            aria-label="Back to home"
             data-testid="reviews-nav-back"
           >
             <ArrowLeft aria-hidden="true" />

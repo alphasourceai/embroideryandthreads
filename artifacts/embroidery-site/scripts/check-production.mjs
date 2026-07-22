@@ -53,6 +53,7 @@ async function request(path, expectedStatus, { binary = false } = {}) {
 }
 
 const home = await request("/", 200);
+const pricing = await request("/pricing", 200);
 const reviews = await request("/reviews", 200);
 const faq = await request("/faq", 200);
 const privacy = await request("/privacy", 200);
@@ -61,6 +62,7 @@ await request(`/monitor-missing-${Date.now()}`, 404);
 
 for (const [name, page, title] of [
   ["home", home, "Custom Embroidery in Castle Rock, CO"],
+  ["pricing", pricing, "Custom Embroidery Pricing"],
   ["reviews", reviews, "Customer Reviews"],
   ["faq", faq, "Custom Embroidery FAQ"],
   ["privacy", privacy, "Privacy Policy"],

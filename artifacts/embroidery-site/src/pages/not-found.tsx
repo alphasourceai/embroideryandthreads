@@ -27,7 +27,7 @@ export default function NotFound() {
               <span className="brand-location">Castle Rock, Colorado</span>
             </span>
           </Link>
-          <Link href="/" className="reviews-back">
+          <Link href="/" className="reviews-back" aria-label="Back to home">
             <ArrowLeft aria-hidden="true" />
             Back
           </Link>

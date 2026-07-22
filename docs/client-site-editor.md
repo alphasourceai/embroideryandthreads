@@ -19,12 +19,13 @@ Identity library is not downloaded during normal public visits.
 
 ## Updating the site
 
-1. Sign in at `/admin/` and open **Page Photos & Galleries**.
-2. Drag a replacement image onto an image field or choose one from the media library.
+1. Sign in at `/admin/` and open **Page Photos & Galleries** or **Price List**.
+2. For photos, drag a replacement image onto an image field or choose one from the media library.
 3. Under **Photo Galleries**, open a gallery to rename it, add photos, remove photos, or drag photos into a new order. The first photo is the cover shown on the home page.
 4. Update every image description so it accurately describes the visible product, wording, and colors.
-5. Select **Publish**. The editor commits the change to GitHub and Netlify automatically rebuilds the site.
-6. Use **View Live** to confirm the published change on the website.
+5. Under **Price List**, open a category to update item names, starting prices, and optional details. Keep all seven categories and at least one item in each category.
+6. Select **Publish**. The editor commits the change to GitHub and Netlify automatically rebuilds the site.
+7. Use **View Live** to confirm the published change on the website.
 
 ## Image requirements
 
@@ -45,39 +46,14 @@ version conflict between Decap CMS and preview-only React components.
 
 ## Hidden content
 
-The client currently sees only **Hero Image**, **Story Image**, and the six **Photo Galleries**.
-Each gallery opens as a photo album on the public site. Keep all six gallery entries, and keep at least one photo in each gallery so every category has a cover.
-Customer stories, Instagram highlights, and pricing remain in `site.json`, but
-their hidden widgets prevent them from appearing in the editor.
+The client can edit **Hero Image**, **Story Image**, the six **Photo Galleries**,
+and the seven **Price List** categories. Each gallery opens as a photo album on
+the public site. Keep all six gallery entries and at least one photo in each
+gallery so every category has a cover. Keep all seven pricing categories and at
+least one price item in each category.
 
-## Enabling pricing controls
-
-When a public pricing section is ready, replace the hidden `pricing` field in
-`artifacts/embroidery-site/public/admin/config.yml` with this object field:
-
-```yml
-- label: Pricing
-  name: pricing
-  widget: object
-  hint: "Pricing remains hidden on the public site until Show Pricing is enabled."
-  fields:
-    - { label: Show Pricing on Website, name: enabled, widget: boolean, default: false }
-    - { label: Small Heading, name: eyebrow, widget: string }
-    - { label: Section Title, name: title, widget: string }
-    - { label: Introduction, name: intro, widget: text }
-    - label: Price Items
-      name: items
-      widget: list
-      min: 1
-      summary: "{{fields.name}} - {{fields.price}}"
-      fields:
-        - { label: Service, name: name, widget: string }
-        - { label: Price, name: price, widget: string, hint: "Examples: $35, Starting at $45, or Contact for pricing" }
-        - { label: Description, name: description, widget: text }
-```
-
-Keep **Show Pricing on Website** disabled until all pricing is approved.
-Enabling it publishes the pricing section during the next Netlify build.
+Customer stories and Instagram highlights remain in `site.json`, but their
+hidden widgets prevent them from appearing in the editor.
 
 ## Operational notes
 

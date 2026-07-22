@@ -11,18 +11,47 @@ const source = await readFile(path.join(outputDir, "index.html"), "utf8");
 const faqItems = JSON.parse(
   await readFile(path.join(appRoot, "src", "content", "faq.json"), "utf8"),
 );
+const pricing = JSON.parse(
+  await readFile(path.join(appRoot, "src", "content", "pricing.json"), "utf8"),
+);
 
 const home = {
   title: "Custom Embroidery in Castle Rock, CO | Embroidery & Threads",
   description:
-    "Shop custom embroidery in Castle Rock, Colorado, including personalized sweatshirts, gifts, stockings, totes, and made-to-order pieces for local pickup.",
+    "Explore custom embroidery and starting prices in Castle Rock, Colorado for personalized sweatshirts, hats, baby gifts, totes, logo embroidery, and local pickup.",
   socialDescription:
-    "Personalized sweatshirts, gifts, stockings, totes, and custom embroidered pieces handmade in Castle Rock, Colorado for local pickup.",
+    "Custom sweatshirts, hats, baby gifts, totes, and logo embroidery handmade in Castle Rock, Colorado, with starting prices and local pickup.",
   url: "https://embroideryandthreads.com/",
   robots: "index, follow, max-image-preview:large",
 };
 
 const pages = [
+  {
+    file: "pricing.html",
+    title: "Custom Embroidery Pricing | Castle Rock, CO",
+    description:
+      "View starting prices for custom embroidered apparel, hats, baby items, gifts, totes, logos, and add-ons from Embroidery & Threads in Castle Rock.",
+    url: "https://embroideryandthreads.com/pricing",
+    robots: home.robots,
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "OfferCatalog",
+      name: "Embroidery & Threads starting prices",
+      url: "https://embroideryandthreads.com/pricing",
+      itemListElement: pricing.categories.flatMap((category) =>
+        category.items.map((item) => ({
+          "@type": "Offer",
+          category: category.name,
+          priceCurrency: "USD",
+          description: `${item.name}: ${item.price}${item.note ? ` - ${item.note}` : ""}`,
+          itemOffered: {
+            "@type": "Service",
+            name: item.name,
+          },
+        })),
+      ),
+    },
+  },
   {
     file: "reviews.html",
     title: "Customer Reviews | Embroidery & Threads Castle Rock",
@@ -35,7 +64,7 @@ const pages = [
     file: "faq.html",
     title: "Custom Embroidery FAQ | Embroidery & Threads Castle Rock",
     description:
-      "Find answers about custom embroidery turnaround, rush orders, local pickup, payment, cancellations, and garment care from Embroidery & Threads in Castle Rock.",
+      "Find answers about custom embroidery pricing, turnaround, rush orders, local pickup, payment, cancellations, and garment care in Castle Rock.",
     url: "https://embroideryandthreads.com/faq",
     robots: home.robots,
     structuredData: {

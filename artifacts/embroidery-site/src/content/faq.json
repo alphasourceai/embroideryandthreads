@@ -1,7 +1,15 @@
 [
   {
     "question": "How long will my custom order take?",
-    "answer": "Standard turnaround is about one week. Rush orders may be available for an additional fee; ask about current availability when you submit your order."
+    "answer": "Standard turnaround is about one week. Rush orders may be available for an additional $10-$20; ask about current availability when you submit your order."
+  },
+  {
+    "question": "How much does custom embroidery cost?",
+    "answer": "Pricing depends on the item and design. Current starting prices include embroidered T-shirts from $32, sweatshirts from $45, hats and beanies from $20, and name embroidery from $15. Review the Pricing page for the full list."
+  },
+  {
+    "question": "Why might my final price differ from the starting price?",
+    "answer": "Final pricing may vary based on design size, stitch count, garment selection, added placements, or rush timing. Custom logos may also require a one-time $15-$35 digitizing fee. You will receive a final total before payment is due."
   },
   {
     "question": "What area do you serve?",
@@ -17,7 +25,7 @@
   },
   {
     "question": "When is payment due, and which payment methods are accepted?",
-    "answer": "Payment is due when the order is placed. Venmo, Zelle, and cash are currently accepted."
+    "answer": "Payment is due when the order is placed. Venmo, Zelle, and cash are currently accepted. Applicable sales tax is added at checkout."
   },
   {
     "question": "Can I cancel or return a personalized order?",

@@ -26,7 +26,7 @@ export default function Privacy() {
               <span className="brand-location">Castle Rock, Colorado</span>
             </span>
           </Link>
-          <Link href="/" className="reviews-back">
+          <Link href="/" className="reviews-back" aria-label="Back to home">
             <ArrowLeft aria-hidden="true" />
             Back
           </Link>
@@ -40,12 +40,13 @@ export default function Privacy() {
         tabIndex={-1}
       >
         <article className="content-wrap privacy-content">
-          <p className="overline">Last updated July 21, 2026</p>
+          <p className="overline">Last updated July 22, 2026</p>
           <h1>Privacy Policy</h1>
           <p>
-            Embroidery & Threads collects the name, email address, and message
-            you choose to submit through the contact form. This information is
-            used to respond to your inquiry and manage a potential custom order.
+            Embroidery & Threads collects the name, email address, project
+            category, and message you choose to submit through the contact form.
+            This information is used to respond to your inquiry and manage a
+            potential custom order.
           </p>
           <h2>How submissions are handled</h2>
           <p>

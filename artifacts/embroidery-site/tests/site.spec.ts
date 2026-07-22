@@ -3,6 +3,7 @@ import { expect, test } from "@playwright/test";
 
 const publicPages = [
   ["home", "/", /Sewn into/],
+  ["pricing", "/pricing", /Custom Embroidery Pricing/],
   ["reviews", "/reviews", /Customer Stories/],
   ["faq", "/faq", /Frequently Asked Questions/],
   ["privacy", "/privacy", /Privacy Policy/],
@@ -40,10 +41,54 @@ test("contact form has usable fields and a non-JavaScript fallback", async ({ pa
   await expect(form).toHaveAttribute("method", "POST");
   await expect(page.getByLabel("Name", { exact: true })).toBeVisible();
   await expect(page.getByLabel("Email", { exact: true })).toHaveAttribute("type", "email");
+  await expect(page.getByLabel("I'm interested in")).toBeVisible();
+  await expect(page.getByLabel("I'm interested in")).toHaveAttribute("required", "");
   await expect(page.getByLabel("What are you looking for?")).toBeVisible();
   await expect(form).toHaveAttribute("data-netlify-recaptcha", "true");
   await expect(page.getByTestId("captcha-modal")).toBeHidden();
   await expect(page.getByTestId("contact-form-submit")).toBeEnabled();
+});
+
+test("contact deep links settle at the contact section", async ({ page }) => {
+  await page.goto("/#contact");
+
+  await expect
+    .poll(() =>
+      page.locator("#contact").evaluate((section) =>
+        Math.round(section.getBoundingClientRect().top),
+      ),
+    )
+    .toBeGreaterThanOrEqual(60);
+  await expect
+    .poll(() =>
+      page.locator("#contact").evaluate((section) =>
+        Math.round(section.getBoundingClientRect().top),
+      ),
+    )
+    .toBeLessThanOrEqual(130);
+});
+
+test("pricing page presents every approved category and a clear order path", async ({ page }) => {
+  await page.goto("/pricing");
+
+  for (const heading of [
+    "Apparel",
+    "Baby & Kids",
+    "Gifts & Personalized",
+    "Matching & Gift Sets",
+    "Bags & Totes",
+    "Custom Embroidery",
+    "Add-ons",
+  ]) {
+    await expect(page.getByRole("heading", { level: 2, name: heading })).toBeVisible();
+  }
+
+  await expect(page.getByText("$15-$35", { exact: true })).toBeVisible();
+  await expect(page.getByText("+$10-$20", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Request an Order" })).toHaveAttribute(
+    "href",
+    "/#contact",
+  );
 });
 
 test("Netlify's generated CAPTCHA is mounted in the visible form", async ({ page }) => {
@@ -72,6 +117,7 @@ test("contact form opens its security challenge only when submitted", async ({ p
   await page.goto("/#contact");
   await page.getByLabel("Name", { exact: true }).fill("Form Test");
   await page.getByLabel("Email", { exact: true }).fill("test@example.com");
+  await page.getByLabel("I'm interested in").selectOption("Apparel");
   await page
     .getByLabel("What are you looking for?")
     .fill("Testing CAPTCHA enforcement.");
@@ -102,6 +148,7 @@ test("contact form submits automatically after the security challenge", async ({
   });
   await page.getByLabel("Name", { exact: true }).fill("Form Test");
   await page.getByLabel("Email", { exact: true }).fill("test@example.com");
+  await page.getByLabel("I'm interested in").selectOption("Apparel");
   await page
     .getByLabel("What are you looking for?")
     .fill("Testing modal CAPTCHA submission.");

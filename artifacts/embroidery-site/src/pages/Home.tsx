@@ -75,10 +75,28 @@ export default function Home() {
   usePageMetadata({
     title: "Custom Embroidery in Castle Rock, CO | Embroidery & Threads",
     description:
-      "Shop custom embroidery in Castle Rock, Colorado, including personalized sweatshirts, gifts, stockings, totes, and made-to-order pieces for local pickup.",
+      "Explore custom embroidery and starting prices in Castle Rock, Colorado for personalized sweatshirts, hats, baby gifts, totes, logo embroidery, and local pickup.",
     path: "/",
   });
   useScrollReveal();
+
+  useEffect(() => {
+    const scrollToHash = () => {
+      const id = window.location.hash.slice(1);
+      if (!id) return;
+      document.getElementById(decodeURIComponent(id))?.scrollIntoView();
+    };
+
+    const frame = window.requestAnimationFrame(scrollToHash);
+    const settledLayout = window.setTimeout(scrollToHash, 500);
+    window.addEventListener("hashchange", scrollToHash);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(settledLayout);
+      window.removeEventListener("hashchange", scrollToHash);
+    };
+  }, []);
 
   const lightboxOpen = lightbox !== null;
   const activeGallery = lightbox
@@ -352,6 +370,7 @@ export default function Home() {
               Gallery
             </a>
             <a href="#process">How It Works</a>
+            <Link href="/pricing">Pricing</Link>
             <Link href="/reviews" data-testid="nav-link-reviews">
               Reviews
             </Link>
@@ -394,6 +413,9 @@ export default function Home() {
             <a href="#process" onClick={closeMenu}>
               How It Works
             </a>
+            <Link href="/pricing" onClick={closeMenu}>
+              Pricing
+            </Link>
             <Link href="/reviews" onClick={closeMenu}>
               Reviews
             </Link>
@@ -628,6 +650,14 @@ export default function Home() {
                 </article>
               ))}
             </div>
+            <div className="centered-action" data-reveal>
+              <Link
+                href="/pricing"
+                className="stitched-button stitched-button-ghost"
+              >
+                View Starting Prices
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -676,31 +706,6 @@ export default function Home() {
 
         <InstagramFeed posts={siteContent.instagram} />
 
-        {siteContent.pricing.enabled && (
-          <section id="pricing" className="storybook-section pricing-section">
-            <div className="content-wrap">
-              <SectionHeading
-                eyebrow={siteContent.pricing.eyebrow}
-                title={siteContent.pricing.title}
-              />
-              <p className="section-intro" data-reveal>
-                {siteContent.pricing.intro}
-              </p>
-              <div className="pricing-grid">
-                {siteContent.pricing.items.map((item) => (
-                  <article className="pricing-item" key={item.name} data-reveal>
-                    <div>
-                      <h3>{item.name}</h3>
-                      <p>{item.description}</p>
-                    </div>
-                    <strong>{item.price}</strong>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
         <section id="contact" className="storybook-section contact-section">
           <div className="scallop scallop-top" aria-hidden="true" />
           <div className="content-wrap">
@@ -715,7 +720,8 @@ export default function Home() {
               </h2>
               <p className="contact-intro">
                 Whether you have a specific design in mind or just want to
-                explore options, I'd love to hear from you.
+                explore options, I'd love to hear from you. You can also{" "}
+                <Link href="/pricing">review starting prices</Link> first.
               </p>
 
               <div className="contact-methods">
@@ -797,6 +803,30 @@ export default function Home() {
                     />
                   </label>
                 </div>
+
+                <label>
+                  <span>I'm interested in</span>
+                  <select name="category" required defaultValue="">
+                    <option value="" disabled>
+                      Choose a project type
+                    </option>
+                    <option value="Apparel">Apparel</option>
+                    <option value="Baby and Kids">Baby and Kids</option>
+                    <option value="Gifts and Personalized">
+                      Gifts and Personalized
+                    </option>
+                    <option value="Matching and Gift Sets">
+                      Matching and Gift Sets
+                    </option>
+                    <option value="Bags and Totes">Bags and Totes</option>
+                    <option value="Custom Logo or Business">
+                      Custom Logo or Business
+                    </option>
+                    <option value="Not Sure or Something Else">
+                      Not Sure or Something Else
+                    </option>
+                  </select>
+                </label>
 
                 <label>
                   <span>What are you looking for?</span>

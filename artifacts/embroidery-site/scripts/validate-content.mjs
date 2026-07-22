@@ -7,6 +7,8 @@ const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const publicDir = path.join(appRoot, "public");
 const contentPath = path.join(appRoot, "src", "content", "site.json");
 const content = JSON.parse(await readFile(contentPath, "utf8"));
+const pricingPath = path.join(appRoot, "src", "content", "pricing.json");
+const pricing = JSON.parse(await readFile(pricingPath, "utf8"));
 const errors = [];
 const maxBytes = 12 * 1024 * 1024;
 const allowedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp"]);
@@ -14,6 +16,48 @@ const allowedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp"]);
 const gallery = Array.isArray(content.gallery) ? content.gallery : [];
 if (!Array.isArray(content.gallery) || content.gallery.length !== 6) {
   errors.push("Gallery: include exactly six galleries.");
+}
+
+const pricingCategories = Array.isArray(pricing.categories)
+  ? pricing.categories
+  : [];
+if (pricingCategories.length !== 7) {
+  errors.push("Pricing: include exactly seven categories.");
+}
+
+const pricingNames = new Set();
+for (const [categoryIndex, category] of pricingCategories.entries()) {
+  const categoryName =
+    typeof category?.name === "string" ? category.name.trim() : "";
+  if (!categoryName) {
+    errors.push(`Pricing category ${categoryIndex + 1}: name is required.`);
+  }
+  if (pricingNames.has(categoryName.toLowerCase())) {
+    errors.push(
+      `Pricing category ${categoryIndex + 1}: category names must be unique.`,
+    );
+  }
+  pricingNames.add(categoryName.toLowerCase());
+
+  if (!Array.isArray(category?.items) || category.items.length < 1) {
+    errors.push(
+      `Pricing category ${categoryIndex + 1}: include at least one item.`,
+    );
+    continue;
+  }
+
+  for (const [itemIndex, item] of category.items.entries()) {
+    if (typeof item?.name !== "string" || !item.name.trim()) {
+      errors.push(
+        `Pricing category ${categoryIndex + 1}, item ${itemIndex + 1}: name is required.`,
+      );
+    }
+    if (typeof item?.price !== "string" || !item.price.trim()) {
+      errors.push(
+        `Pricing category ${categoryIndex + 1}, item ${itemIndex + 1}: price is required.`,
+      );
+    }
+  }
 }
 
 const galleryNames = new Set();
@@ -87,5 +131,5 @@ if (errors.length) {
 }
 
 console.log(
-  `Validated ${gallery.length} galleries and ${images.length} editable images and descriptions.`,
+  `Validated ${gallery.length} galleries, ${pricingCategories.length} pricing categories, and ${images.length} editable images and descriptions.`,
 );
