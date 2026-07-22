@@ -8,7 +8,7 @@ export default function Privacy() {
   usePageMetadata({
     title: "Privacy Policy | Embroidery & Threads",
     description:
-      "Learn how Embroidery & Threads handles information submitted through its custom embroidery inquiry form.",
+      "Learn how Embroidery & Threads handles inquiry information, saved drafts, and privacy-friendly website analytics.",
     path: "/privacy",
   });
 
@@ -43,17 +43,30 @@ export default function Privacy() {
           <p className="overline">Last updated July 22, 2026</p>
           <h1>Privacy Policy</h1>
           <p>
-            Embroidery & Threads collects the name, email address, project
-            category, and message you choose to submit through the contact form.
-            This information is used to respond to your inquiry and manage a
-            potential custom order.
+            Embroidery & Threads collects information needed to respond to
+            inquiries, manage custom orders, understand website use, and improve
+            the ordering experience. The sections below explain when information
+            is collected and how long it is kept.
           </p>
-          <h2>How submissions are handled</h2>
+          <h2>Submitted inquiries</h2>
           <p>
-            Netlify processes and stores form submissions and may send email
-            notifications to Embroidery & Threads. Information is retained only
-            as long as reasonably necessary to respond to inquiries, manage
-            orders, and maintain appropriate business records.
+            When you send the contact form, Embroidery & Threads receives the
+            name, email address, project category, and message you provide.
+            Netlify processes and stores the submission and may send an email
+            notification. A working copy may be retained for up to 24 months to
+            respond, manage orders, measure inquiry results, and maintain
+            appropriate business records. Netlify&apos;s form records may be
+            retained separately as needed for those purposes.
+          </p>
+          <h2>Optional saved inquiries</h2>
+          <p>
+            The website does not save the contents of an unfinished form unless
+            you check the optional &ldquo;Save my inquiry if I leave before
+            sending&rdquo; box. If you choose that option, the name, email,
+            project category, and message entered at that time may be securely
+            saved so Embroidery & Threads can follow up. Saved drafts expire
+            after 30 days, are removed when the form is successfully submitted,
+            and can be deleted sooner upon request.
           </p>
           <h2>Sharing and marketing</h2>
           <p>
@@ -67,18 +80,45 @@ export default function Privacy() {
             page visits and site performance. This service does not use cookies
             or track individual visitors across websites.
           </p>
+          <p>
+            The website also records first-party page and contact-form funnel
+            events. These records may include the page visited, date and time,
+            referring website, broad device type, a random session identifier,
+            whether the form was started, the number of completed fields, the
+            selected project category, and whether the form was submitted or
+            left unfinished. The analytics record never includes the name, email
+            address, or message typed into an unfinished form unless you
+            separately choose the saved-inquiry option described above.
+          </p>
+          <p>
+            The random analytics identifier is stored only in the current
+            browser tab&apos;s session storage and is not used to follow you
+            across websites. The site&apos;s analytics records do not store your
+            raw IP address and are automatically deleted after approximately 13
+            months. Because these analytics do not use tracking cookies, the
+            site does not display a cookie-consent banner for them.
+          </p>
+          <h2>Service providers and security</h2>
+          <p>
+            Netlify hosts the website, processes forms, runs website functions,
+            manages authorized dashboard access, and stores analytics and lead
+            records. Stored records are access-controlled, and the private
+            insights page requires an authorized account. Cloudflare provides
+            traffic analytics and domain services. These providers process data
+            only as needed to operate the website and its supporting services.
+          </p>
           <h2>Spam prevention</h2>
           <p>
-            The contact form is protected by Google reCAPTCHA to reduce spam
-            and abuse. Google&apos;s{" "}
-            <a href="https://policies.google.com/privacy">Privacy Policy</a>
-            {" "}and{" "}
-            <a href="https://policies.google.com/terms">Terms of Service</a>
-            {" "}apply.
+            The contact form is protected by Google reCAPTCHA to reduce spam and
+            abuse. Google&apos;s{" "}
+            <a href="https://policies.google.com/privacy">Privacy Policy</a> and{" "}
+            <a href="https://policies.google.com/terms">Terms of Service</a>{" "}
+            apply.
           </p>
           <h2>Contact</h2>
           <p>
-            Questions or requests about your information can be sent to{" "}
+            Questions, requests to access or correct information, or requests to
+            delete a submitted inquiry or saved draft can be sent to{" "}
             <a href="mailto:embroideryandthreads@gmail.com">
               embroideryandthreads@gmail.com
             </a>

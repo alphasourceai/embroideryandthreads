@@ -6,6 +6,29 @@
   NODE_VERSION = "24"
   VITE_NETLIFY_IMAGE_CDN = "true"
 
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/insights"
+  to = "/insights.html"
+  status = 200
+
+[[redirects]]
+  from = "/insights/"
+  to = "/insights.html"
+  status = 200
+
+[[redirects]]
+  from = "/pricing"
+  to = "/pricing.html"
+  status = 200
+
+[[redirects]]
+  from = "/pricing/"
+  to = "/pricing.html"
+  status = 200
+
 [[redirects]]
   from = "/reviews"
   to = "/reviews.html"
@@ -96,6 +119,12 @@
     X-Robots-Tag = "noindex, nofollow"
     Cache-Control = "no-store"
     Content-Security-Policy = "default-src 'self'; base-uri 'self'; connect-src 'self' https://*.netlify.app https://*.netlify.com https://api.netlify.com https://api.github.com; font-src 'self' https://fonts.gstatic.com data:; form-action 'self'; frame-ancestors 'none'; frame-src 'self' https://*.netlify.com https://*.netlify.app; img-src 'self' data: blob: https:; manifest-src 'self'; media-src 'self' blob:; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; worker-src 'self' blob:; upgrade-insecure-requests"
+
+[[headers]]
+  for = "/insights*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "private, no-store, max-age=0"
 
 [[headers]]
   for = "/404.html"

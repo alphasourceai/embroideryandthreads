@@ -3,17 +3,56 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse } from "parse5";
 
-const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const appRoot = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+);
 const outputDir = path.join(appRoot, "dist", "public");
 const errors = [];
 
 const pages = [
-  ["index.html", "Custom Embroidery in Castle Rock, CO", "https://embroideryandthreads.com/", "index"],
-  ["pricing.html", "Custom Embroidery Pricing", "https://embroideryandthreads.com/pricing", "index"],
-  ["reviews.html", "Customer Reviews", "https://embroideryandthreads.com/reviews", "index"],
-  ["faq.html", "Custom Embroidery FAQ", "https://embroideryandthreads.com/faq", "index"],
-  ["privacy.html", "Privacy Policy", "https://embroideryandthreads.com/privacy", "index"],
-  ["404.html", "Page Not Found", "https://embroideryandthreads.com/404", "noindex"],
+  [
+    "index.html",
+    "Custom Embroidery in Castle Rock, CO",
+    "https://embroideryandthreads.com/",
+    "index",
+  ],
+  [
+    "pricing.html",
+    "Custom Embroidery Pricing",
+    "https://embroideryandthreads.com/pricing",
+    "index",
+  ],
+  [
+    "reviews.html",
+    "Customer Reviews",
+    "https://embroideryandthreads.com/reviews",
+    "index",
+  ],
+  [
+    "faq.html",
+    "Custom Embroidery FAQ",
+    "https://embroideryandthreads.com/faq",
+    "index",
+  ],
+  [
+    "privacy.html",
+    "Privacy Policy",
+    "https://embroideryandthreads.com/privacy",
+    "index",
+  ],
+  [
+    "insights.html",
+    "Site Insights",
+    "https://embroideryandthreads.com/insights",
+    "noindex",
+  ],
+  [
+    "404.html",
+    "Page Not Found",
+    "https://embroideryandthreads.com/404",
+    "noindex",
+  ],
 ];
 
 function walk(node, visit) {
@@ -22,7 +61,9 @@ function walk(node, visit) {
 }
 
 function attributes(node) {
-  return Object.fromEntries((node.attrs ?? []).map(({ name, value }) => [name, value]));
+  return Object.fromEntries(
+    (node.attrs ?? []).map(({ name, value }) => [name, value]),
+  );
 }
 
 for (const [file, titleNeedle, canonical, robotsNeedle] of pages) {
@@ -35,22 +76,30 @@ for (const [file, titleNeedle, canonical, robotsNeedle] of pages) {
 
   walk(document, (node) => {
     if (node.tagName === "title") {
-      title = (node.childNodes ?? []).map((child) => child.value ?? "").join("");
+      title = (node.childNodes ?? [])
+        .map((child) => child.value ?? "")
+        .join("");
     }
     if (node.tagName === "meta") metas.push(attributes(node));
     if (node.tagName === "link") links.push(attributes(node));
     if (node.tagName === "form") forms.push(attributes(node));
   });
 
-  const description = metas.find((meta) => meta.name === "description")?.content;
+  const description = metas.find(
+    (meta) => meta.name === "description",
+  )?.content;
   const robots = metas.find((meta) => meta.name === "robots")?.content;
   const canonicalHref = links.find((link) => link.rel === "canonical")?.href;
 
   if (!title.includes(titleNeedle)) errors.push(`${file}: unexpected title.`);
-  if (!description || description.length < 70) errors.push(`${file}: missing or short description.`);
-  if (canonicalHref !== canonical) errors.push(`${file}: canonical URL is incorrect.`);
-  if (!robots?.includes(robotsNeedle)) errors.push(`${file}: robots directive is incorrect.`);
-  if (/replit/i.test(html)) errors.push(`${file}: contains Replit placeholder metadata.`);
+  if (!description || description.length < 70)
+    errors.push(`${file}: missing or short description.`);
+  if (canonicalHref !== canonical)
+    errors.push(`${file}: canonical URL is incorrect.`);
+  if (!robots?.includes(robotsNeedle))
+    errors.push(`${file}: robots directive is incorrect.`);
+  if (/replit/i.test(html))
+    errors.push(`${file}: contains Replit placeholder metadata.`);
   if (html.includes("__ASSET_VERSION__")) {
     errors.push(`${file}: unresolved public asset version placeholder.`);
   }
@@ -64,7 +113,9 @@ for (const [file, titleNeedle, canonical, robotsNeedle] of pages) {
   }
 
   if (file === "index.html") {
-    const socialImage = metas.find((meta) => meta.property === "og:image")?.content;
+    const socialImage = metas.find(
+      (meta) => meta.property === "og:image",
+    )?.content;
     if (!socialImage?.includes("opengraph.jpg?v=")) {
       errors.push("index.html: social image is not deployment-versioned.");
     }
@@ -101,8 +152,10 @@ for (const file of requiredFiles) {
 const assetsDir = path.join(outputDir, "assets");
 for (const file of await readdir(assetsDir)) {
   const size = (await stat(path.join(assetsDir, file))).size;
-  if (file.endsWith(".js") && size > 350_000) errors.push(`${file}: JavaScript exceeds 350 KB.`);
-  if (file.endsWith(".css") && size > 130_000) errors.push(`${file}: CSS exceeds 130 KB.`);
+  if (file.endsWith(".js") && size > 350_000)
+    errors.push(`${file}: JavaScript exceeds 350 KB.`);
+  if (file.endsWith(".css") && size > 130_000)
+    errors.push(`${file}: CSS exceeds 130 KB.`);
 }
 
 if (errors.length) {
@@ -110,4 +163,6 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log("Validated metadata, form detection, required files, and asset budgets.");
+console.log(
+  "Validated metadata, form detection, required files, and asset budgets.",
+);

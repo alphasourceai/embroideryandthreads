@@ -2,10 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
       if (
         /#(?:invite|confirmation|recovery|email_change)_token=/.test(
@@ -137,8 +134,17 @@
         ]
       }
     </script>
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=__ASSET_VERSION__" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=__ASSET_VERSION__" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/favicon-32x32.png?v=__ASSET_VERSION__"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-touch-icon.png?v=__ASSET_VERSION__"
+    />
     <link rel="manifest" href="/site.webmanifest?v=__ASSET_VERSION__" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -163,6 +169,8 @@
       aria-hidden="true"
     >
       <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="analytics-session-id" />
+      <input type="hidden" name="saved-draft-id" />
       <input name="bot-field" tabindex="-1" />
       <input type="text" name="name" tabindex="-1" />
       <input type="email" name="email" tabindex="-1" />

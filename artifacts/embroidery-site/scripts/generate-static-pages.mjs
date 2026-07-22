@@ -84,9 +84,17 @@ const pages = [
     file: "privacy.html",
     title: "Privacy Policy | Embroidery & Threads",
     description:
-      "Learn how Embroidery & Threads handles information submitted through its custom embroidery inquiry form.",
+      "Learn how Embroidery & Threads handles inquiry information, saved drafts, and privacy-friendly website analytics.",
     url: "https://embroideryandthreads.com/privacy",
     robots: home.robots,
+  },
+  {
+    file: "insights.html",
+    title: "Site Insights | Embroidery & Threads",
+    description:
+      "Private website analytics and inquiry management for authorized Embroidery & Threads administrators.",
+    url: "https://embroideryandthreads.com/insights",
+    robots: "noindex, nofollow",
   },
   {
     file: "404.html",

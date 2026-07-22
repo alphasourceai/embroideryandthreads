@@ -6,6 +6,8 @@ import Faq from "@/pages/Faq";
 import Pricing from "@/pages/Pricing";
 import Reviews from "@/pages/Reviews";
 import Privacy from "@/pages/Privacy";
+import Insights from "@/pages/Insights";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 
 function Router() {
   return (
@@ -15,6 +17,7 @@ function Router() {
       <Route path="/pricing" component={Pricing} />
       <Route path="/faq" component={Faq} />
       <Route path="/privacy" component={Privacy} />
+      <Route path="/insights" component={Insights} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -27,6 +30,7 @@ function App() {
         Skip to content
       </a>
       <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+        <AnalyticsTracker />
         <Router />
       </WouterRouter>
       <Toaster />

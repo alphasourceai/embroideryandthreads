@@ -13,7 +13,9 @@ const publicPages = [
 for (const [name, path, heading] of publicPages) {
   test(`${name} page is accessible and fits the viewport`, async ({ page }) => {
     await page.goto(path);
-    await expect(page.getByRole("heading", { level: 1, name: heading })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 1, name: heading }),
+    ).toBeVisible();
     await page.addStyleTag({
       content:
         "*,*::before,*::after{animation:none!important;transition:none!important}[data-reveal]{opacity:1!important;transform:none!important}",
@@ -28,25 +30,96 @@ for (const [name, path, heading] of publicPages) {
     expect(seriousViolations).toEqual([]);
 
     const overflow = await page.evaluate(
-      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      () =>
+        document.documentElement.scrollWidth -
+        document.documentElement.clientWidth,
     );
     expect(overflow).toBeLessThanOrEqual(1);
   });
 }
 
-test("contact form has usable fields and a non-JavaScript fallback", async ({ page }) => {
+test("contact form has usable fields and a non-JavaScript fallback", async ({
+  page,
+}) => {
   await page.goto("/#contact");
   const form = page.getByTestId("contact-form");
   await expect(form).toHaveAttribute("name", "contact");
   await expect(form).toHaveAttribute("method", "POST");
   await expect(page.getByLabel("Name", { exact: true })).toBeVisible();
-  await expect(page.getByLabel("Email", { exact: true })).toHaveAttribute("type", "email");
+  await expect(page.getByLabel("Email", { exact: true })).toHaveAttribute(
+    "type",
+    "email",
+  );
   await expect(page.getByLabel("I'm interested in")).toBeVisible();
-  await expect(page.getByLabel("I'm interested in")).toHaveAttribute("required", "");
+  await expect(page.getByLabel("I'm interested in")).toHaveAttribute(
+    "required",
+    "",
+  );
   await expect(page.getByLabel("What are you looking for?")).toBeVisible();
+  await expect(
+    page.getByRole("checkbox", {
+      name: /Save my inquiry if I leave before sending/,
+    }),
+  ).not.toBeChecked();
   await expect(form).toHaveAttribute("data-netlify-recaptcha", "true");
   await expect(page.getByTestId("captcha-modal")).toBeHidden();
   await expect(page.getByTestId("contact-form-submit")).toBeEnabled();
+});
+
+test("anonymous form analytics never include typed contact values", async ({
+  page,
+}) => {
+  const analyticsBodies: string[] = [];
+  await page.route("**/.netlify/functions/analytics-event", async (route) => {
+    analyticsBodies.push(route.request().postData() ?? "");
+    await route.fulfill({ status: 204, body: "" });
+  });
+
+  await page.goto("/#contact");
+  await page.getByLabel("Name", { exact: true }).fill("Private Form Name");
+  await page.getByLabel("Email", { exact: true }).fill("private@example.com");
+  await page.getByLabel("I'm interested in").selectOption("Apparel");
+  await page
+    .getByLabel("What are you looking for?")
+    .fill("Private message content");
+  await page.waitForTimeout(1_100);
+
+  const transmitted = analyticsBodies.join("\n");
+  expect(transmitted).not.toContain("Private Form Name");
+  expect(transmitted).not.toContain("private@example.com");
+  expect(transmitted).not.toContain("Private message content");
+  expect(transmitted).toContain('"type":"form_progress"');
+});
+
+test("unfinished inquiry contents are saved only after explicit consent", async ({
+  page,
+}) => {
+  const draftBodies: string[] = [];
+  await page.route("**/.netlify/functions/contact-draft", async (route) => {
+    draftBodies.push(route.request().postData() ?? "");
+    await route.fulfill({
+      status: 202,
+      contentType: "application/json",
+      body: JSON.stringify({ saved: true }),
+    });
+  });
+
+  await page.goto("/#contact");
+  await page.getByLabel("Name", { exact: true }).fill("Consent Test");
+  await page.getByLabel("Email", { exact: true }).fill("consent@example.com");
+  await page
+    .getByLabel("What are you looking for?")
+    .fill("Saved only by choice");
+  expect(draftBodies).toHaveLength(0);
+
+  await page
+    .getByRole("checkbox", {
+      name: /Save my inquiry if I leave before sending/,
+    })
+    .check();
+  await expect.poll(() => draftBodies.length).toBeGreaterThan(0);
+  expect(draftBodies.at(-1)).toContain("consent@example.com");
+  expect(draftBodies.at(-1)).toContain('"consent":true');
 });
 
 test("contact deep links settle at the contact section", async ({ page }) => {
@@ -54,21 +127,23 @@ test("contact deep links settle at the contact section", async ({ page }) => {
 
   await expect
     .poll(() =>
-      page.locator("#contact").evaluate((section) =>
-        Math.round(section.getBoundingClientRect().top),
-      ),
+      page
+        .locator("#contact")
+        .evaluate((section) => Math.round(section.getBoundingClientRect().top)),
     )
     .toBeGreaterThanOrEqual(60);
   await expect
     .poll(() =>
-      page.locator("#contact").evaluate((section) =>
-        Math.round(section.getBoundingClientRect().top),
-      ),
+      page
+        .locator("#contact")
+        .evaluate((section) => Math.round(section.getBoundingClientRect().top)),
     )
     .toBeLessThanOrEqual(130);
 });
 
-test("pricing page presents every approved category and a clear order path", async ({ page }) => {
+test("pricing page presents every approved category and a clear order path", async ({
+  page,
+}) => {
   await page.goto("/pricing");
 
   for (const heading of [
@@ -80,18 +155,21 @@ test("pricing page presents every approved category and a clear order path", asy
     "Custom Embroidery",
     "Add-ons",
   ]) {
-    await expect(page.getByRole("heading", { level: 2, name: heading })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 2, name: heading }),
+    ).toBeVisible();
   }
 
   await expect(page.getByText("$15-$35", { exact: true })).toBeVisible();
   await expect(page.getByText("+$10-$20", { exact: true })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Request an Order" })).toHaveAttribute(
-    "href",
-    "/#contact",
-  );
+  await expect(
+    page.getByRole("link", { name: "Request an Order" }),
+  ).toHaveAttribute("href", "/#contact");
 });
 
-test("Netlify's generated CAPTCHA is mounted in the visible form", async ({ page }) => {
+test("Netlify's generated CAPTCHA is mounted in the visible form", async ({
+  page,
+}) => {
   await page.goto("/#contact");
   await page.evaluate(() => {
     const generatedCaptcha = document.createElement("div");
@@ -107,7 +185,9 @@ test("Netlify's generated CAPTCHA is mounted in the visible form", async ({ page
   ).toHaveCount(0);
 });
 
-test("contact form opens its security challenge only when submitted", async ({ page }) => {
+test("contact form opens its security challenge only when submitted", async ({
+  page,
+}) => {
   let submitted = false;
   await page.route("/", async (route) => {
     if (route.request().method() === "POST") submitted = true;
@@ -124,17 +204,25 @@ test("contact form opens its security challenge only when submitted", async ({ p
   await page.getByTestId("contact-form-submit").click();
 
   await expect(page.getByTestId("captcha-modal")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Confirm you're human" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Confirm you're human" }),
+  ).toBeVisible();
   await expect(page.getByTestId("captcha-close")).toBeFocused();
   expect(submitted).toBe(false);
 });
 
-test("contact form submits automatically after the security challenge", async ({ page }) => {
+test("contact form submits automatically after the security challenge", async ({
+  page,
+}) => {
   let submittedBody = "";
   await page.route("/", async (route) => {
     if (route.request().method() === "POST") {
       submittedBody = route.request().postData() ?? "";
-      await route.fulfill({ status: 200, contentType: "text/html", body: "ok" });
+      await route.fulfill({
+        status: 200,
+        contentType: "text/html",
+        body: "ok",
+      });
       return;
     }
     await route.continue();
@@ -169,7 +257,9 @@ test("contact form submits automatically after the security challenge", async ({
   expect(submittedBody).toContain("g-recaptcha-response=test-token");
 });
 
-test("public images use deployment-versioned URLs and decode successfully", async ({ page }) => {
+test("public images use deployment-versioned URLs and decode successfully", async ({
+  page,
+}) => {
   await page.goto("/");
   const images = page.locator("img");
 
@@ -177,11 +267,13 @@ test("public images use deployment-versioned URLs and decode successfully", asyn
     await images.nth(index).scrollIntoViewIfNeeded();
   }
 
-  await expect.poll(async () =>
-    images.evaluateAll((elements) =>
-      elements.every((image) => image.complete && image.naturalWidth > 0),
-    ),
-  ).toBe(true);
+  await expect
+    .poll(async () =>
+      images.evaluateAll((elements) =>
+        elements.every((image) => image.complete && image.naturalWidth > 0),
+      ),
+    )
+    .toBe(true);
 
   const unversioned = await images.evaluateAll((elements) =>
     elements
@@ -206,16 +298,22 @@ test("a failed logo response retries on a fresh URL", async ({ page }) => {
 
   await page.goto("/");
   const logo = page.getByTestId("nav-logo").locator("img");
-  await expect.poll(() => logo.evaluate((image) => image.naturalWidth)).toBeGreaterThan(0);
+  await expect
+    .poll(() => logo.evaluate((image) => image.naturalWidth))
+    .toBeGreaterThan(0);
   expect(failedFirstRequest).toBe(true);
 });
 
-test("gallery album supports navigation, closes with Escape, and restores focus", async ({ page }) => {
+test("gallery album supports navigation, closes with Escape, and restores focus", async ({
+  page,
+}) => {
   await page.goto("/#gallery");
   const galleryTrigger = page.getByTestId("gallery-image-2");
   await galleryTrigger.click();
   await expect(page.getByRole("dialog")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Seasonal & Holiday" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Seasonal & Holiday" }),
+  ).toBeVisible();
   await expect(page.getByTestId("lightbox-close")).toBeFocused();
   await expect(page.getByText(/^1 of \d+$/)).toBeVisible();
   await page.keyboard.press("ArrowRight");
@@ -225,11 +323,20 @@ test("gallery album supports navigation, closes with Escape, and restores focus"
   await expect(galleryTrigger).toBeFocused();
 });
 
-test("mobile navigation opens without obscuring its controls", async ({ page }, testInfo) => {
-  test.skip(!testInfo.project.name.startsWith("mobile"), "Mobile-only interaction");
+test("mobile navigation opens without obscuring its controls", async ({
+  page,
+}, testInfo) => {
+  test.skip(
+    !testInfo.project.name.startsWith("mobile"),
+    "Mobile-only interaction",
+  );
   await page.goto("/");
   const menu = page.getByRole("button", { name: "Open navigation menu" });
   await menu.click();
-  await expect(page.getByRole("button", { name: "Close navigation menu" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Gallery", exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Close navigation menu" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Gallery", exact: true }),
+  ).toBeVisible();
 });
