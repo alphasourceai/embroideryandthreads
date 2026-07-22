@@ -46,9 +46,7 @@ async function request(path, expectedStatus, { binary = false } = {}) {
     if (attempt < requestAttempts) await sleep(750 * attempt);
   }
 
-  errors.push(
-    `${path}: ${lastFailure} after ${requestAttempts} attempts.`,
-  );
+  errors.push(`${path}: ${lastFailure} after ${requestAttempts} attempts.`);
   return { response: null, body: binary ? Buffer.alloc(0) : "" };
 }
 
@@ -70,18 +68,38 @@ for (const [name, page, title] of [
   if (!page.body.includes(`<title>${title}`) && !page.body.includes(title)) {
     errors.push(`${name}: expected title was not found.`);
   }
-  if (!page.body.includes('rel="canonical"')) errors.push(`${name}: canonical link is missing.`);
+  if (!page.body.includes('rel="canonical"'))
+    errors.push(`${name}: canonical link is missing.`);
 }
 
 if (
   !/<form\b[^>]*\bname=(["'])contact\1/i.test(home.body) ||
-  !/<input\b[^>]*\bname=(["'])form-name\1[^>]*\bvalue=(["'])contact\2/i.test(home.body)
+  !/<input\b[^>]*\bname=(["'])form-name\1[^>]*\bvalue=(["'])contact\2/i.test(
+    home.body,
+  )
 ) {
   errors.push("home: Netlify form detection shell is missing.");
 }
 
-if (!home.body.includes("https://static.cloudflareinsights.com/beacon.min.js")) {
-  errors.push("home: Cloudflare Web Analytics beacon is missing.");
+if (home.body.includes("https://static.cloudflareinsights.com/beacon.min.js")) {
+  errors.push("home: Cloudflare Web Analytics loads before privacy consent.");
+}
+
+const applicationScript = home.body.match(
+  /<script\b[^>]*\bsrc=(['"])([^'"]+\.js)\1/i,
+)?.[2];
+if (!applicationScript) {
+  errors.push("home: application JavaScript bundle is missing.");
+} else {
+  const bundle = await request(applicationScript, 200);
+  if (
+    bundle.response &&
+    !bundle.body.includes("https://static.cloudflareinsights.com/beacon.min.js")
+  ) {
+    errors.push(
+      "home: Cloudflare consent loader is missing from the application bundle.",
+    );
+  }
 }
 
 const assetVersion = home.body.match(/opengraph\.jpg\?v=([a-zA-Z0-9_-]+)/)?.[1];
@@ -101,15 +119,27 @@ if (!assetVersion) {
   }
 }
 
-for (const header of ["content-security-policy", "x-content-type-options", "x-frame-options"]) {
-  if (!home.response?.headers.get(header)) errors.push(`home: ${header} header is missing.`);
+for (const header of [
+  "content-security-policy",
+  "x-content-type-options",
+  "x-frame-options",
+]) {
+  if (!home.response?.headers.get(header))
+    errors.push(`home: ${header} header is missing.`);
 }
 
 try {
-  const response = await fetch(`https://www.${hostname}/`, { redirect: "manual" });
+  const response = await fetch(`https://www.${hostname}/`, {
+    redirect: "manual",
+  });
   const location = response.headers.get("location") ?? "";
-  if (![301, 302, 307, 308].includes(response.status) || !location.startsWith(origin)) {
-    errors.push(`www redirect: received ${response.status} with location ${location || "(none)"}.`);
+  if (
+    ![301, 302, 307, 308].includes(response.status) ||
+    !location.startsWith(origin)
+  ) {
+    errors.push(
+      `www redirect: received ${response.status} with location ${location || "(none)"}.`,
+    );
   }
 } catch (error) {
   errors.push(`www redirect: ${error.message}`);
@@ -117,23 +147,35 @@ try {
 
 try {
   const addresses = await resolve4(hostname);
-  if (!addresses.length) errors.push("DNS: apex did not return an IPv4 address.");
+  if (!addresses.length)
+    errors.push("DNS: apex did not return an IPv4 address.");
 } catch (error) {
   errors.push(`DNS: ${error.message}`);
 }
 
 try {
   const certificate = await new Promise((resolve, reject) => {
-    const socket = tls.connect(443, hostname, { servername: hostname, rejectUnauthorized: true }, () => {
-      const peer = socket.getPeerCertificate();
-      socket.end();
-      resolve(peer);
-    });
-    socket.setTimeout(10_000, () => socket.destroy(new Error("TLS connection timed out.")));
+    const socket = tls.connect(
+      443,
+      hostname,
+      { servername: hostname, rejectUnauthorized: true },
+      () => {
+        const peer = socket.getPeerCertificate();
+        socket.end();
+        resolve(peer);
+      },
+    );
+    socket.setTimeout(10_000, () =>
+      socket.destroy(new Error("TLS connection timed out.")),
+    );
     socket.on("error", reject);
   });
-  const daysRemaining = (Date.parse(certificate.valid_to) - Date.now()) / 86_400_000;
-  if (daysRemaining < 14) errors.push(`TLS: certificate expires in ${daysRemaining.toFixed(1)} days.`);
+  const daysRemaining =
+    (Date.parse(certificate.valid_to) - Date.now()) / 86_400_000;
+  if (daysRemaining < 14)
+    errors.push(
+      `TLS: certificate expires in ${daysRemaining.toFixed(1)} days.`,
+    );
 } catch (error) {
   errors.push(`TLS: ${error.message}`);
 }
