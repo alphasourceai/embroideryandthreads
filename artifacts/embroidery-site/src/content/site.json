@@ -1,11 +1,11 @@
 {
   "hero": {
-    "image": "/gallery-2.png",
-    "alt": "Cream sweatshirt and pink beanie embroidered with Christmas trees"
+    "image": "/uploads/apparel-castle-rock-colorado-sweatshirt.jpg",
+    "alt": "Gray sweatshirt embroidered with Castle Rock Colorado lettering and elevation details"
   },
   "story": {
-    "image": "/gallery-4.png",
-    "alt": "White MAMA sweatshirt with lavender floral applique and personalized Nora tag"
+    "image": "/uploads/story-coffee-sweatshirts-with-plant.jpg",
+    "alt": "Pink and gray coffee sweatshirts styled beside a coffee mug, beans, and green fern"
   },
   "gallery": [
     {
@@ -136,6 +136,14 @@
         {
           "image": "/uploads/seasonal-tis-the-season-sweatshirt.jpg",
           "alt": "Dark sweatshirt embroidered with a hockey stick and the words tis the season"
+        },
+        {
+          "image": "/uploads/seasonal-castle-rock-christmas-sweatshirts-and-beanies.jpg",
+          "alt": "Gray, pink, and white Castle Rock Christmas sweatshirts with coordinating candy cane beanies"
+        },
+        {
+          "image": "/uploads/seasonal-castle-rock-christmas-sweatshirt.jpg",
+          "alt": "Gray Castle Rock Christmas sweatshirt wrapped with a green ribbon and styled with holiday decorations"
         }
       ]
     },
@@ -185,6 +193,14 @@
         {
           "image": "/uploads/gift-grandma-personalized-sweatshirt.jpg",
           "alt": "Gray GRANDMA sweatshirt with plaid applique and embroidered family names"
+        },
+        {
+          "image": "/uploads/gift-coffee-tote-bag.jpg",
+          "alt": "Natural canvas tote embroidered with CO:FF:EE lettering and styled with a coffee cup and beans"
+        },
+        {
+          "image": "/uploads/gift-coffee-sweatshirt.jpg",
+          "alt": "Chocolate brown sweatshirt embroidered with tonal CO:FF:EE lettering and styled with coffee beans"
         }
       ]
     },
@@ -259,6 +275,22 @@
         {
           "image": "/uploads/custom-podcast-apparel-set.jpg",
           "alt": "Custom embroidered cap, beanie, and shirt for the Stewards of Stoke podcast"
+        },
+        {
+          "image": "/uploads/custom-cousin-crew-beanies.jpg",
+          "alt": "Lavender and cream beanies embroidered with colorful Cousin Crew lettering"
+        },
+        {
+          "image": "/uploads/custom-snellows-tone-ranch-towels.jpg",
+          "alt": "Assorted hand towels embroidered with custom Snellowstone Ranch logos"
+        },
+        {
+          "image": "/uploads/custom-snellows-tone-ranch-jackets.jpg",
+          "alt": "Tan ranch jackets embroidered with custom Snellowstone Ranch logos"
+        },
+        {
+          "image": "/uploads/custom-embroidered-trucker-hats.jpg",
+          "alt": "Black, gray, and blue trucker hats embroidered with custom TIEDO lettering"
         }
       ]
     }

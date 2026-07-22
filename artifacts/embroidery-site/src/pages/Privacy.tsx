@@ -40,7 +40,7 @@ export default function Privacy() {
         tabIndex={-1}
       >
         <article className="content-wrap privacy-content">
-          <p className="overline">Last updated July 20, 2026</p>
+          <p className="overline">Last updated July 21, 2026</p>
           <h1>Privacy Policy</h1>
           <p>
             Embroidery & Threads collects the name, email address, and message
@@ -65,6 +65,15 @@ export default function Privacy() {
             The website uses Cloudflare Web Analytics to understand aggregate
             page visits and site performance. This service does not use cookies
             or track individual visitors across websites.
+          </p>
+          <h2>Spam prevention</h2>
+          <p>
+            The contact form is protected by Google reCAPTCHA to reduce spam
+            and abuse. Google&apos;s{" "}
+            <a href="https://policies.google.com/privacy">Privacy Policy</a>
+            {" "}and{" "}
+            <a href="https://policies.google.com/terms">Terms of Service</a>
+            {" "}apply.
           </p>
           <h2>Contact</h2>
           <p>
