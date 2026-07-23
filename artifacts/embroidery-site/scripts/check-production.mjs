@@ -18,8 +18,15 @@ function describeError(error) {
   return causeDetail ? `${message} (${causeDetail})` : message;
 }
 
-async function request(path, expectedStatus, { binary = false } = {}) {
+async function request(
+  path,
+  expectedStatus,
+  { binary = false, redirect = "follow" } = {},
+) {
   let lastFailure = "request failed";
+  const expectedStatuses = Array.isArray(expectedStatus)
+    ? expectedStatus
+    : [expectedStatus];
 
   for (let attempt = 1; attempt <= requestAttempts; attempt += 1) {
     try {
@@ -29,16 +36,16 @@ async function request(path, expectedStatus, { binary = false } = {}) {
           accept: binary ? "image/*" : "text/html,*/*;q=0.8",
           "user-agent": "EmbroideryAndThreadsProductionMonitor/1.0",
         },
-        redirect: "follow",
+        redirect,
         signal: AbortSignal.timeout(requestTimeoutMs),
       });
       const body = binary
         ? Buffer.from(await response.arrayBuffer())
         : await response.text();
 
-      if (response.status === expectedStatus) return { response, body };
+      if (expectedStatuses.includes(response.status)) return { response, body };
 
-      lastFailure = `expected ${expectedStatus}, received ${response.status}`;
+      lastFailure = `expected ${expectedStatuses.join(" or ")}, received ${response.status}`;
     } catch (error) {
       lastFailure = describeError(error);
     }
@@ -128,21 +135,20 @@ for (const header of [
     errors.push(`home: ${header} header is missing.`);
 }
 
-try {
-  const response = await fetch(`https://www.${hostname}/`, {
+const wwwRedirect = await request(
+  `https://www.${hostname}/`,
+  [301, 302, 307, 308],
+  {
     redirect: "manual",
-  });
-  const location = response.headers.get("location") ?? "";
-  if (
-    ![301, 302, 307, 308].includes(response.status) ||
-    !location.startsWith(origin)
-  ) {
+  },
+);
+if (wwwRedirect.response) {
+  const location = wwwRedirect.response.headers.get("location") ?? "";
+  if (!location.startsWith(origin)) {
     errors.push(
-      `www redirect: received ${response.status} with location ${location || "(none)"}.`,
+      `www redirect: received ${wwwRedirect.response.status} with location ${location || "(none)"}.`,
     );
   }
-} catch (error) {
-  errors.push(`www redirect: ${error.message}`);
 }
 
 try {
