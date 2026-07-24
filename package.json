@@ -5,6 +5,7 @@
   "scripts": {
     "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
     "build": "pnpm run typecheck && pnpm -r --if-present run build",
+    "test:functions": "node --test netlify/lib/*.test.mts",
     "typecheck:libs": "tsc --build",
     "typecheck:functions": "tsc -p netlify/tsconfig.json --noEmit",
     "typecheck": "pnpm run typecheck:libs && pnpm run typecheck:functions && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"

@@ -22,8 +22,8 @@ import {
 const allowedRanges = new Set([7, 30, 90, 365]);
 const leadStatuses = new Set<LeadStatus>(["new", "contacted", "closed"]);
 
-export default async (request: Request, _context: Context) => {
-  const authorization = await requireInsightsUser();
+export default async (request: Request, context: Context) => {
+  const authorization = await requireInsightsUser(request, context);
   if ("error" in authorization) return authorization.error;
 
   if (request.method === "GET") {
