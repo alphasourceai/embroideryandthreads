@@ -152,6 +152,7 @@ overrides:
   esbuild: "0.28.1"
   "express>qs": "6.15.2"
   "orval>js-yaml": "4.3.0"
+  postcss: "8.5.22"
   "typedoc>markdown-it": "14.2.0"
   "markdown-it>linkify-it": "5.0.2"
   "ajv>fast-uri": "3.1.4"
