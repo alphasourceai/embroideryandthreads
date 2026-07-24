@@ -38,6 +38,17 @@ for (const [name, path, heading] of publicPages) {
   });
 }
 
+test("private insights page does not load the contact form CAPTCHA", async ({
+  page,
+}) => {
+  await page.goto("/insights");
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Site Insights" }),
+  ).toBeVisible();
+  await expect(page.locator(".netlify-form-detection")).toHaveCount(0);
+  await expect(page.locator('script[src*="recaptcha"]')).toHaveCount(0);
+});
+
 test("contact form has usable fields and a non-JavaScript fallback", async ({
   page,
 }) => {

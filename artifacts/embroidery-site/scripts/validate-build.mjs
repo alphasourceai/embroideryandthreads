@@ -123,6 +123,8 @@ for (const [file, titleNeedle, canonical, robotsNeedle] of pages) {
     if (!contactForm || contactForm["data-netlify"] !== "true") {
       errors.push("index.html: Netlify contact form shell is missing.");
     }
+  } else if (forms.some((form) => form.name === "contact")) {
+    errors.push(`${file}: contact form shell must only appear on index.html.`);
   }
 }
 

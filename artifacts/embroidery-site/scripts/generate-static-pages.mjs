@@ -8,6 +8,8 @@ const appRoot = path.resolve(
 );
 const outputDir = path.join(appRoot, "dist", "public");
 const source = await readFile(path.join(outputDir, "index.html"), "utf8");
+const formDetectionStart = "<!-- netlify-form-detection:start -->";
+const formDetectionEnd = "<!-- netlify-form-detection:end -->";
 const faqItems = JSON.parse(
   await readFile(path.join(appRoot, "src", "content", "faq.json"), "utf8"),
 );
@@ -154,7 +156,18 @@ function renderPage(page) {
       `    <script type="application/ld+json">${json}</script>\n  </head>`,
     );
   }
+  html = removeMarkedBlock(html, formDetectionStart, formDetectionEnd);
   return html;
+}
+
+function removeMarkedBlock(html, startMarker, endMarker) {
+  const start = html.indexOf(startMarker);
+  const end = html.indexOf(endMarker, start);
+  if (start === -1 || end === -1) {
+    throw new Error(`Expected marked block was not found: ${startMarker}`);
+  }
+
+  return html.slice(0, start) + html.slice(end + endMarker.length);
 }
 
 await Promise.all(

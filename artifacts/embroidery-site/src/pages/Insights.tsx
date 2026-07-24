@@ -6,7 +6,13 @@ import {
   type FormEvent,
   type ReactNode,
 } from "react";
-import { getUser, login, logout, type User } from "@netlify/identity";
+import {
+  getUser,
+  login,
+  logout,
+  refreshSession,
+  type User,
+} from "@netlify/identity";
 import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left";
 import Download from "lucide-react/dist/esm/icons/download";
 import Eye from "lucide-react/dist/esm/icons/eye";
@@ -69,6 +75,38 @@ const dateTime = new Intl.DateTimeFormat("en-US", {
   timeStyle: "short",
 });
 
+async function fetchWithIdentity(
+  input: RequestInfo | URL,
+  init: RequestInit = {},
+) {
+  const refreshedToken = await refreshSession();
+  const token = refreshedToken ?? getCookie("nf_jwt");
+  const headers = new Headers(init.headers);
+  if (token) headers.set("Authorization", `Bearer ${token}`);
+
+  return fetch(input, {
+    ...init,
+    headers,
+    credentials: "include",
+    cache: "no-store",
+  });
+}
+
+function getCookie(name: string) {
+  const prefix = `${name}=`;
+  for (const pair of document.cookie.split(";")) {
+    const value = pair.trim();
+    if (!value.startsWith(prefix)) continue;
+
+    try {
+      return decodeURIComponent(value.slice(prefix.length));
+    } catch {
+      return value.slice(prefix.length);
+    }
+  }
+  return undefined;
+}
+
 export default function Insights() {
   const [user, setUser] = useState<User | null>(null);
   const [authChecked, setAuthChecked] = useState(false);
@@ -90,22 +128,20 @@ export default function Insights() {
   });
 
   useEffect(() => {
-    void getUser().then((currentUser) => {
+    void (async () => {
+      await refreshSession();
+      const currentUser = await getUser();
       setUser(currentUser);
       setAuthChecked(true);
-    });
+    })();
   }, []);
 
   const loadData = useCallback(async () => {
     setLoading(true);
     setDataError("");
     try {
-      const response = await fetch(
+      const response = await fetchWithIdentity(
         `/.netlify/functions/insights?days=${range}`,
-        {
-          credentials: "include",
-          cache: "no-store",
-        },
       );
       if (response.status === 403) {
         throw new Error("This account does not have analytics access.");
@@ -150,10 +186,9 @@ export default function Insights() {
   };
 
   const changeLeadStatus = async (id: string, status: LeadStatus) => {
-    const response = await fetch("/.netlify/functions/insights", {
+    const response = await fetchWithIdentity("/.netlify/functions/insights", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      credentials: "include",
       body: JSON.stringify({ kind: "lead", id, status }),
     });
     if (response.ok) await loadData();
@@ -161,10 +196,9 @@ export default function Insights() {
 
   const removeRecord = async (kind: "lead" | "draft", id: string) => {
     if (!window.confirm("Delete this record permanently?")) return;
-    const response = await fetch("/.netlify/functions/insights", {
+    const response = await fetchWithIdentity("/.netlify/functions/insights", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      credentials: "include",
       body: JSON.stringify({ kind, id }),
     });
     if (response.ok) await loadData();
