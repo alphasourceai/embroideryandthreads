@@ -1,11 +1,11 @@
 {
   "hero": {
     "image": "/uploads/apparel-castle-rock-colorado-sweatshirt.jpg",
-    "alt": "Gray sweatshirt embroidered with Castle Rock Colorado lettering and elevation details"
+    "alt": "Castle Rock Colorado applique sweatshirt $60"
   },
   "story": {
     "image": "/uploads/story-coffee-sweatshirts-with-plant.jpg",
-    "alt": "Pink and gray coffee sweatshirts styled beside a coffee mug, beans, and green fern"
+    "alt": "Coffee Lovers sweatshirt with sleeve detail - $45"
   },
   "gallery": [
     {
@@ -13,51 +13,47 @@
       "images": [
         {
           "image": "/uploads/apparel-castle-rock-colorado-sweatshirt.jpg",
-          "alt": "Gray sweatshirt embroidered with Castle Rock Colorado lettering and elevation details"
+          "alt": "Castle Rock Applique Sweatshirt starting at $60"
         },
         {
           "image": "/uploads/apparel-personalized-trucker-caps.jpg",
-          "alt": "Four black, white, and gray trucker caps embroidered with personalized names"
+          "alt": "Ball Caps starting at $30"
         },
         {
           "image": "/uploads/apparel-lighthouse-cap.jpg",
-          "alt": "Navy baseball cap embroidered with a red, white, and blue lighthouse"
+          "alt": "Ball Caps starting at $30"
         },
         {
           "image": "/uploads/apparel-god-is-good-tshirt.jpg",
-          "alt": "Gray T-shirt embroidered with the words God is good in red, white, and blue"
+          "alt": "One Nation Under God T-shirt - $30"
         },
         {
           "image": "/uploads/apparel-castle-rock-coordinates-sweatshirt.jpg",
-          "alt": "Pillowcase embroidered with Castle Rock coordinates"
+          "alt": "Castle Rock Coordinates Pillow - $30"
         },
         {
           "image": "/uploads/apparel-mama-sweatshirts.jpg",
-          "alt": "White sweatshirt with animal print applique MAMA lettering"
+          "alt": "MAMA Applique sweatshirt starting at $54"
         },
         {
           "image": "/uploads/apparel-jesus-is-king-sweatshirt.jpg",
-          "alt": "Olive green sweatshirt embroidered with Jesus is King and small sleeve details"
+          "alt": "Custom Embroidered Sweatshirts starting at $45"
         },
         {
           "image": "/uploads/apparel-god-is-good-sweatshirt.jpg",
-          "alt": "Pink sweatshirt embroidered with subtle tonal God is Good lettering"
+          "alt": "God is Good pink on pink sweatshirt $45"
         },
         {
           "image": "/uploads/apparel-dog-mama-sweatshirt.jpg",
-          "alt": "Mauve sweatshirt embroidered with Dog Mama lettering and personalized sleeve names"
+          "alt": "Dog Mama Sweatshirt starting at $45"
         },
         {
           "image": "/uploads/apparel-floral-mama-sweatshirt.jpg",
-          "alt": "Sage green MAMA sweatshirt with floral applique lettering and matching baby romper"
+          "alt": "MAMA Keepsake Sweatshirt with matching handsewn Baby Romper $80"
         },
         {
           "image": "/uploads/apparel-grandma-sweatshirt.jpg",
-          "alt": "Gray MAMA sweatshirt with blue applique letters and personalized sleeve details"
-        },
-        {
-          "image": "/uploads/apparel-personalized-dog-mama-sweatshirt.jpg",
-          "alt": "Mauve Dog Mama sweatshirt personalized with embroidered names on the sleeve"
+          "alt": "Customized MAMA sweatshirt starting at $45"
         }
       ]
     },
