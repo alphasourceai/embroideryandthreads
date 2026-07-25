@@ -29,11 +29,11 @@
         },
         {
           "image": "/uploads/apparel-castle-rock-coordinates-sweatshirt.jpg",
-          "alt": "Light blue sweatshirt embroidered with Castle Rock and local coordinates"
+          "alt": "Pillowcase embroidered with Castle Rock coordinates"
         },
         {
           "image": "/uploads/apparel-mama-sweatshirts.jpg",
-          "alt": "Pink and white sweatshirts with bold floral applique MAMA lettering"
+          "alt": "White sweatshirt with animal print applique MAMA lettering"
         },
         {
           "image": "/uploads/apparel-jesus-is-king-sweatshirt.jpg",
@@ -41,7 +41,7 @@
         },
         {
           "image": "/uploads/apparel-god-is-good-sweatshirt.jpg",
-          "alt": "Peach sweatshirt embroidered with subtle tonal God is good lettering"
+          "alt": "Pink sweatshirt embroidered with subtle tonal God is Good lettering"
         },
         {
           "image": "/uploads/apparel-dog-mama-sweatshirt.jpg",
@@ -49,7 +49,7 @@
         },
         {
           "image": "/uploads/apparel-floral-mama-sweatshirt.jpg",
-          "alt": "Sage green MAMA sweatshirt with floral applique lettering"
+          "alt": "Sage green MAMA sweatshirt with floral applique lettering and matching baby romper"
         },
         {
           "image": "/uploads/apparel-mama-applique-sweatshirt.jpg",
@@ -62,7 +62,9 @@
         {
           "image": "/uploads/apparel-personalized-dog-mama-sweatshirt.jpg",
           "alt": "Mauve Dog Mama sweatshirt personalized with embroidered names on the sleeve"
-        }
+        },
+        {},
+        {}
       ]
     },
     {
@@ -291,6 +293,10 @@
         {
           "image": "/uploads/custom-embroidered-trucker-hats.jpg",
           "alt": "Black, gray, and blue trucker hats embroidered with custom TIEDO lettering"
+        },
+        {
+          "image": "/uploads/apparel-mama-applique-sweatshirt.jpg",
+          "alt": "Custom pink sweatshirt with personalized applique lettering and sleeve details"
         }
       ]
     }
