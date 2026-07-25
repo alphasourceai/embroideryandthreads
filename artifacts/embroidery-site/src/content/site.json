@@ -28,10 +28,6 @@
           "alt": "One Nation Under God T-shirt - $30"
         },
         {
-          "image": "/uploads/apparel-castle-rock-coordinates-sweatshirt.jpg",
-          "alt": "Castle Rock Coordinates Pillow - $30"
-        },
-        {
           "image": "/uploads/apparel-mama-sweatshirts.jpg",
           "alt": "MAMA Applique sweatshirt starting at $54"
         },
@@ -48,12 +44,16 @@
           "alt": "Dog Mama Sweatshirt starting at $45"
         },
         {
-          "image": "/uploads/apparel-floral-mama-sweatshirt.jpg",
-          "alt": "MAMA Keepsake Sweatshirt with matching handsewn Baby Romper $80"
-        },
-        {
           "image": "/uploads/apparel-grandma-sweatshirt.jpg",
           "alt": "Customized MAMA sweatshirt starting at $45"
+        },
+        {
+          "image": "/uploads/matching-mama-and-child-sweatshirts.jpg",
+          "alt": "MAMA Applique Sweatshirt starting at $54"
+        },
+        {
+          "alt": "MAMA Sweatshirt starting at $54",
+          "image": "/uploads/matching-mama-and-child-sweatshirts.jpg"
         }
       ]
     },
@@ -74,7 +74,7 @@
         },
         {
           "image": "/uploads/baby-monogrammed-socks.jpg",
-          "alt": "White socks embroidered with individual monogram initials"
+          "alt": ""
         },
         {
           "image": "/uploads/baby-personalized-animal-romper.jpg",
@@ -193,16 +193,20 @@
         {
           "image": "/uploads/gift-coffee-sweatshirt.jpg",
           "alt": "Coffee Time sweatshirt starting at $35"
+        },
+        {
+          "alt": "Monogramed Socks starting at $7",
+          "image": "/uploads/baby-monogrammed-socks.jpg"
+        },
+        {
+          "image": "/uploads/apparel-castle-rock-coordinates-sweatshirt.jpg",
+          "alt": "Castle Rock Coordinates Pillow - canvas 18x18 - $30"
         }
       ]
     },
     {
       "name": "Matching & Gift Sets",
       "images": [
-        {
-          "image": "/uploads/matching-mama-and-child-sweatshirts.jpg",
-          "alt": "Matching green MAMA and child sweatshirts with floral applique lettering"
-        },
         {
           "image": "/uploads/matching-patriotic-memorial-shirts.jpg",
           "alt": "Pair of navy memorial shirts embroidered with patriotic bows and dates"
@@ -236,8 +240,8 @@
           "alt": "Coordinating MAMA sweatshirt and striped newborn outfit with applique letters"
         },
         {
-          "image": "/uploads/matching-mama-sweatshirt-and-blanket.jpg",
-          "alt": "Gray MAMA sweatshirt paired with a personalized black and white plaid blanket"
+          "alt": "MAMA Keepsake Sweatshirt with matching handsewn Baby Romper $80",
+          "image": "/uploads/apparel-floral-mama-sweatshirt.jpg"
         }
       ]
     },
