@@ -16,6 +16,22 @@
           "alt": "Castle Rock Applique Sweatshirt starting at $60"
         },
         {
+          "image": "/uploads/apparel-mama-sweatshirts.jpg",
+          "alt": "MAMA Applique sweatshirt starting at $54"
+        },
+        {
+          "image": "/uploads/matching-mama-and-child-sweatshirts.jpg",
+          "alt": "MAMA Applique Sweatshirt starting at $54"
+        },
+        {
+          "alt": "MAMA Applique Sweatshirt starting at $54",
+          "image": "/uploads/matching-mama-and-child-sweatshirts.jpg"
+        },
+        {
+          "image": "/uploads/gift-grandma-personalized-sweatshirt.jpg",
+          "alt": "Custom Applique Sweatshirt starting at $54"
+        },
+        {
           "image": "/uploads/apparel-personalized-trucker-caps.jpg",
           "alt": "Ball Caps starting at $30"
         },
@@ -24,20 +40,8 @@
           "alt": "Ball Caps starting at $30"
         },
         {
-          "image": "/uploads/apparel-god-is-good-tshirt.jpg",
-          "alt": "One Nation Under God T-shirt - $30"
-        },
-        {
-          "image": "/uploads/apparel-mama-sweatshirts.jpg",
-          "alt": "MAMA Applique sweatshirt starting at $54"
-        },
-        {
           "image": "/uploads/apparel-jesus-is-king-sweatshirt.jpg",
           "alt": "Custom Embroidered Sweatshirts starting at $45"
-        },
-        {
-          "image": "/uploads/apparel-god-is-good-sweatshirt.jpg",
-          "alt": "God is Good pink on pink sweatshirt $45"
         },
         {
           "image": "/uploads/apparel-dog-mama-sweatshirt.jpg",
@@ -48,12 +52,16 @@
           "alt": "Customized MAMA sweatshirt starting at $45"
         },
         {
-          "image": "/uploads/matching-mama-and-child-sweatshirts.jpg",
-          "alt": "MAMA Applique Sweatshirt starting at $54"
+          "image": "/uploads/apparel-god-is-good-sweatshirt.jpg",
+          "alt": "God is Good pink on pink sweatshirt $45"
         },
         {
-          "alt": "MAMA Sweatshirt starting at $54",
-          "image": "/uploads/matching-mama-and-child-sweatshirts.jpg"
+          "alt": "Coffee Time sweatshirt starting at $45",
+          "image": "/uploads/gift-coffee-sweatshirt.jpg"
+        },
+        {
+          "image": "/uploads/apparel-god-is-good-tshirt.jpg",
+          "alt": "One Nation Under God T-shirt - $30"
         }
       ]
     },
@@ -62,19 +70,19 @@
       "images": [
         {
           "image": "/uploads/baby-floral-personalized-romper.jpg",
-          "alt": "Baby Romper with "
-        },
-        {
-          "image": "/uploads/baby-personalized-bear-lovey.jpg",
-          "alt": "Personalized Baby Snuggly Toy - $30"
+          "alt": "Baby Romper with matching headband and Diaper Bag Tag - set $60"
         },
         {
           "image": "/uploads/baby-striped-newborn-outfit.jpg",
           "alt": "Infant Onsie with embroidered name, handmade leggings and matching hat set - $50"
         },
         {
+          "image": "/uploads/baby-personalized-bear-lovey.jpg",
+          "alt": "Personalized Baby Snuggly Toy - $30"
+        },
+        {
           "image": "/uploads/baby-personalized-animal-romper.jpg",
-          "alt": "Personalized baby romper with colorful camping print and matching hat"
+          "alt": "Baby Romper with matching  embroidered hat - set $50"
         },
         {
           "image": "/uploads/kids-personalized-dinosaur-tote-set.jpg",
@@ -89,16 +97,12 @@
           "alt": "Toddler Applique T-shirt starting at $35"
         },
         {
-          "image": "/uploads/kids-girls-football-sweatshirt.jpg",
-          "alt": "White sweatshirt with glitter football applique and glitter side-bow applique"
-        },
-        {
           "image": "/uploads/baby-floral-romper.jpg",
-          "alt": "Pink floral baby romper with a matching bow and personalized embroidery"
+          "alt": "Baby Romper with matching  embroidered hat - set $50"
         },
         {
           "image": "/uploads/baby-marshall-green-outfit.jpg",
-          "alt": "Sage green baby outfit and hat with embroidered name"
+          "alt": "Baby Romper with matching  embroidered hat - set starting at $50"
         }
       ]
     },
@@ -155,6 +159,10 @@
           "alt": "Personalized zipper pouches - starting at $30"
         },
         {
+          "image": "/uploads/gift-ribbon-music-zipper-pouch.jpg",
+          "alt": "Personalized Pouch - starting at $30"
+        },
+        {
           "image": "/uploads/gift-monogrammed-canvas-tote.jpg",
           "alt": "Personalized Canvas Baseball Applique Tote - $40"
         },
@@ -165,10 +173,6 @@
         {
           "image": "/uploads/gift-personalized-bride-sweatshirt.jpg",
           "alt": "Embroidered Bride Sweatshirt - starting at $45"
-        },
-        {
-          "image": "/uploads/gift-ribbon-music-zipper-pouch.jpg",
-          "alt": "Personalized Pouch - starting at $30"
         },
         {
           "image": "/uploads/gift-embroidered-name-pouches.jpg",
@@ -195,10 +199,6 @@
           "alt": "Canvas Tote starting at $25"
         },
         {
-          "image": "/uploads/gift-coffee-sweatshirt.jpg",
-          "alt": "Coffee Time sweatshirt starting at $45"
-        },
-        {
           "alt": "Monogramed Socks starting at $7",
           "image": "/uploads/baby-monogrammed-socks.jpg"
         },
@@ -213,19 +213,19 @@
       "images": [
         {
           "image": "/uploads/matching-whiskey-and-beer-shirts.jpg",
-          "alt": "Matching gray and black shirts embroidered Whiskey for My Men and Beer for My Horses"
+          "alt": "Customized T-shirts starting at $35"
         },
         {
           "image": "/uploads/matching-mama-and-violet-outfits.jpg",
-          "alt": "Matching pink MAMA shirt and personalized floral baby outfit for Violet"
+          "alt": "MAMA  applique sweatshirt, matching baby romper with personalized headband and Diaper Bag Tag - set $90"
         },
         {
           "image": "/uploads/matching-mama-and-floral-baby-set.jpg",
-          "alt": "Matching MAMA sweatshirt and floral baby romper with applique lettering"
+          "alt": "MAMA keepsake sweatshirt made with your baby's clothing - $54"
         },
         {
           "image": "/uploads/matching-loved-faith-sweatshirts.jpg",
-          "alt": "Matching adult and child sweatshirts embroidered Loved with John 3:16"
+          "alt": "Custom embroidered sweatshirts - starting at $45"
         },
         {
           "image": "/uploads/matching-personalized-newborn-gift-set.jpg",
@@ -233,10 +233,10 @@
         },
         {
           "image": "/uploads/matching-mama-and-striped-baby-set.jpg",
-          "alt": "Coordinating MAMA sweatshirt and striped newborn outfit with applique letters"
+          "alt": "MAMA applique sweatshirt with matching baby romper and embroidered hat - $80"
         },
         {
-          "alt": "MAMA Keepsake Sweatshirt with matching handsewn Baby Romper $80",
+          "alt": "MAMA Keepsake Sweatshirt with matching handsewn Baby Romper $75",
           "image": "/uploads/apparel-floral-mama-sweatshirt.jpg"
         },
         {
@@ -262,11 +262,11 @@
         },
         {
           "image": "/uploads/custom-podcast-sweatshirt.jpg",
-          "alt": "Custom Sweatshirt with added sleeve embroidery starting at $35"
+          "alt": "Custom Sweatshirt starting at $45"
         },
         {
           "image": "/uploads/custom-hca-healthcare-sweatshirt.jpg",
-          "alt": "Custom Sweatshirt with added sleeve embroidery starting at $35"
+          "alt": "Custom Sweatshirt starting at $45"
         },
         {
           "image": "/uploads/custom-podcast-apparel-set.jpg",
@@ -291,10 +291,6 @@
         {
           "image": "/uploads/apparel-mama-applique-sweatshirt.jpg",
           "alt": "Custom Applique Pet Sweatshirt starting at $54"
-        },
-        {
-          "image": "/uploads/matching-mama-and-child-sweatshirts.jpg",
-          "alt": "MAMA  Applique sweatshirt starting at $54"
         }
       ]
     }
