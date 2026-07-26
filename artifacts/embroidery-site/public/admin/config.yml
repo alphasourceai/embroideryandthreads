@@ -27,13 +27,13 @@ collections:
             widget: object
             fields:
               - { label: Image, name: image, widget: image, hint: "Drag in a JPG, PNG, or WebP image. Use an original photo at least 1200px wide and no larger than 12 MB." }
-              - { label: Image Description, name: alt, widget: string, hint: "Briefly describe the visible product, wording, and colors for accessibility and search." }
+              - { label: Image Description, name: alt, widget: string, pattern: ['.{12,}', "Enter at least 12 characters."], hint: "Briefly describe the visible product, wording, and colors for accessibility and search." }
           - label: Story Image
             name: story
             widget: object
             fields:
               - { label: Image, name: image, widget: image, hint: "Use an original JPG, PNG, or WebP photo at least 1200px wide and no larger than 12 MB." }
-              - { label: Image Description, name: alt, widget: string, hint: "Briefly describe the visible product, wording, and colors." }
+              - { label: Image Description, name: alt, widget: string, pattern: ['.{12,}', "Enter at least 12 characters."], hint: "Briefly describe the visible product, wording, and colors." }
           - label: Photo Galleries
             name: gallery
             widget: list
@@ -51,7 +51,7 @@ collections:
                 hint: "Drag photos to reorder them. The first photo becomes the cover shown on the home page."
                 fields:
                   - { label: Image, name: image, widget: image, hint: "Use an original JPG, PNG, or WebP photo at least 1200px wide and no larger than 12 MB." }
-                  - { label: Image Description, name: alt, widget: string, hint: "Briefly describe the visible product, wording, and colors. Do not write 'image of.'" }
+                  - { label: Image Description, name: alt, widget: string, pattern: ['.{12,}', "Enter at least 12 characters."], hint: "Briefly describe the visible product, wording, and colors. Do not write 'image of.'" }
           - { label: Customer Stories, name: reviews, widget: hidden }
           - { label: Instagram Highlights, name: instagram, widget: hidden }
       - label: Price List
