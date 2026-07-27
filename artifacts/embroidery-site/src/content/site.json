@@ -289,28 +289,40 @@
   ],
   "reviews": [
     {
+      "source": "instagram",
       "reviewer": "@ambermnolan",
       "quote": "had @embroideryandthreads make a sweatshirt for me",
       "reply": "so glad you like it!!!",
       "image": "/review-1.png",
       "alt": "Aggies Texas A&M custom embroidered sweatshirt shared by @ambermnolan",
-      "dateLabel": "Customer share"
+      "dateLabel": "Customer share",
+      "sourceUrl": "https://www.instagram.com/embroideryandthreads/",
+      "rating": null,
+      "featured": true
     },
     {
+      "source": "instagram",
       "reviewer": "@stewards_of_stoke",
       "quote": "Custom embroidery in action - tagged @EMBROIDERYANDTHREADS",
       "reply": "",
       "image": "/review-2.png",
       "alt": "Behind-the-scenes of the embroidery machine making a custom design for @stewards_of_stoke",
-      "dateLabel": "Customer share"
+      "dateLabel": "Customer share",
+      "sourceUrl": "https://www.instagram.com/embroideryandthreads/",
+      "rating": null,
+      "featured": true
     },
     {
+      "source": "instagram",
       "reviewer": "@natasha.kenton1",
       "quote": "So many beautiful gifts to give from @embroideryandthreads",
       "reply": "",
       "image": "/review-3.png",
       "alt": "Beautifully packaged Embroidery & Threads gifts under the Christmas tree, shared by @natasha.kenton1",
-      "dateLabel": "Customer share"
+      "dateLabel": "Customer share",
+      "sourceUrl": "https://www.instagram.com/embroideryandthreads/",
+      "rating": null,
+      "featured": true
     }
   ],
   "instagram": [

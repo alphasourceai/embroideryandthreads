@@ -11,6 +11,10 @@ media_folder: artifacts/embroidery-site/public/uploads
 public_folder: /uploads
 publish_mode: simple
 
+media_library:
+  config:
+    max_file_size: 2500000
+
 collections:
   - label: Website
     name: website
@@ -26,21 +30,43 @@ collections:
             name: hero
             widget: object
             fields:
-              - { label: Image, name: image, widget: image, hint: "Drag in a JPG, PNG, or WebP image. Use an original photo at least 1200px wide and no larger than 12 MB." }
-              - { label: Image Description, name: alt, widget: string, pattern: ['.{12,}', "Enter at least 12 characters."], hint: "Briefly describe the visible product, wording, and colors for accessibility and search." }
+              - {
+                  label: Image,
+                  name: image,
+                  widget: image,
+                  hint: "Upload one JPG, PNG, or WebP image under 2.5 MB. [Prepare a larger photo first](/admin/photo-prep.html).",
+                }
+              - {
+                  label: Image Description,
+                  name: alt,
+                  widget: string,
+                  pattern: [".{12,}", "Enter at least 12 characters."],
+                  hint: "Briefly describe the visible product, wording, and colors for accessibility and search.",
+                }
           - label: Story Image
             name: story
             widget: object
             fields:
-              - { label: Image, name: image, widget: image, hint: "Use an original JPG, PNG, or WebP photo at least 1200px wide and no larger than 12 MB." }
-              - { label: Image Description, name: alt, widget: string, pattern: ['.{12,}', "Enter at least 12 characters."], hint: "Briefly describe the visible product, wording, and colors." }
+              - {
+                  label: Image,
+                  name: image,
+                  widget: image,
+                  hint: "Upload one JPG, PNG, or WebP image under 2.5 MB. [Prepare a larger photo first](/admin/photo-prep.html).",
+                }
+              - {
+                  label: Image Description,
+                  name: alt,
+                  widget: string,
+                  pattern: [".{12,}", "Enter at least 12 characters."],
+                  hint: "Briefly describe the visible product, wording, and colors.",
+                }
           - label: Photo Galleries
             name: gallery
             widget: list
-            min: 6
-            max: 6
+            min: 1
+            max: 12
             summary: "{{fields.name}}"
-            hint: "Keep all six galleries. You can rename a gallery and add, remove, or reorder its photos. The first photo is used as the gallery cover."
+            hint: "You can keep the current six galleries or add more, up to twelve. There is no fixed photo limit inside a gallery. Upload one prepared photo at a time and save between uploads. The first photo is the gallery cover."
             fields:
               - { label: Gallery Name, name: name, widget: string }
               - label: Gallery Photos
@@ -50,9 +76,103 @@ collections:
                 summary: "{{fields.alt}}"
                 hint: "Drag photos to reorder them. The first photo becomes the cover shown on the home page."
                 fields:
-                  - { label: Image, name: image, widget: image, hint: "Use an original JPG, PNG, or WebP photo at least 1200px wide and no larger than 12 MB." }
-                  - { label: Image Description, name: alt, widget: string, pattern: ['.{12,}', "Enter at least 12 characters."], hint: "Briefly describe the visible product, wording, and colors. Do not write 'image of.'" }
-          - { label: Customer Stories, name: reviews, widget: hidden }
+                  - {
+                      label: Image,
+                      name: image,
+                      widget: image,
+                      hint: "Upload one JPG, PNG, or WebP image under 2.5 MB. [Prepare a larger photo first](/admin/photo-prep.html), then save before adding another.",
+                    }
+                  - {
+                      label: Image Description,
+                      name: alt,
+                      widget: string,
+                      pattern: [".{12,}", "Enter at least 12 characters."],
+                      hint: "Briefly describe the visible product, wording, and colors. Do not write 'image of.'",
+                    }
+          - label: Customer Reviews
+            name: reviews
+            widget: list
+            min: 1
+            summary: "{{fields.reviewer}} — {{fields.source}}"
+            hint: "Add customer feedback from Instagram, Google, or direct messages. For Instagram, upload a prepared screenshot or product photo when available. Google reviews will also appear automatically after the Google Business Profile connection is configured."
+            fields:
+              - {
+                  label: Source,
+                  name: source,
+                  widget: select,
+                  options:
+                    [
+                      { label: Instagram, value: instagram },
+                      { label: Google, value: google },
+                      { label: Direct Customer Feedback, value: direct },
+                    ],
+                }
+              - {
+                  label: Customer Name or Handle,
+                  name: reviewer,
+                  widget: string,
+                }
+              - {
+                  label: Review,
+                  name: quote,
+                  widget: text,
+                  pattern: [".{8,}", "Enter at least 8 characters."],
+                }
+              - {
+                  label: Star Rating,
+                  name: rating,
+                  widget: number,
+                  value_type: int,
+                  min: 1,
+                  max: 5,
+                  required: false,
+                  hint: "Use the original rating when the source includes one.",
+                }
+              - {
+                  label: Date or Label,
+                  name: dateLabel,
+                  widget: string,
+                  hint: "Examples: March 2026, Customer share, or Google review.",
+                }
+              - {
+                  label: Original Review Link,
+                  name: sourceUrl,
+                  widget: string,
+                  required: false,
+                  hint: "Paste the Instagram post or Google review URL when available.",
+                }
+              - {
+                  label: Screenshot or Product Photo,
+                  name: image,
+                  widget: image,
+                  required: false,
+                  hint: "Optional. Upload one JPG, PNG, or WebP image under 2.5 MB. [Prepare a larger image first](/admin/photo-prep.html).",
+                }
+              - {
+                  label: Image Description,
+                  name: alt,
+                  widget: string,
+                  required: false,
+                  pattern:
+                    [
+                      ".{12,}",
+                      "Enter at least 12 characters or leave this blank.",
+                    ],
+                  hint: "Required when a screenshot or photo is included.",
+                }
+              - {
+                  label: Embroidery & Threads Reply,
+                  name: reply,
+                  widget: text,
+                  required: false,
+                }
+              - {
+                  label: Feature on Home Page,
+                  name: featured,
+                  widget: boolean,
+                  default: false,
+                  hint: "The home page shows up to three featured reviews that include an image.",
+                }
           - { label: Instagram Highlights, name: instagram, widget: hidden }
       - label: Price List
         name: price_list
@@ -62,7 +182,12 @@ collections:
           - { label: Small Heading, name: eyebrow, widget: string }
           - { label: Page Title, name: title, widget: string }
           - { label: Introduction, name: intro, widget: text }
-          - { label: Pricing Disclaimer, name: disclaimer, widget: text, hint: "Explain why a final quote may differ from a starting price." }
+          - {
+              label: Pricing Disclaimer,
+              name: disclaimer,
+              widget: text,
+              hint: "Explain why a final quote may differ from a starting price.",
+            }
           - { label: Sales Tax Note, name: taxNote, widget: text }
           - label: Price Categories
             name: categories
@@ -80,5 +205,15 @@ collections:
                 summary: "{{fields.name}} - {{fields.price}}"
                 fields:
                   - { label: Item or Service, name: name, widget: string }
-                  - { label: Starting Price, name: price, widget: string, hint: "Examples: $32, $15-$35, +$12, or Custom pricing" }
-                  - { label: Optional Details, name: note, widget: string, required: false }
+                  - {
+                      label: Starting Price,
+                      name: price,
+                      widget: string,
+                      hint: "Examples: $32, $15-$35, +$12, or Custom pricing",
+                    }
+                  - {
+                      label: Optional Details,
+                      name: note,
+                      widget: string,
+                      required: false,
+                    }

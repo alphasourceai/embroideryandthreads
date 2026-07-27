@@ -1,5 +1,12 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const appRoot = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+);
 
 const publicPages = [
   ["home", "/", /Sewn into/],
@@ -47,6 +54,68 @@ test("private insights page does not load the contact form CAPTCHA", async ({
   ).toBeVisible();
   await expect(page.locator(".netlify-form-detection")).toHaveCount(0);
   await expect(page.locator('script[src*="recaptcha"]')).toHaveCount(0);
+});
+
+test("Google reviews are added to the reviews page with attribution", async ({
+  page,
+}) => {
+  await page.route("**/.netlify/functions/google-reviews", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        configured: true,
+        googleMapsUri: "https://www.google.com/maps/place/example",
+        reviews: [
+          {
+            id: "google-review-test",
+            reviewer: "Castle Rock Customer",
+            quote: "Beautiful embroidery and thoughtful service.",
+            rating: 5,
+            dateLabel: "July 2026",
+            sourceUrl: "https://www.google.com/maps/contrib/example",
+          },
+        ],
+      }),
+    });
+  });
+
+  await page.goto("/reviews");
+  await expect(
+    page.getByText("Beautiful embroidery and thoughtful service."),
+  ).toBeVisible();
+  await expect(page.getByText("Google review")).toBeVisible();
+  await expect(page.getByLabel("5 out of 5 stars")).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Read on Google" }),
+  ).toHaveAttribute("href", "https://www.google.com/maps/place/example");
+});
+
+test("photo preparation tool creates an upload-ready JPG", async ({ page }) => {
+  await page.goto("/admin/photo-prep.html");
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Prepare photos for upload" }),
+  ).toBeVisible();
+
+  await page
+    .locator("#photo-input")
+    .setInputFiles(
+      path.join(
+        appRoot,
+        "public",
+        "uploads",
+        "apparel-castle-rock-colorado-sweatshirt.jpg",
+      ),
+    );
+
+  await expect(page.getByText("Download JPG")).toBeVisible();
+  await expect(
+    page.getByText(/Ready. Download each prepared JPG/),
+  ).toBeVisible();
+  await expect(page.locator(".download-link")).toHaveAttribute(
+    "download",
+    /-web\.jpg$/,
+  );
 });
 
 test("contact form has usable fields and a non-JavaScript fallback", async ({

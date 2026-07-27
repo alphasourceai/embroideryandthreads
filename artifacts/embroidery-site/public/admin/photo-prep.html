@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Prepare Photos | Embroidery &amp; Threads</title>
+    <link rel="stylesheet" href="/admin/photo-prep.css?v=20260727-1" />
+  </head>
+  <body>
+    <header>
+      <a href="/admin/" aria-label="Back to the Embroidery and Threads editor">
+        <img
+          src="/logo-b.jpg?v=20260720-cache1"
+          alt=""
+          width="64"
+          height="64"
+        />
+        <span>
+          <strong>Embroidery &amp; Threads</strong>
+          <small>Photo preparation</small>
+        </span>
+      </a>
+    </header>
+
+    <main>
+      <div class="intro">
+        <p class="eyebrow">Site editor tool</p>
+        <h1>Prepare photos for upload</h1>
+        <p>
+          Drop in large phone or camera photos. This tool creates web-ready JPG
+          copies under the editor's upload limit. Your originals stay unchanged
+          and never leave this browser.
+        </p>
+      </div>
+
+      <section class="workspace" aria-labelledby="drop-title">
+        <label class="drop-zone" id="drop-zone">
+          <input
+            id="photo-input"
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
+            multiple
+          />
+          <span class="drop-icon" aria-hidden="true">+</span>
+          <strong id="drop-title">Choose or drop photos here</strong>
+          <span>JPG, PNG, WebP, or compatible iPhone photos</span>
+        </label>
+
+        <div class="status-row">
+          <p id="status" role="status" aria-live="polite">
+            Select one or more photos to begin.
+          </p>
+          <button id="clear-button" type="button" hidden>Clear</button>
+        </div>
+
+        <div id="results" class="results" aria-label="Prepared photos"></div>
+      </section>
+
+      <aside class="next-steps">
+        <h2>Upload the prepared copies</h2>
+        <ol>
+          <li>Download each prepared JPG below.</li>
+          <li>Return to the site editor and open the correct gallery.</li>
+          <li>Add one photo, write its description, and save.</li>
+          <li>Repeat for additional photos.</li>
+        </ol>
+        <a class="editor-link" href="/admin/">Return to site editor</a>
+      </aside>
+    </main>
+
+    <script src="/admin/photo-prep.js?v=20260727-1"></script>
+  </body>
+</html>

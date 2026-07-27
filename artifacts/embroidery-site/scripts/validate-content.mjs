@@ -3,19 +3,26 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { imageSize } from "image-size";
 
-const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const appRoot = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+);
 const publicDir = path.join(appRoot, "public");
 const contentPath = path.join(appRoot, "src", "content", "site.json");
 const content = JSON.parse(await readFile(contentPath, "utf8"));
 const pricingPath = path.join(appRoot, "src", "content", "pricing.json");
 const pricing = JSON.parse(await readFile(pricingPath, "utf8"));
 const errors = [];
-const maxBytes = 12 * 1024 * 1024;
+const maxBytes = 2_500_000;
 const allowedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp"]);
 
 const gallery = Array.isArray(content.gallery) ? content.gallery : [];
-if (!Array.isArray(content.gallery) || content.gallery.length !== 6) {
-  errors.push("Gallery: include exactly six galleries.");
+if (
+  !Array.isArray(content.gallery) ||
+  content.gallery.length < 1 ||
+  content.gallery.length > 12
+) {
+  errors.push("Gallery: include between one and twelve galleries.");
 }
 
 const pricingCategories = Array.isArray(pricing.categories)
@@ -73,6 +80,34 @@ for (const [index, item] of gallery.entries()) {
   }
 }
 
+const reviews = Array.isArray(content.reviews) ? content.reviews : [];
+const reviewSources = new Set(["instagram", "google", "direct"]);
+if (!Array.isArray(content.reviews) || reviews.length < 1) {
+  errors.push("Reviews: include at least one customer review.");
+}
+for (const [index, review] of reviews.entries()) {
+  const label = `Review ${index + 1}`;
+  if (!reviewSources.has(review?.source)) {
+    errors.push(`${label}: select Instagram, Google, or direct feedback.`);
+  }
+  if (typeof review?.reviewer !== "string" || !review.reviewer.trim()) {
+    errors.push(`${label}: customer name or handle is required.`);
+  }
+  if (typeof review?.quote !== "string" || review.quote.trim().length < 8) {
+    errors.push(`${label}: review must be at least 8 characters.`);
+  }
+  if (
+    review?.rating !== null &&
+    review?.rating !== undefined &&
+    (!Number.isInteger(review.rating) || review.rating < 1 || review.rating > 5)
+  ) {
+    errors.push(`${label}: rating must be a whole number from 1 to 5.`);
+  }
+  if (review?.image && !review?.alt) {
+    errors.push(`${label}: describe the screenshot or photo.`);
+  }
+}
+
 const images = [
   ["Hero image", content.hero],
   ["Story image", content.story],
@@ -83,6 +118,9 @@ const images = [
         item,
       ],
     ),
+  ),
+  ...reviews.flatMap((review, reviewIndex) =>
+    review?.image ? [[`Review ${reviewIndex + 1} image`, review]] : [],
   ),
 ];
 
@@ -111,7 +149,7 @@ for (const [label, item] of images) {
   try {
     const file = await stat(imagePath);
     if (file.size > maxBytes) {
-      errors.push(`${label}: image is larger than 12 MB.`);
+      errors.push(`${label}: image is larger than 2.5 MB.`);
     }
 
     const dimensions = imageSize(await readFile(imagePath));
@@ -131,5 +169,5 @@ if (errors.length) {
 }
 
 console.log(
-  `Validated ${gallery.length} galleries, ${pricingCategories.length} pricing categories, and ${images.length} editable images and descriptions.`,
+  `Validated ${gallery.length} galleries, ${reviews.length} reviews, ${pricingCategories.length} pricing categories, and ${images.length} editable images and descriptions.`,
 );

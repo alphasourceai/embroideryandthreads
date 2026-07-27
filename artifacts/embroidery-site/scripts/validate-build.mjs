@@ -130,7 +130,11 @@ for (const [file, titleNeedle, canonical, robotsNeedle] of pages) {
 
 const requiredFiles = [
   "admin/config.yml",
+  "admin/editor-guards.js",
   "admin/index.html",
+  "admin/photo-prep.css",
+  "admin/photo-prep.html",
+  "admin/photo-prep.js",
   "favicon-32x32.png",
   "icon-192.png",
   "icon-512.png",

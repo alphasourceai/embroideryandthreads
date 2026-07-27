@@ -1,0 +1,264 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Raleway:wght@400;500;600;700&display=swap");
+
+:root {
+  color: #3b312d;
+  background: #fbf7f2;
+  font-family: "Raleway", sans-serif;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+header {
+  border-bottom: 1px dashed #ce8296;
+  background: #fffaf6;
+}
+
+header > a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(100% - 32px, 980px);
+  margin: 0 auto;
+  padding: 18px 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+header img {
+  border: 1px solid #e7c5ce;
+  border-radius: 50%;
+}
+
+header span {
+  display: grid;
+  gap: 2px;
+}
+
+header strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+}
+
+header small {
+  color: #766b65;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+main {
+  width: min(100% - 32px, 980px);
+  margin: 0 auto;
+  padding: 54px 0 72px;
+}
+
+.intro {
+  max-width: 720px;
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #a9536b;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(40px, 7vw, 66px);
+  line-height: 0.95;
+}
+
+.intro > p:last-child {
+  color: #6f625c;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.workspace {
+  border: 1px solid #ead7d0;
+  background: #fff;
+  padding: 22px;
+}
+
+.drop-zone {
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  border: 2px dashed #ce8296;
+  min-height: 230px;
+  padding: 38px 20px;
+  background: #fff8f8;
+  cursor: pointer;
+  text-align: center;
+}
+
+.drop-zone.is-dragging {
+  border-color: #9f4f66;
+  background: #fbecef;
+}
+
+.drop-zone input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.drop-zone strong {
+  font-size: 18px;
+}
+
+.drop-zone > span:last-child {
+  color: #776c66;
+  font-size: 13px;
+}
+
+.drop-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #ce8296;
+  border-radius: 50%;
+  color: #a9536b;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 34px;
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 54px;
+}
+
+.status-row p {
+  margin: 0;
+  color: #6f625c;
+  font-size: 13px;
+}
+
+button,
+.editor-link,
+.download-link {
+  border: 1px solid #a9536b;
+  border-radius: 4px;
+  padding: 10px 14px;
+  color: #8e4258;
+  background: #fff;
+  font:
+    600 12px "Raleway",
+    sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.results {
+  display: grid;
+  gap: 12px;
+}
+
+.result {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  border-top: 1px solid #eee2dc;
+  padding-top: 12px;
+}
+
+.result img {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+}
+
+.result-copy {
+  min-width: 0;
+}
+
+.result-copy strong {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 6px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.result-copy span {
+  display: block;
+  color: #766b65;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.result.error {
+  grid-template-columns: minmax(0, 1fr);
+  color: #9a304b;
+}
+
+.next-steps {
+  margin-top: 28px;
+  border-left: 3px solid #ce8296;
+  padding: 6px 0 6px 24px;
+}
+
+.next-steps h2 {
+  margin: 0 0 8px;
+  font-size: 30px;
+}
+
+.next-steps ol {
+  margin: 0 0 22px;
+  padding-left: 20px;
+  color: #6f625c;
+  line-height: 1.8;
+}
+
+.editor-link {
+  display: inline-block;
+  color: #fff;
+  background: #a9536b;
+}
+
+@media (max-width: 620px) {
+  main {
+    padding-top: 38px;
+  }
+
+  .workspace {
+    padding: 14px;
+  }
+
+  .result {
+    grid-template-columns: 70px minmax(0, 1fr);
+  }
+
+  .result img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .download-link {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+}

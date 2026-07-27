@@ -12,6 +12,7 @@ import OptimizedImage from "@/components/OptimizedImage";
 import PublicImage from "@/components/PublicImage";
 import SiteFooter from "@/components/SiteFooter";
 import siteContent from "@/content/site.json";
+import type { CustomerReview } from "@/types/reviews";
 import { usePrivacyPreferences } from "@/context/PrivacyPreferencesContext";
 import { usePageMetadata } from "@/hooks/use-page-metadata";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
@@ -24,6 +25,9 @@ import {
 } from "@/lib/analytics";
 
 const INSTAGRAM_URL = "https://www.instagram.com/embroideryandthreads/";
+const featuredReviews = (siteContent.reviews as CustomerReview[])
+  .filter((review) => review.featured && review.image)
+  .slice(0, 3);
 
 const PROCESS_STEPS = [
   {
@@ -772,7 +776,7 @@ export default function Home() {
               it back. Here are a few favorites.
             </p>
             <div className="review-polaroid-grid">
-              {siteContent.reviews.map((review, index) => (
+              {featuredReviews.map((review, index) => (
                 <Link
                   href="/reviews"
                   className="polaroid-card"
@@ -781,8 +785,8 @@ export default function Home() {
                 >
                   <span className="washi-tape" aria-hidden="true" />
                   <OptimizedImage
-                    src={review.image}
-                    alt={review.alt}
+                    src={review.image ?? ""}
+                    alt={review.alt ?? ""}
                     width="486"
                     height="867"
                     loading="lazy"
