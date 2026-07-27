@@ -152,6 +152,24 @@ for (const file of requiredFiles) {
   }
 }
 
+const cmsConfig = await readFile(
+  path.join(outputDir, "admin", "config.yml"),
+  "utf8",
+);
+if (/^media_library:/m.test(cmsConfig)) {
+  errors.push(
+    "admin/config.yml: top-level media_library requires a named external provider.",
+  );
+}
+const cmsImageFields = cmsConfig.match(/\bwidget:\s*image\b/g)?.length ?? 0;
+const cmsImageSizeLimits =
+  cmsConfig.match(/\bmax_file_size:\s*2500000\b/g)?.length ?? 0;
+if (!cmsImageFields || cmsImageSizeLimits !== cmsImageFields) {
+  errors.push(
+    "admin/config.yml: every image widget must enforce the 2.5 MB upload limit.",
+  );
+}
+
 const assetsDir = path.join(outputDir, "assets");
 let cloudflareBeaconInBundle = false;
 for (const file of await readdir(assetsDir)) {
