@@ -603,6 +603,19 @@ export default function Home() {
                 height="150"
               />
             </div>
+
+            <blockquote
+              className="hero-faith-message"
+              data-testid="hero-faith-message"
+            >
+              <p className="hero-faith-quote">
+                {siteContent.faithMessage.quote}
+              </p>
+              <div className="hero-faith-verse">
+                <p>&ldquo;{siteContent.faithMessage.verse}&rdquo;</p>
+                <cite>{siteContent.faithMessage.reference}</cite>
+              </div>
+            </blockquote>
           </div>
 
           <svg

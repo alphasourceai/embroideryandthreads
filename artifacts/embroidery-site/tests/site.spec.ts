@@ -56,6 +56,22 @@ test("private insights page does not load the contact form CAPTCHA", async ({
   await expect(page.locator('script[src*="recaptcha"]')).toHaveCount(0);
 });
 
+test("homepage keeps the faith statement and Bible verse together", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const message = page.getByTestId("hero-faith-message");
+
+  await expect(message).toBeVisible();
+  await expect(message).toContainText(
+    "Crafted with Excellence. Stitched with Purpose. Serving the Lord in Every Thread.",
+  );
+  await expect(message).toContainText(
+    "Whatever you do, work at it with all your heart, as working for the Lord...",
+  );
+  await expect(message.getByText("Colossians 3:23")).toBeVisible();
+});
+
 test("Google reviews are added to the reviews page with attribution", async ({
   page,
 }) => {

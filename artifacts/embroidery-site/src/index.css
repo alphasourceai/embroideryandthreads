@@ -467,6 +467,78 @@ img {
   box-shadow: 0 8px 24px rgba(61, 52, 48, 0.18);
 }
 
+.hero-faith-message {
+  position: relative;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+  gap: 34px;
+  width: min(100%, 980px);
+  margin: -6px auto 0;
+  padding: 24px 34px;
+  border-block: 1px dashed var(--rose);
+  background: rgba(244, 227, 227, 0.42);
+}
+
+.hero-faith-message::before,
+.hero-faith-message::after {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--rose);
+  border-radius: 50%;
+  background: var(--cream);
+  content: "";
+  transform: translateY(-50%);
+}
+
+.hero-faith-message::before {
+  left: -4px;
+}
+
+.hero-faith-message::after {
+  right: -4px;
+}
+
+.hero-faith-message p {
+  margin: 0;
+}
+
+.hero-faith-quote {
+  align-self: center;
+  color: var(--ink);
+  font-family: "Playfair Display", serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.hero-faith-verse {
+  padding-left: 34px;
+  border-left: 1px solid rgba(201, 139, 151, 0.7);
+}
+
+.hero-faith-verse p {
+  color: var(--soft);
+  font-family: "Playfair Display", serif;
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.hero-faith-verse cite {
+  display: block;
+  margin-top: 7px;
+  color: var(--rose-deep);
+  font-family: "Karla", sans-serif;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
 .hero-thread {
   position: absolute;
   right: 0;
@@ -2845,6 +2917,10 @@ img {
     gap: 76px;
   }
 
+  .hero-faith-message {
+    margin-top: -16px;
+  }
+
   .hero-copy {
     max-width: 680px;
     margin: 0 auto;
@@ -3016,6 +3092,24 @@ img {
 
   .hero-grid {
     gap: 64px;
+  }
+
+  .hero-faith-message {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: -20px;
+    padding: 24px 26px;
+    text-align: center;
+  }
+
+  .hero-faith-quote {
+    font-size: 20px;
+  }
+
+  .hero-faith-verse {
+    padding: 18px 0 0;
+    border-top: 1px solid rgba(201, 139, 151, 0.7);
+    border-left: 0;
   }
 
   .hero-copy h1 {

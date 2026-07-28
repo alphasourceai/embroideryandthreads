@@ -40,6 +40,28 @@ collections:
                   pattern: [".{12,}", "Enter at least 12 characters."],
                   hint: "Briefly describe the visible product, wording, and colors for accessibility and search.",
                 }
+          - label: Homepage Faith Message
+            name: faithMessage
+            widget: object
+            hint: "This statement and Bible verse appear together beneath the homepage hero."
+            fields:
+              - {
+                  label: Brand Statement,
+                  name: quote,
+                  widget: text,
+                }
+              - {
+                  label: Bible Verse,
+                  name: verse,
+                  widget: text,
+                  hint: "Enter the verse text without quotation marks.",
+                }
+              - {
+                  label: Verse Reference,
+                  name: reference,
+                  widget: string,
+                  hint: "Example: Colossians 3:23",
+                }
           - label: Story Image
             name: story
             widget: object

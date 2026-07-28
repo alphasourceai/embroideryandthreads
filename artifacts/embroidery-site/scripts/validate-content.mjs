@@ -25,6 +25,16 @@ if (
   errors.push("Gallery: include between one and twelve galleries.");
 }
 
+for (const [label, value] of [
+  ["Homepage faith statement", content.faithMessage?.quote],
+  ["Homepage Bible verse", content.faithMessage?.verse],
+  ["Homepage Bible verse reference", content.faithMessage?.reference],
+]) {
+  if (typeof value !== "string" || !value.trim()) {
+    errors.push(`${label}: text is required.`);
+  }
+}
+
 const pricingCategories = Array.isArray(pricing.categories)
   ? pricing.categories
   : [];
