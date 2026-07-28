@@ -163,10 +163,10 @@ if (/^media_library:/m.test(cmsConfig)) {
 }
 const cmsImageFields = cmsConfig.match(/\bwidget:\s*image\b/g)?.length ?? 0;
 const cmsImageSizeLimits =
-  cmsConfig.match(/\bmax_file_size:\s*2500000\b/g)?.length ?? 0;
+  cmsConfig.match(/\bmax_file_size:\s*1250000\b/g)?.length ?? 0;
 if (!cmsImageFields || cmsImageSizeLimits !== cmsImageFields) {
   errors.push(
-    "admin/config.yml: every image widget must enforce the 2.5 MB upload limit.",
+    "admin/config.yml: every image widget must enforce the 1.25 MB upload limit.",
   );
 }
 

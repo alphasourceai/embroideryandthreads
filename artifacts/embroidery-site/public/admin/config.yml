@@ -31,8 +31,8 @@ collections:
                 widget: image
                 media_library:
                   config:
-                    max_file_size: 2500000
-                hint: "Upload one JPG, PNG, or WebP image under 2.5 MB. [Prepare a larger photo first](/admin/photo-prep.html)."
+                    max_file_size: 1250000
+                hint: "Upload one JPG, PNG, or WebP image under 1.25 MB. [Prepare a larger photo first](/admin/photo-prep.html)."
               - {
                   label: Image Description,
                   name: alt,
@@ -49,8 +49,8 @@ collections:
                 widget: image
                 media_library:
                   config:
-                    max_file_size: 2500000
-                hint: "Upload one JPG, PNG, or WebP image under 2.5 MB. [Prepare a larger photo first](/admin/photo-prep.html)."
+                    max_file_size: 1250000
+                hint: "Upload one JPG, PNG, or WebP image under 1.25 MB. [Prepare a larger photo first](/admin/photo-prep.html)."
               - {
                   label: Image Description,
                   name: alt,
@@ -79,14 +79,14 @@ collections:
                     widget: image
                     media_library:
                       config:
-                        max_file_size: 2500000
-                    hint: "Upload one JPG, PNG, or WebP image under 2.5 MB. [Prepare a larger photo first](/admin/photo-prep.html), then save before adding another."
+                        max_file_size: 1250000
+                    hint: "Upload one JPG, PNG, or WebP image under 1.25 MB. [Prepare a larger photo first](/admin/photo-prep.html), then save before adding another."
                   - {
                       label: Image Description,
                       name: alt,
                       widget: string,
-                      pattern: [".{12,}", "Enter at least 12 characters."],
-                      hint: "Briefly describe the visible product, wording, and colors. Do not write 'image of.'",
+                      required: false,
+                      hint: "Optional but recommended: briefly describe the visible product, wording, and colors. If left blank, the editor creates a basic description that you can improve later.",
                     }
           - label: Customer Reviews
             name: reviews
@@ -146,8 +146,8 @@ collections:
                 required: false
                 media_library:
                   config:
-                    max_file_size: 2500000
-                hint: "Optional. Upload one JPG, PNG, or WebP image under 2.5 MB. [Prepare a larger image first](/admin/photo-prep.html)."
+                    max_file_size: 1250000
+                hint: "Optional. Upload one JPG, PNG, or WebP image under 1.25 MB. [Prepare a larger image first](/admin/photo-prep.html)."
               - {
                   label: Image Description,
                   name: alt,

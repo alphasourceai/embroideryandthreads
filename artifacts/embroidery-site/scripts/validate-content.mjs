@@ -13,7 +13,7 @@ const content = JSON.parse(await readFile(contentPath, "utf8"));
 const pricingPath = path.join(appRoot, "src", "content", "pricing.json");
 const pricing = JSON.parse(await readFile(pricingPath, "utf8"));
 const errors = [];
-const maxBytes = 2_500_000;
+const maxBytes = 1_250_000;
 const allowedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp"]);
 
 const gallery = Array.isArray(content.gallery) ? content.gallery : [];
@@ -149,7 +149,7 @@ for (const [label, item] of images) {
   try {
     const file = await stat(imagePath);
     if (file.size > maxBytes) {
-      errors.push(`${label}: image is larger than 2.5 MB.`);
+      errors.push(`${label}: image is larger than 1.25 MB.`);
     }
 
     const dimensions = imageSize(await readFile(imagePath));

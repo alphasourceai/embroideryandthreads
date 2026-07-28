@@ -12,8 +12,9 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:build": "node scripts/validate-build.mjs",
+    "test:admin": "node --test tests/editor-guards.test.mjs",
     "test:e2e": "playwright test",
-    "qa": "pnpm typecheck && PORT=4173 BASE_PATH=/ pnpm build"
+    "qa": "pnpm typecheck && pnpm test:admin && PORT=4173 BASE_PATH=/ pnpm build"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",

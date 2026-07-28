@@ -5,8 +5,8 @@
   var status = document.getElementById("status");
   var clearButton = document.getElementById("clear-button");
   var objectUrls = [];
-  var maxDimension = 2000;
-  var targetBytes = 2_200_000;
+  var maxDimension = 1800;
+  var targetBytes = 900_000;
 
   function formatBytes(bytes) {
     if (bytes < 1024 * 1024) {
@@ -71,19 +71,24 @@
     if (!context) throw new Error("This browser cannot prepare photos.");
 
     var blob;
-    for (var attempt = 0; attempt < 5; attempt += 1) {
+    for (var attempt = 0; attempt < 7; attempt += 1) {
       canvas.width = width;
       canvas.height = height;
       context.fillStyle = "#ffffff";
       context.fillRect(0, 0, width, height);
       context.drawImage(image, 0, 0, width, height);
-      blob = await canvasBlob(canvas, Math.max(0.68, 0.86 - attempt * 0.05));
+      blob = await canvasBlob(canvas, Math.max(0.58, 0.84 - attempt * 0.045));
       if (blob.size <= targetBytes) break;
-      width = Math.max(800, Math.round(width * 0.86));
-      height = Math.max(800, Math.round(height * 0.86));
+      width = Math.max(1, Math.round(width * 0.9));
+      height = Math.max(1, Math.round(height * 0.9));
     }
 
     if (typeof image.close === "function") image.close();
+    if (!blob || blob.size > 1_250_000) {
+      throw new Error(
+        "This photo could not be reduced enough. Try a smaller original.",
+      );
+    }
     return { blob: blob, width: width, height: height };
   }
 
