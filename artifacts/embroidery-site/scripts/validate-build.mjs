@@ -169,6 +169,15 @@ if (!cmsImageFields || cmsImageSizeLimits !== cmsImageFields) {
     "admin/config.yml: every image widget must enforce the 1.25 MB upload limit.",
   );
 }
+if (
+  !/label:\s*Star Rating[\s\S]*?required:\s*false,[\s\S]*?pattern:\s*\[\s*"\^\[1-5\]\$"/m.test(
+    cmsConfig,
+  )
+) {
+  errors.push(
+    "admin/config.yml: optional review ratings need an empty-safe 1-5 pattern.",
+  );
+}
 
 const assetsDir = path.join(outputDir, "assets");
 let cloudflareBeaconInBundle = false;

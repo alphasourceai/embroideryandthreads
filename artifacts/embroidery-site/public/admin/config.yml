@@ -125,6 +125,11 @@ collections:
                   min: 1,
                   max: 5,
                   required: false,
+                  pattern:
+                    [
+                      "^[1-5]$",
+                      "Choose a whole-number rating from 1 to 5 or leave this blank.",
+                    ],
                   hint: "Use the original rating when the source includes one.",
                 }
               - {
