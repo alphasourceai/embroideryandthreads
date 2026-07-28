@@ -9,6 +9,26 @@ const appRoot = path.resolve(
 );
 const outputDir = path.join(appRoot, "dist", "public");
 const errors = [];
+const netlifyConfig = await readFile(
+  path.resolve(appRoot, "..", "..", "netlify.toml"),
+  "utf8",
+);
+
+const cspConnectSources = [
+  ...netlifyConfig.matchAll(
+    /Content-Security-Policy\s*=\s*"[^"]*connect-src\s+([^;"]+)/g,
+  ),
+].map((match) => match[1]);
+if (
+  cspConnectSources.length < 2 ||
+  cspConnectSources.some(
+    (sources) => !sources.split(/\s+/).includes("blob:"),
+  )
+) {
+  errors.push(
+    "netlify.toml: every CSP connect-src must allow blob: so Decap can publish pending image uploads.",
+  );
+}
 
 const pages = [
   [
