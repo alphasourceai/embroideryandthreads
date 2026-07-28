@@ -62,6 +62,10 @@
         {
           "image": "/uploads/apparel-god-is-good-tshirt.jpg",
           "alt": "One Nation Under God T-shirt - $30"
+        },
+        {
+          "image": "/uploads/cms-upload-verification-20260728.jpg",
+          "alt": "Apparel: cms upload verification 20260728 by Embroidery & Threads"
         }
       ]
     },
@@ -289,40 +293,40 @@
   ],
   "reviews": [
     {
-      "source": "instagram",
       "reviewer": "@ambermnolan",
-      "quote": "had @embroideryandthreads make a sweatshirt for me",
-      "reply": "so glad you like it!!!",
-      "image": "/review-1.png",
+      "dateLabel": "Customer share",
       "alt": "Aggies Texas A&M custom embroidered sweatshirt shared by @ambermnolan",
-      "dateLabel": "Customer share",
+      "reply": "so glad you like it!!!",
+      "featured": true,
       "sourceUrl": "https://www.instagram.com/embroideryandthreads/",
-      "rating": null,
-      "featured": true
+      "source": "instagram",
+      "image": "/review-1.png",
+      "quote": "had @embroideryandthreads make a sweatshirt for me",
+      "rating": null
     },
     {
-      "source": "instagram",
       "reviewer": "@stewards_of_stoke",
-      "quote": "Custom embroidery in action - tagged @EMBROIDERYANDTHREADS",
-      "reply": "",
-      "image": "/review-2.png",
-      "alt": "Behind-the-scenes of the embroidery machine making a custom design for @stewards_of_stoke",
       "dateLabel": "Customer share",
+      "alt": "Behind-the-scenes of the embroidery machine making a custom design for @stewards_of_stoke",
+      "reply": "",
+      "featured": true,
       "sourceUrl": "https://www.instagram.com/embroideryandthreads/",
-      "rating": null,
-      "featured": true
+      "source": "instagram",
+      "image": "/review-2.png",
+      "quote": "Custom embroidery in action - tagged @EMBROIDERYANDTHREADS",
+      "rating": null
     },
     {
-      "source": "instagram",
       "reviewer": "@natasha.kenton1",
-      "quote": "So many beautiful gifts to give from @embroideryandthreads",
-      "reply": "",
-      "image": "/review-3.png",
-      "alt": "Beautifully packaged Embroidery & Threads gifts under the Christmas tree, shared by @natasha.kenton1",
       "dateLabel": "Customer share",
+      "alt": "Beautifully packaged Embroidery & Threads gifts under the Christmas tree, shared by @natasha.kenton1",
+      "reply": "",
+      "featured": true,
       "sourceUrl": "https://www.instagram.com/embroideryandthreads/",
-      "rating": null,
-      "featured": true
+      "source": "instagram",
+      "image": "/review-3.png",
+      "quote": "So many beautiful gifts to give from @embroideryandthreads",
+      "rating": null
     }
   ],
   "instagram": [
