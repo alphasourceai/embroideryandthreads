@@ -84,4 +84,97 @@
       });
     },
   });
+
+  function enableLocalImagePreviews() {
+    if (
+      typeof document === "undefined" ||
+      typeof MutationObserver === "undefined" ||
+      typeof URL === "undefined" ||
+      typeof URL.createObjectURL !== "function"
+    ) {
+      return;
+    }
+
+    var previewsByName = Object.create(null);
+
+    function fileNameFromSource(source) {
+      if (typeof source !== "string" || source.startsWith("blob:")) return "";
+
+      try {
+        return decodeURIComponent(source.split(/[?#]/)[0].split("/").pop());
+      } catch {
+        return "";
+      }
+    }
+
+    function applyPreview(image) {
+      var fileName = fileNameFromSource(image.getAttribute("src"));
+      var preview = fileName && previewsByName[fileName];
+      if (!preview || image.src === preview) return;
+
+      image.src = preview;
+    }
+
+    function refreshPreviews(root) {
+      if (root instanceof HTMLImageElement) {
+        applyPreview(root);
+      }
+
+      if (root && typeof root.querySelectorAll === "function") {
+        root.querySelectorAll("img").forEach(applyPreview);
+      }
+    }
+
+    document.addEventListener(
+      "change",
+      function rememberSelectedImages(event) {
+        var input = event.target;
+        if (
+          !(input instanceof HTMLInputElement) ||
+          input.type !== "file" ||
+          !input.files
+        ) {
+          return;
+        }
+
+        Array.from(input.files).forEach(function rememberImage(file) {
+          if (!file.type.startsWith("image/")) return;
+
+          if (previewsByName[file.name]) {
+            URL.revokeObjectURL(previewsByName[file.name]);
+          }
+          previewsByName[file.name] = URL.createObjectURL(file);
+        });
+
+        requestAnimationFrame(function showSelectedImages() {
+          refreshPreviews(document);
+        });
+      },
+      true,
+    );
+
+    new MutationObserver(function previewNewImages(mutations) {
+      mutations.forEach(function inspectMutation(mutation) {
+        if (
+          mutation.type === "attributes" &&
+          mutation.target instanceof HTMLImageElement
+        ) {
+          applyPreview(mutation.target);
+        }
+
+        mutation.addedNodes.forEach(refreshPreviews);
+      });
+    }).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["src"],
+      childList: true,
+      subtree: true,
+    });
+
+    window.addEventListener("beforeunload", function releasePreviews() {
+      Object.values(previewsByName).forEach(URL.revokeObjectURL);
+    });
+  }
+
+  enableLocalImagePreviews();
 })();

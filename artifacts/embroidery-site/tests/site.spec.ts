@@ -125,6 +125,32 @@ test("photo preparation tool creates an upload-ready JPG", async ({ page }) => {
   expect(preparedBytes).toBeLessThanOrEqual(900_000);
 });
 
+test("CMS shows a local preview for a newly selected gallery photo", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.evaluate(() => {
+    Object.assign(window, {
+      CMS: {
+        registerEventListener() {},
+      },
+    });
+  });
+  await page.setContent(`
+    <input id="cms-photo" type="file" accept="image/*">
+    <img id="cms-preview" src="/uploads/apparel-lighthouse-cap.jpg" alt="">
+  `);
+  await page.addScriptTag({ url: "/admin/editor-guards.js" });
+
+  await page
+    .locator("#cms-photo")
+    .setInputFiles(
+      path.join(appRoot, "public", "uploads", "apparel-lighthouse-cap.jpg"),
+    );
+
+  await expect(page.locator("#cms-preview")).toHaveAttribute("src", /^blob:/);
+});
+
 test("contact form has usable fields and a non-JavaScript fallback", async ({
   page,
 }) => {
