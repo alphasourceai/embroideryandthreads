@@ -116,6 +116,13 @@ test("photo preparation tool creates an upload-ready JPG", async ({ page }) => {
     "download",
     /-web\.jpg$/,
   );
+  const preparedBytes = await page
+    .locator(".download-link")
+    .evaluate(
+      async (link) =>
+        (await (await fetch((link as HTMLAnchorElement).href)).blob()).size,
+    );
+  expect(preparedBytes).toBeLessThanOrEqual(900_000);
 });
 
 test("contact form has usable fields and a non-JavaScript fallback", async ({
