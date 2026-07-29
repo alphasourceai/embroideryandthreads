@@ -41,13 +41,20 @@ function Router() {
   );
 }
 
-function App() {
+export type AppProps = {
+  ssrPath?: string;
+};
+
+function App({ ssrPath }: AppProps) {
   return (
     <PrivacyPreferencesProvider>
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+      <WouterRouter
+        base={import.meta.env.BASE_URL.replace(/\/$/, "")}
+        ssrPath={ssrPath}
+      >
         <AnalyticsTracker />
         <CloudflareAnalytics />
         <Router />

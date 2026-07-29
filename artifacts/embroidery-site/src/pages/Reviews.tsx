@@ -42,22 +42,21 @@ export default function Reviews() {
     return () => controller.abort();
   }, []);
 
-  const reviews = useMemo(() => {
+  const googleReviews = useMemo(() => {
     const seen = new Set(
       manualReviews.map((review) =>
         `${review.reviewer}|${review.quote}`.toLowerCase(),
       ),
     );
-    const googleReviews: CustomerReview[] = (googleFeed?.reviews ?? [])
+    return (googleFeed?.reviews ?? [])
       .filter(
         (review) =>
           !seen.has(`${review.reviewer}|${review.quote}`.toLowerCase()),
       )
       .map((review) => ({
         ...review,
-        source: "google",
+        source: "google" as const,
       }));
-    return [...googleReviews, ...manualReviews];
   }, [googleFeed]);
 
   return (
@@ -109,21 +108,21 @@ export default function Reviews() {
               it back. Here are a few favorites.
             </p>
 
-            {googleFeed?.configured &&
-              typeof googleFeed.rating === "number" &&
-              typeof googleFeed.reviewCount === "number" && (
-                <GoogleReviewSummary
-                  feed={googleFeed}
-                  rating={googleFeed.rating}
-                  reviewCount={googleFeed.reviewCount}
-                />
-              )}
+            <GoogleReviewsSection feed={googleFeed} reviews={googleReviews} />
 
+            <div className="reviews-collection-heading" data-reveal>
+              <span className="overline">Customer shares</span>
+              <h2>Kind Words from Instagram</h2>
+              <p>
+                Notes and finished pieces shared directly by local customers.
+              </p>
+            </div>
             <div className="reviews-page-grid">
-              {reviews.map((review, index) => (
+              {manualReviews.map((review, index) => (
                 <ReviewCard
                   review={review}
                   index={index}
+                  idPrefix="customer"
                   key={review.id ?? `${review.reviewer}-${index}`}
                 />
               ))}
@@ -179,9 +178,11 @@ export default function Reviews() {
 function ReviewCard({
   review,
   index,
+  idPrefix,
 }: {
   review: CustomerReview;
   index: number;
+  idPrefix: string;
 }) {
   const sourceLabel =
     review.source === "google"
@@ -206,7 +207,7 @@ function ReviewCard({
   return (
     <article
       className={`reviews-page-card${review.image ? "" : " review-text-card"}`}
-      data-testid={`review-card-${index + 1}`}
+      data-testid={`${idPrefix}-review-card-${index + 1}`}
       data-reveal
     >
       <span className="washi-tape" aria-hidden="true" />
@@ -267,53 +268,110 @@ function ReviewStars({ rating }: { rating: number }) {
   );
 }
 
-function GoogleReviewSummary({
+function GoogleReviewsSection({
   feed,
-  rating,
-  reviewCount,
+  reviews,
 }: {
-  feed: GoogleReviewResponse;
-  rating: number;
-  reviewCount: number;
+  feed: GoogleReviewResponse | null;
+  reviews: CustomerReview[];
 }) {
-  const reviewLabel = `${reviewCount} Google ${
-    reviewCount === 1 ? "review" : "reviews"
-  }`;
+  const hasRating =
+    typeof feed?.rating === "number" && typeof feed?.reviewCount === "number";
+  const reviewLabel = hasRating
+    ? `${feed.reviewCount} Google ${
+        feed.reviewCount === 1 ? "rating" : "ratings"
+      }`
+    : "";
 
   return (
-    <aside
-      className="google-review-summary"
-      aria-label="Google review summary"
-      data-testid="google-review-summary"
+    <section
+      className="google-reviews-section"
+      aria-labelledby="google-reviews-heading"
+      data-testid="google-reviews-section"
     >
-      <div className="google-review-summary-main">
-        <img
-          src="https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"
-          alt="Google"
-          width="92"
-          height="30"
-          loading="lazy"
-        />
-        <strong>{rating.toFixed(1)}</strong>
-        <ReviewStars rating={Math.round(rating)} />
-        <span>{reviewLabel}</span>
-        {feed.googleMapsUri && (
-          <a
-            href={feed.googleMapsUri}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View all on Google Maps
-            <ExternalLink aria-hidden="true" />
-          </a>
-        )}
+      <div className="reviews-collection-heading" data-reveal>
+        <span className="overline">Verified on Google</span>
+        <h2 id="google-reviews-heading">Google Reviews</h2>
+        <p>
+          Recent public feedback from the Embroidery &amp; Threads Google
+          Business Profile.
+        </p>
       </div>
-      <p>
-        Showing recent 4- and 5-star written reviews returned by Google.
-        {feed.reviews.length === 0 &&
-          " New written reviews will appear here automatically."}{" "}
-        Google checks for and removes fake content when identified.
-      </p>
-    </aside>
+
+      <article
+        className="google-review-summary"
+        aria-label="Google rating summary"
+        data-testid="google-review-summary"
+        data-reveal
+      >
+        <div className="google-review-summary-main">
+          <img
+            src="https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"
+            alt="Google"
+            width="92"
+            height="30"
+            loading="lazy"
+          />
+          {hasRating ? (
+            <>
+              <strong>{feed.rating!.toFixed(1)}</strong>
+              <ReviewStars rating={Math.round(feed.rating!)} />
+              <span>{reviewLabel}</span>
+            </>
+          ) : (
+            <span className="google-review-status">
+              {feed?.unavailable
+                ? "Google ratings are temporarily unavailable."
+                : "Loading the latest Google ratings..."}
+            </span>
+          )}
+        </div>
+        <div className="google-review-summary-copy">
+          <p>
+            Ratings and written reviews are refreshed automatically from Google.
+            Only recent 4- and 5-star written reviews returned by Google are
+            featured below.
+          </p>
+          {feed?.googleMapsUri && (
+            <a
+              href={feed.googleMapsUri}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              See the full Google profile
+              <ExternalLink aria-hidden="true" />
+            </a>
+          )}
+        </div>
+      </article>
+
+      {reviews.length > 0 ? (
+        <div className="google-review-card-grid">
+          {reviews.map((review, index) => (
+            <ReviewCard
+              review={review}
+              index={index}
+              idPrefix="google"
+              key={review.id ?? `${review.reviewer}-${index}`}
+            />
+          ))}
+        </div>
+      ) : (
+        <div
+          className="google-review-empty"
+          data-testid="google-review-empty"
+          data-reveal
+        >
+          <span className="google-mark" aria-hidden="true">
+            G
+          </span>
+          <p>
+            {hasRating
+              ? `Customers have left ${reviewLabel.toLowerCase()}. Written Google reviews will appear here automatically as Google makes them available.`
+              : "Written Google reviews will appear here automatically as Google makes them available."}
+          </p>
+        </div>
+      )}
+    </section>
   );
 }

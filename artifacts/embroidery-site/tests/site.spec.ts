@@ -128,27 +128,59 @@ test("Google reviews are added to the reviews page with attribution", async ({
   await expect(
     page.getByText("Beautiful embroidery and thoughtful service."),
   ).toBeVisible();
+  const googleSection = page.getByTestId("google-reviews-section");
+  await expect(googleSection).toBeVisible();
   await expect(
-    page.getByTestId("review-card-1").getByRole("link", {
+    page.getByTestId("google-review-card-1").getByRole("link", {
       name: "Google review",
     }),
   ).toBeVisible();
   await expect(
-    page.getByTestId("review-card-1").getByLabel("5 out of 5 stars"),
+    page.getByTestId("google-review-card-1").getByLabel("5 out of 5 stars"),
   ).toBeVisible();
+  const firstGoogleReview = page.getByTestId("google-review-card-1");
+  await firstGoogleReview.scrollIntoViewIfNeeded();
+  await expect(firstGoogleReview).toHaveClass(/is-visible/);
   const googleSummary = page.getByTestId("google-review-summary");
   await expect(googleSummary).toBeVisible();
   await expect(googleSummary).toContainText("5.0");
-  await expect(googleSummary).toContainText("3 Google reviews");
+  await expect(googleSummary).toContainText("3 Google ratings");
   await expect(googleSummary).toContainText(
-    "Showing recent 4- and 5-star written reviews returned by Google.",
+    "Only recent 4- and 5-star written reviews returned by Google are featured below.",
   );
   await expect(
-    googleSummary.getByRole("link", { name: "View all on Google Maps" }),
+    googleSummary.getByRole("link", { name: "See the full Google profile" }),
   ).toHaveAttribute("href", "https://www.google.com/maps/place/example");
+  await expect(page.getByTestId("google-review-empty")).toHaveCount(0);
   await expect(
     page.getByTestId("reviews-button-google-review"),
   ).toHaveAttribute("href", "https://g.page/r/CePAAktAo91REBM/review");
+});
+
+test("Google rating remains visible before written reviews are available", async ({
+  page,
+}) => {
+  await page.route("**/.netlify/functions/google-reviews", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        configured: true,
+        googleMapsUri: "https://www.google.com/maps/place/example",
+        rating: 5,
+        reviewCount: 3,
+        reviews: [],
+      }),
+    });
+  });
+
+  await page.goto("/reviews");
+  const googleSection = page.getByTestId("google-reviews-section");
+  await expect(googleSection).toContainText("5.0");
+  await expect(googleSection).toContainText("3 Google ratings");
+  await expect(page.getByTestId("google-review-empty")).toContainText(
+    "Written Google reviews will appear here automatically",
+  );
 });
 
 test("photo preparation tool creates an upload-ready JPG", async ({ page }) => {
@@ -505,7 +537,11 @@ test("public images use deployment-versioned URLs and decode successfully", asyn
   const unversioned = await images.evaluateAll((elements) =>
     elements
       .map((image) => image.getAttribute("src") ?? "")
-      .filter((src) => src.startsWith("/") && !src.includes("v=local")),
+      .filter(
+        (src) =>
+          src.startsWith("/") &&
+          !new URL(src, window.location.origin).searchParams.has("v"),
+      ),
   );
   expect(unversioned).toEqual([]);
 });
@@ -513,7 +549,7 @@ test("public images use deployment-versioned URLs and decode successfully", asyn
 test("a failed logo response retries on a fresh URL", async ({ page }) => {
   let failedFirstRequest = false;
 
-  await page.route(/\/logo-b\.jpg\?v=local$/, async (route) => {
+  await page.route(/\/logo-b\.jpg\?v=[a-zA-Z0-9_-]+$/, async (route) => {
     if (!failedFirstRequest) {
       failedFirstRequest = true;
       await route.fulfill({ status: 503, contentType: "text/plain", body: "" });

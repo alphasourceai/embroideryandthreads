@@ -102,6 +102,8 @@ for (const [file, titleNeedle, canonical, robotsNeedle] of pages) {
   const metas = [];
   const links = [];
   const forms = [];
+  const headings = [];
+  const anchors = [];
 
   walk(document, (node) => {
     if (node.tagName === "title") {
@@ -112,6 +114,8 @@ for (const [file, titleNeedle, canonical, robotsNeedle] of pages) {
     if (node.tagName === "meta") metas.push(attributes(node));
     if (node.tagName === "link") links.push(attributes(node));
     if (node.tagName === "form") forms.push(attributes(node));
+    if (/^h[1-6]$/.test(node.tagName ?? "")) headings.push(node.tagName);
+    if (node.tagName === "a") anchors.push(attributes(node));
   });
 
   const description = metas.find(
@@ -143,6 +147,17 @@ for (const [file, titleNeedle, canonical, robotsNeedle] of pages) {
 
   if (serviceFiles.has(file) && !html.includes('"@type":"Service"')) {
     errors.push(`${file}: Service structured data is missing.`);
+  }
+  if (robotsNeedle === "index") {
+    if (!html.includes('data-prerendered="true"')) {
+      errors.push(`${file}: prerendered application markup is missing.`);
+    }
+    if (headings.filter((heading) => heading === "h1").length !== 1) {
+      errors.push(`${file}: prerendered content must contain one H1.`);
+    }
+    if (anchors.length < 3) {
+      errors.push(`${file}: prerendered internal links are missing.`);
+    }
   }
 
   if (file === "index.html") {

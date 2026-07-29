@@ -1,15 +1,17 @@
 import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import PublicImage from "@/components/PublicImage";
 import SiteFooter from "@/components/SiteFooter";
 import { usePageMetadata } from "@/hooks/use-page-metadata";
 
 export default function NotFound() {
+  const [location] = useLocation();
+
   usePageMetadata({
     title: "Page Not Found | Embroidery & Threads",
     description:
       "The requested page could not be found. Return to Embroidery & Threads for custom embroidery in Castle Rock, Colorado.",
-    path: window.location.pathname,
+    path: location,
     robots: "noindex, nofollow",
   });
 

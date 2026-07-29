@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --config vite.config.ts --host 0.0.0.0",
     "prebuild": "pnpm validate:content",
-    "build": "vite build --config vite.config.ts && node scripts/generate-static-pages.mjs",
+    "build": "vite build --config vite.config.ts && vite build --config vite.config.ts --ssr src/entry-server.tsx --outDir dist/server && node scripts/generate-static-pages.mjs",
     "postbuild": "pnpm validate:build",
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit",
