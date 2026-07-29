@@ -91,11 +91,11 @@
         },
         {
           "image": "/uploads/kids-personalized-dinosaur-tote-set.jpg",
-          "alt": "Small handsewn tote with embroidered name Bag Tag - set $45"
+          "alt": "Small handsewn tote with embroidered name and Bag Tag - set $45"
         },
         {
           "image": "/uploads/kids-personalized-dinosaur-tote.jpg",
-          "alt": "Large handsewn tote with embroidered name Bag Tag - $55"
+          "alt": "Large handsewn tote with embroidered name and Bag Tag - $55"
         },
         {
           "image": "/uploads/kids-personalized-name-tshirt.jpg",
@@ -115,16 +115,20 @@
       "name": "Seasonal & Holiday",
       "images": [
         {
-          "image": "/uploads/seasonal-christmas-tree-sweatshirt.jpg",
-          "alt": "CHRISTmas Sweatshirt - $45 "
-        },
-        {
           "image": "/uploads/seasonal-god-bless-usa-tshirt.jpg",
           "alt": "God Bless the USA T-shirt - $35"
         },
         {
-          "image": "/uploads/seasonal-personalized-christmas-sacks.jpg",
-          "alt": "Personalized Christmas gift sacks - $25"
+          "image": "/uploads/matching-patriotic-two-fiddy-shirts.jpg",
+          "alt": "American Flag T-shirts - starting at $25"
+        },
+        {
+          "alt": "Customized T-shirts starting at $35",
+          "image": "/uploads/matching-patriotic-memorial-shirts.jpg"
+        },
+        {
+          "image": "/uploads/seasonal-christmas-tree-sweatshirt.jpg",
+          "alt": "CHRISTmas Sweatshirt - $45 "
         },
         {
           "image": "/uploads/seasonal-castle-rock-winter-beanies.jpg",
@@ -143,12 +147,8 @@
           "alt": "Castle Rock Christmas sweatshirt - $45"
         },
         {
-          "image": "/uploads/matching-patriotic-two-fiddy-shirts.jpg",
-          "alt": "American Flag T-shirts - starting at $25"
-        },
-        {
-          "alt": "Customized T-shirts starting at $35",
-          "image": "/uploads/matching-patriotic-memorial-shirts.jpg"
+          "image": "/uploads/seasonal-personalized-christmas-sacks.jpg",
+          "alt": "Personalized Christmas gift sacks - $25"
         }
       ]
     },
