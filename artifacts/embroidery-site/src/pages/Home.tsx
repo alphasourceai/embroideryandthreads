@@ -11,6 +11,7 @@ import InstagramFeed from "@/components/InstagramFeed";
 import OptimizedImage from "@/components/OptimizedImage";
 import PublicImage from "@/components/PublicImage";
 import SiteFooter from "@/components/SiteFooter";
+import serviceLinks from "@/content/service-links.json";
 import siteContent from "@/content/site.json";
 import type { CustomerReview } from "@/types/reviews";
 import { usePrivacyPreferences } from "@/context/PrivacyPreferencesContext";
@@ -719,6 +720,20 @@ export default function Home() {
                 );
               })}
             </div>
+            <nav
+              className="gallery-service-links"
+              aria-label="Custom embroidery services"
+              data-reveal
+            >
+              <span>Explore service details</span>
+              <div>
+                {serviceLinks.map((service) => (
+                  <Link key={service.slug} href={`/${service.slug}`}>
+                    {service.navLabel}
+                  </Link>
+                ))}
+              </div>
+            </nav>
             <div className="centered-action" data-reveal>
               <a
                 className="stitched-button stitched-button-ghost"

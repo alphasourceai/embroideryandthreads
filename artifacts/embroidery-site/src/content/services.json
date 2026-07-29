@@ -1,0 +1,138 @@
+[
+  {
+    "slug": "custom-embroidery-castle-rock",
+    "navLabel": "Custom Embroidery",
+    "eyebrow": "handmade close to home",
+    "title": "Custom Embroidery in Castle Rock, Colorado",
+    "description": "Custom embroidery in Castle Rock for apparel, baby gifts, seasonal pieces, personalized totes, matching sets, and business logos with local pickup.",
+    "intro": "Bring a name, logo, occasion, or rough idea and turn it into a piece made especially for you. Every order is planned personally, stitched locally, and prepared for pickup in Castle Rock.",
+    "heroImage": "/uploads/apparel-castle-rock-colorado-sweatshirt.jpg",
+    "heroAlt": "Castle Rock Colorado applique sweatshirt made by Embroidery & Threads",
+    "galleryNames": [
+      "Apparel",
+      "Baby and Kids",
+      "Seasonal & Holiday",
+      "Gifts & Personalized Items",
+      "Matching & Gift Sets",
+      "Custom Orders"
+    ],
+    "overviewTitle": "Made locally, planned personally",
+    "overviewBody": "Embroidery & Threads creates one-of-a-kind pieces for customers in Castle Rock and surrounding areas. You will confirm the item, colors, placement, wording, and timing before stitching begins, so the finished piece reflects the person or purpose behind it.",
+    "highlights": [
+      "Personalized apparel, hats, and beanies",
+      "Baby gifts, keepsakes, and matching sets",
+      "Seasonal pieces, totes, towels, and blankets",
+      "Business logos, team bags, and collaborative custom work"
+    ],
+    "pricingCategories": [
+      "Apparel",
+      "Baby & Kids",
+      "Gifts & Personalized",
+      "Custom Embroidery"
+    ]
+  },
+  {
+    "slug": "embroidered-apparel",
+    "navLabel": "Apparel",
+    "eyebrow": "wear your story",
+    "title": "Custom Embroidered Apparel",
+    "description": "Custom embroidered sweatshirts, T-shirts, hats, beanies, applique designs, and personalized apparel made in Castle Rock, Colorado.",
+    "intro": "Create apparel that feels personal from the first wear. Choose a sweatshirt, T-shirt, hat, or beanie, then work directly with Becky on the design, thread colors, placement, and finishing details.",
+    "heroImage": "/uploads/apparel-mama-sweatshirts.jpg",
+    "heroAlt": "Custom MAMA applique sweatshirts embroidered in Castle Rock",
+    "galleryNames": ["Apparel"],
+    "overviewTitle": "Everyday pieces with a personal finish",
+    "overviewBody": "From simple name embroidery to statement applique and locally inspired designs, each garment is made to order. Apparel can be created for gifts, family milestones, faith-based designs, local pride, or an idea that is completely your own.",
+    "highlights": [
+      "Embroidered and applique sweatshirts",
+      "Personalized T-shirts and keepsake apparel",
+      "Custom hats, caps, and winter beanies",
+      "Names, sayings, sleeve details, and additional placements"
+    ],
+    "pricingCategories": ["Apparel", "Add-ons"]
+  },
+  {
+    "slug": "baby-kids-embroidery",
+    "navLabel": "Baby & Kids",
+    "eyebrow": "small details, big meaning",
+    "title": "Baby and Kids Embroidery",
+    "description": "Personalized baby and kids embroidery in Castle Rock, including onesies, handmade rompers, hats, name shirts, loveys, tags, and gift sets.",
+    "intro": "Celebrate a new arrival, birthday, or everyday milestone with a piece made for one special little person. Names, colors, and coordinating details can be planned together for a thoughtful finished gift.",
+    "heroImage": "/uploads/baby-floral-personalized-romper.jpg",
+    "heroAlt": "Personalized floral baby romper with matching embroidered accessories",
+    "galleryNames": ["Baby and Kids"],
+    "overviewTitle": "Keepsakes made for growing families",
+    "overviewBody": "Baby and kids orders can be as simple as a personalized onesie or as coordinated as a romper, hat, headband, leggings, and diaper bag tag. Each order is confirmed personally before payment and stitching.",
+    "highlights": [
+      "Personalized onesies and name shirts",
+      "Handmade rompers with hats or headbands",
+      "Loveys, diaper bag tags, and small totes",
+      "Coordinated newborn and milestone gift sets"
+    ],
+    "pricingCategories": ["Baby & Kids", "Matching & Gift Sets"]
+  },
+  {
+    "slug": "seasonal-holiday-embroidery",
+    "navLabel": "Seasonal",
+    "eyebrow": "made for the moment",
+    "title": "Seasonal and Holiday Embroidery",
+    "description": "Seasonal and holiday embroidery in Castle Rock, including Christmas sweatshirts, personalized gift sacks, winter beanies, patriotic shirts, and custom pieces.",
+    "intro": "Mark holidays, seasons, teams, and traditions with embroidery that comes out year after year. Seasonal orders range from cozy sweatshirts and beanies to personalized sacks, shirts, and matching pieces.",
+    "heroImage": "/uploads/seasonal-castle-rock-christmas-sweatshirts-and-beanies.jpg",
+    "heroAlt": "Castle Rock Christmas sweatshirts and embroidered winter beanies",
+    "galleryNames": ["Seasonal & Holiday"],
+    "overviewTitle": "Traditions stitched to last",
+    "overviewBody": "Seasonal pieces are made in limited local production, so early ordering is recommended for holidays and group gifts. Rush service may be available for an additional fee when the schedule allows.",
+    "highlights": [
+      "Christmas and winter sweatshirts",
+      "Personalized holiday gift sacks",
+      "Castle Rock and Colorado beanies",
+      "Patriotic, sports, and occasion-specific apparel"
+    ],
+    "pricingCategories": ["Apparel", "Bags & Totes", "Add-ons"]
+  },
+  {
+    "slug": "personalized-gifts",
+    "navLabel": "Gifts & Sets",
+    "eyebrow": "made for someone specific",
+    "title": "Personalized Gifts, Totes, and Matching Sets",
+    "description": "Personalized embroidered gifts in Castle Rock, including totes, blankets, towels, pouches, bride apparel, monograms, family gifts, and matching sets.",
+    "intro": "Turn a useful item into a gift that feels considered and personal. Names, monograms, dates, colors, and coordinating designs can be added to pieces for weddings, babies, families, teachers, teams, and everyday celebrations.",
+    "heroImage": "/uploads/gift-monogrammed-canvas-tote.jpg",
+    "heroAlt": "Personalized monogrammed canvas tote with baseball applique",
+    "galleryNames": ["Gifts & Personalized Items", "Matching & Gift Sets"],
+    "overviewTitle": "Personal details make memorable gifts",
+    "overviewBody": "Choose from totes, pouches, blankets, towels, apparel, or a coordinated set. If the right item is not shown in the gallery, share what you have in mind and Becky will help determine what can be embroidered.",
+    "highlights": [
+      "Monogrammed totes, pouches, and bags",
+      "Personalized blankets, towels, and keepsakes",
+      "Bride, family, and milestone gifts",
+      "Matching family, mama-and-mini, and newborn sets"
+    ],
+    "pricingCategories": [
+      "Gifts & Personalized",
+      "Matching & Gift Sets",
+      "Bags & Totes"
+    ]
+  },
+  {
+    "slug": "custom-logo-embroidery",
+    "navLabel": "Logos & Custom",
+    "eyebrow": "your idea, carefully translated",
+    "title": "Custom Logo and Business Embroidery",
+    "description": "Custom logo embroidery in Castle Rock for work shirts, jackets, hats, towels, team bags, branded apparel, handwriting, and collaborative custom orders.",
+    "intro": "Give a business, team, group, or meaningful design a polished embroidered finish. Becky can help translate an existing logo or original idea into the right size, placement, and thread treatment for the item.",
+    "heroImage": "/uploads/custom-snellows-tone-ranch-jackets.jpg",
+    "heroAlt": "Custom ranch logo embroidered on coordinated work jackets",
+    "galleryNames": ["Custom Orders"],
+    "overviewTitle": "Professional details without a large-order requirement",
+    "overviewBody": "Custom work can include apparel, jackets, hats, towels, duffel bags, handwriting, and other suitable items. New logos may require a one-time digitizing fee so the artwork can be prepared for clean stitching.",
+    "highlights": [
+      "Left-chest logos and branded work apparel",
+      "Team duffel bags, hats, and group pieces",
+      "Custom towels, jackets, and specialty placements",
+      "Logo digitizing and collaborative design planning"
+    ],
+    "pricingCategories": ["Custom Embroidery", "Add-ons"]
+  }
+]

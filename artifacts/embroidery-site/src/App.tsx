@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
@@ -7,10 +8,13 @@ import Pricing from "@/pages/Pricing";
 import Reviews from "@/pages/Reviews";
 import Privacy from "@/pages/Privacy";
 import Insights from "@/pages/Insights";
+import serviceLinks from "@/content/service-links.json";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 import CloudflareAnalytics from "@/components/CloudflareAnalytics";
 import PrivacyPreferencesNotice from "@/components/PrivacyPreferencesNotice";
 import { PrivacyPreferencesProvider } from "@/context/PrivacyPreferencesContext";
+
+const ServicePage = lazy(() => import("@/pages/ServicePage"));
 
 function Router() {
   return (
@@ -21,6 +25,13 @@ function Router() {
       <Route path="/faq" component={Faq} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/insights" component={Insights} />
+      {serviceLinks.map((service) => (
+        <Route key={service.slug} path={`/${service.slug}`}>
+          <Suspense fallback={null}>
+            <ServicePage serviceSlug={service.slug} />
+          </Suspense>
+        </Route>
+      ))}
       <Route component={NotFound} />
     </Switch>
   );

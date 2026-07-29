@@ -739,6 +739,37 @@ img {
   object-fit: cover;
 }
 
+.gallery-service-links {
+  max-width: 980px;
+  margin: 58px auto 0;
+  padding-block: 24px;
+  border-block: 2px dashed rgba(201, 139, 151, 0.62);
+  text-align: center;
+}
+
+.gallery-service-links > span {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--soft);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.gallery-service-links > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+}
+
+.gallery-service-links a {
+  color: var(--rose-deep);
+  font-size: 14px;
+  font-weight: 600;
+  text-underline-offset: 4px;
+}
+
 .gallery-label {
   display: flex;
   align-items: baseline;
@@ -3265,6 +3296,11 @@ img {
 
   .pricing-page-cta h2 {
     font-size: 32px;
+  }
+
+  .gallery-service-links > div {
+    display: grid;
+    gap: 10px;
   }
 
   .contact-tag {

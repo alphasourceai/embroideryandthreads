@@ -14,6 +14,32 @@ const publicPages = [
   ["reviews", "/reviews", /Customer Stories/],
   ["faq", "/faq", /Frequently Asked Questions/],
   ["privacy", "/privacy", /Privacy Policy/],
+  [
+    "custom embroidery service",
+    "/custom-embroidery-castle-rock",
+    /Custom Embroidery in Castle Rock/,
+  ],
+  ["apparel service", "/embroidered-apparel", /Custom Embroidered Apparel/],
+  [
+    "baby and kids service",
+    "/baby-kids-embroidery",
+    /Baby and Kids Embroidery/,
+  ],
+  [
+    "seasonal service",
+    "/seasonal-holiday-embroidery",
+    /Seasonal and Holiday Embroidery/,
+  ],
+  [
+    "personalized gifts service",
+    "/personalized-gifts",
+    /Personalized Gifts, Totes, and Matching Sets/,
+  ],
+  [
+    "logo embroidery service",
+    "/custom-logo-embroidery",
+    /Custom Logo and Business Embroidery/,
+  ],
   ["not found", "/missing-page-for-test", /couldn't find that page/i],
 ] as const;
 

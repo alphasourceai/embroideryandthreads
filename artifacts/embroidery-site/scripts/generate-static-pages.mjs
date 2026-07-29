@@ -16,6 +16,9 @@ const faqItems = JSON.parse(
 const pricing = JSON.parse(
   await readFile(path.join(appRoot, "src", "content", "pricing.json"), "utf8"),
 );
+const services = JSON.parse(
+  await readFile(path.join(appRoot, "src", "content", "services.json"), "utf8"),
+);
 
 const home = {
   title: "Custom Embroidery in Castle Rock, CO | Embroidery & Threads",
@@ -106,6 +109,54 @@ const pages = [
     url: "https://embroideryandthreads.com/404",
     robots: "noindex, nofollow",
   },
+  ...services.map((service) => {
+    const url = `https://embroideryandthreads.com/${service.slug}`;
+
+    return {
+      file: `${service.slug}.html`,
+      title: `${service.title} | Embroidery & Threads`,
+      description: service.description,
+      url,
+      robots: home.robots,
+      structuredData: {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Service",
+            "@id": `${url}#service`,
+            name: service.title,
+            serviceType: service.navLabel,
+            description: service.description,
+            url,
+            areaServed: {
+              "@type": "City",
+              name: "Castle Rock, Colorado",
+            },
+            provider: {
+              "@id": "https://embroideryandthreads.com/#business",
+            },
+          },
+          {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://embroideryandthreads.com/",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: service.title,
+                item: url,
+              },
+            ],
+          },
+        ],
+      },
+    };
+  }),
 ];
 
 function replaceRequired(html, search, replacement) {

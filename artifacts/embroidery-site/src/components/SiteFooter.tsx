@@ -14,7 +14,8 @@ export default function SiteFooter() {
         <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
           Instagram
         </a>{" "}
-        · <Link href="/pricing">Pricing</Link> · <Link href="/faq">FAQ</Link> ·{" "}
+        · <Link href="/custom-embroidery-castle-rock">Services</Link> ·{" "}
+        <Link href="/pricing">Pricing</Link> · <Link href="/faq">FAQ</Link> ·{" "}
         <Link href="/privacy">Privacy</Link> ·{" "}
         <button
           className="footer-link-button"

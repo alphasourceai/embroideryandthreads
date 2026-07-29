@@ -9,6 +9,9 @@ const appRoot = path.resolve(
 );
 const outputDir = path.join(appRoot, "dist", "public");
 const errors = [];
+const services = JSON.parse(
+  await readFile(path.join(appRoot, "src", "content", "services.json"), "utf8"),
+);
 const netlifyConfig = await readFile(
   path.resolve(appRoot, "..", "..", "netlify.toml"),
   "utf8",
@@ -21,9 +24,7 @@ const cspConnectSources = [
 ].map((match) => match[1]);
 if (
   cspConnectSources.length < 2 ||
-  cspConnectSources.some(
-    (sources) => !sources.split(/\s+/).includes("blob:"),
-  )
+  cspConnectSources.some((sources) => !sources.split(/\s+/).includes("blob:"))
 ) {
   errors.push(
     "netlify.toml: every CSP connect-src must allow blob: so Decap can publish pending image uploads.",
@@ -73,7 +74,15 @@ const pages = [
     "https://embroideryandthreads.com/404",
     "noindex",
   ],
+  ...services.map((service) => [
+    `${service.slug}.html`,
+    service.title,
+    `https://embroideryandthreads.com/${service.slug}`,
+    "index",
+  ]),
 ];
+
+const serviceFiles = new Set(services.map((service) => `${service.slug}.html`));
 
 function walk(node, visit) {
   visit(node);
@@ -130,6 +139,10 @@ for (const [file, titleNeedle, canonical, robotsNeedle] of pages) {
 
   if (file === "pricing.html" && !html.includes('"@type":"OfferCatalog"')) {
     errors.push("pricing.html: OfferCatalog structured data is missing.");
+  }
+
+  if (serviceFiles.has(file) && !html.includes('"@type":"Service"')) {
+    errors.push(`${file}: Service structured data is missing.`);
   }
 
   if (file === "index.html") {

@@ -12,6 +12,15 @@ const contentPath = path.join(appRoot, "src", "content", "site.json");
 const content = JSON.parse(await readFile(contentPath, "utf8"));
 const pricingPath = path.join(appRoot, "src", "content", "pricing.json");
 const pricing = JSON.parse(await readFile(pricingPath, "utf8"));
+const servicesPath = path.join(appRoot, "src", "content", "services.json");
+const services = JSON.parse(await readFile(servicesPath, "utf8"));
+const serviceLinksPath = path.join(
+  appRoot,
+  "src",
+  "content",
+  "service-links.json",
+);
+const serviceLinks = JSON.parse(await readFile(serviceLinksPath, "utf8"));
 const errors = [];
 const maxBytes = 1_250_000;
 const allowedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp"]);
@@ -88,6 +97,61 @@ for (const [index, item] of gallery.entries()) {
   if (!Array.isArray(item?.images) || item.images.length < 1) {
     errors.push(`Gallery ${index + 1}: include at least one photo.`);
   }
+}
+
+if (!Array.isArray(services) || services.length !== 6) {
+  errors.push("Services: include exactly six service pages.");
+}
+
+const serviceSlugs = new Set();
+for (const [index, service] of services.entries()) {
+  const label = `Service ${index + 1}`;
+  const slug = typeof service?.slug === "string" ? service.slug.trim() : "";
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+    errors.push(`${label}: use a valid lowercase URL slug.`);
+  }
+  if (serviceSlugs.has(slug)) {
+    errors.push(`${label}: service URL slugs must be unique.`);
+  }
+  serviceSlugs.add(slug);
+
+  if (typeof service?.title !== "string" || !service.title.trim()) {
+    errors.push(`${label}: title is required.`);
+  }
+  if (
+    typeof service?.description !== "string" ||
+    service.description.trim().length < 70
+  ) {
+    errors.push(`${label}: description must be at least 70 characters.`);
+  }
+  if (!Array.isArray(service?.galleryNames) || !service.galleryNames.length) {
+    errors.push(`${label}: reference at least one gallery.`);
+  } else {
+    for (const galleryName of service.galleryNames) {
+      if (!galleryNames.has(String(galleryName).toLowerCase())) {
+        errors.push(`${label}: unknown gallery "${galleryName}".`);
+      }
+    }
+  }
+  if (
+    !Array.isArray(service?.pricingCategories) ||
+    !service.pricingCategories.length
+  ) {
+    errors.push(`${label}: reference at least one pricing category.`);
+  } else {
+    for (const categoryName of service.pricingCategories) {
+      if (!pricingNames.has(String(categoryName).toLowerCase())) {
+        errors.push(`${label}: unknown pricing category "${categoryName}".`);
+      }
+    }
+  }
+}
+
+if (
+  JSON.stringify(services.map(({ slug, navLabel }) => ({ slug, navLabel }))) !==
+  JSON.stringify(serviceLinks)
+) {
+  errors.push("Services: lightweight route links must match service content.");
 }
 
 const reviews = Array.isArray(content.reviews) ? content.reviews : [];
@@ -179,5 +243,5 @@ if (errors.length) {
 }
 
 console.log(
-  `Validated ${gallery.length} galleries, ${reviews.length} reviews, ${pricingCategories.length} pricing categories, and ${images.length} editable images and descriptions.`,
+  `Validated ${gallery.length} galleries, ${reviews.length} reviews, ${pricingCategories.length} pricing categories, ${services.length} service pages, and ${images.length} editable images and descriptions.`,
 );
