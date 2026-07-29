@@ -108,8 +108,6 @@ export default function Reviews() {
               it back. Here are a few favorites.
             </p>
 
-            <GoogleReviewsSection feed={googleFeed} reviews={googleReviews} />
-
             <div className="reviews-collection-heading" data-reveal>
               <span className="overline">Customer shares</span>
               <h2>Kind Words from Instagram</h2>
@@ -127,6 +125,8 @@ export default function Reviews() {
                 />
               ))}
             </div>
+
+            <GoogleReviewsSection feed={googleFeed} reviews={googleReviews} />
 
             <div className="reviews-cta" data-reveal>
               <span className="script-accent">your idea could be next</span>

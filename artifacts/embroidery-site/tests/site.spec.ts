@@ -130,6 +130,13 @@ test("Google reviews are added to the reviews page with attribution", async ({
   ).toBeVisible();
   const googleSection = page.getByTestId("google-reviews-section");
   await expect(googleSection).toBeVisible();
+  const reviewSectionHeadings = await page
+    .locator(".reviews-collection-heading h2")
+    .allTextContents();
+  expect(reviewSectionHeadings).toEqual([
+    "Kind Words from Instagram",
+    "Google Reviews",
+  ]);
   await expect(
     page.getByTestId("google-review-card-1").getByRole("link", {
       name: "Google review",
