@@ -5,7 +5,6 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Faq from "@/pages/Faq";
 import Pricing from "@/pages/Pricing";
-import Reviews from "@/pages/Reviews";
 import Privacy from "@/pages/Privacy";
 import Insights from "@/pages/Insights";
 import serviceLinks from "@/content/service-links.json";
@@ -15,12 +14,17 @@ import PrivacyPreferencesNotice from "@/components/PrivacyPreferencesNotice";
 import { PrivacyPreferencesProvider } from "@/context/PrivacyPreferencesContext";
 
 const ServicePage = lazy(() => import("@/pages/ServicePage"));
+const Reviews = lazy(() => import("@/pages/Reviews"));
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/reviews" component={Reviews} />
+      <Route path="/reviews">
+        <Suspense fallback={null}>
+          <Reviews />
+        </Suspense>
+      </Route>
       <Route path="/pricing" component={Pricing} />
       <Route path="/faq" component={Faq} />
       <Route path="/privacy" component={Privacy} />
