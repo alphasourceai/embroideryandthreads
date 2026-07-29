@@ -22,7 +22,7 @@
         },
         {
           "name": "Embroidered Hats",
-          "price": "$20"
+          "price": "$30"
         },
         {
           "name": "Floral Mama Ballcap",
@@ -37,9 +37,9 @@
           "price": "$20"
         },
         {
-          "name": "Embroidered Ball Caps - $30",
+          "name": "Embroidered Ball Caps ",
           "note": "",
-          "price": "30"
+          "price": "$30"
         }
       ]
     },
