@@ -2377,6 +2377,66 @@ img {
   margin-top: 12px;
 }
 
+.google-review-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+  gap: 32px;
+  align-items: center;
+  margin: 34px 0 48px;
+  padding: 24px 4px;
+  border-top: 1px dashed var(--rose);
+  border-bottom: 1px dashed var(--rose);
+}
+
+.google-review-summary-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+.google-review-summary-main > img {
+  width: 76px;
+  height: auto;
+  object-fit: contain;
+}
+
+.google-review-summary-main strong {
+  color: var(--ink);
+  font-family: "Playfair Display", serif;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.google-review-summary-main > span:not(.review-stars) {
+  color: var(--soft);
+  font-size: 13px;
+}
+
+.google-review-summary-main > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--rose-deep);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.google-review-summary-main > a svg {
+  width: 13px;
+  height: 13px;
+}
+
+.google-review-summary > p {
+  margin: 0;
+  color: var(--soft);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
 .reviews-page-card {
   padding-bottom: 14px;
 }
@@ -3021,6 +3081,11 @@ img {
   .instagram-polaroid-grid,
   .reviews-page-grid {
     gap: 48px;
+  }
+
+  .google-review-summary {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   .steps-thread {

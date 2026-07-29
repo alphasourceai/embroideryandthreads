@@ -108,6 +108,8 @@ test("Google reviews are added to the reviews page with attribution", async ({
       body: JSON.stringify({
         configured: true,
         googleMapsUri: "https://www.google.com/maps/place/example",
+        rating: 5,
+        reviewCount: 3,
         reviews: [
           {
             id: "google-review-test",
@@ -131,9 +133,18 @@ test("Google reviews are added to the reviews page with attribution", async ({
       name: "Google review",
     }),
   ).toBeVisible();
-  await expect(page.getByLabel("5 out of 5 stars")).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "Read on Google" }),
+    page.getByTestId("review-card-1").getByLabel("5 out of 5 stars"),
+  ).toBeVisible();
+  const googleSummary = page.getByTestId("google-review-summary");
+  await expect(googleSummary).toBeVisible();
+  await expect(googleSummary).toContainText("5.0");
+  await expect(googleSummary).toContainText("3 Google reviews");
+  await expect(googleSummary).toContainText(
+    "Showing recent 4- and 5-star written reviews returned by Google.",
+  );
+  await expect(
+    googleSummary.getByRole("link", { name: "View all on Google Maps" }),
   ).toHaveAttribute("href", "https://www.google.com/maps/place/example");
   await expect(
     page.getByTestId("reviews-button-google-review"),

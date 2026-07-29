@@ -109,6 +109,16 @@ export default function Reviews() {
               it back. Here are a few favorites.
             </p>
 
+            {googleFeed?.configured &&
+              typeof googleFeed.rating === "number" &&
+              typeof googleFeed.reviewCount === "number" && (
+                <GoogleReviewSummary
+                  feed={googleFeed}
+                  rating={googleFeed.rating}
+                  reviewCount={googleFeed.reviewCount}
+                />
+              )}
+
             <div className="reviews-page-grid">
               {reviews.map((review, index) => (
                 <ReviewCard
@@ -144,16 +154,6 @@ export default function Reviews() {
                   <Star aria-hidden="true" />
                   Leave a Google Review
                 </a>
-                {googleFeed?.googleMapsUri && (
-                  <a
-                    className="stitched-button stitched-button-ghost"
-                    href={googleFeed.googleMapsUri}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Read on Google
-                  </a>
-                )}
                 <Link
                   href="/#contact"
                   className="stitched-button stitched-button-ghost"
@@ -264,5 +264,56 @@ function ReviewStars({ rating }: { rating: number }) {
         />
       ))}
     </span>
+  );
+}
+
+function GoogleReviewSummary({
+  feed,
+  rating,
+  reviewCount,
+}: {
+  feed: GoogleReviewResponse;
+  rating: number;
+  reviewCount: number;
+}) {
+  const reviewLabel = `${reviewCount} Google ${
+    reviewCount === 1 ? "review" : "reviews"
+  }`;
+
+  return (
+    <aside
+      className="google-review-summary"
+      aria-label="Google review summary"
+      data-testid="google-review-summary"
+    >
+      <div className="google-review-summary-main">
+        <img
+          src="https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"
+          alt="Google"
+          width="92"
+          height="30"
+          loading="lazy"
+        />
+        <strong>{rating.toFixed(1)}</strong>
+        <ReviewStars rating={Math.round(rating)} />
+        <span>{reviewLabel}</span>
+        {feed.googleMapsUri && (
+          <a
+            href={feed.googleMapsUri}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View all on Google Maps
+            <ExternalLink aria-hidden="true" />
+          </a>
+        )}
+      </div>
+      <p>
+        Showing recent 4- and 5-star written reviews returned by Google.
+        {feed.reviews.length === 0 &&
+          " New written reviews will appear here automatically."}{" "}
+        Google checks for and removes fake content when identified.
+      </p>
+    </aside>
   );
 }

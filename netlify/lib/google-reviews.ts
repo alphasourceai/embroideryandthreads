@@ -41,38 +41,46 @@ export function normalizeGoogleReviewFeed(value: unknown): GoogleReviewFeed {
   const rawReviews = Array.isArray(payload.reviews)
     ? (payload.reviews as GooglePlacesReview[])
     : [];
-  const reviews = rawReviews.flatMap((review, index) => {
-    const quote = cleanText(
-      review?.text?.text ?? review?.originalText?.text,
-      1_500,
-    );
-    const rating = Number(review?.rating);
-    if (!quote || !Number.isInteger(rating) || rating < 1 || rating > 5) {
-      return [];
-    }
+  const reviews = rawReviews
+    .flatMap((review, index) => {
+      const quote = cleanText(
+        review?.text?.text ?? review?.originalText?.text,
+        1_500,
+      );
+      const rating = Number(review?.rating);
+      if (!quote || !Number.isInteger(rating) || rating < 4 || rating > 5) {
+        return [];
+      }
 
-    const reviewer =
-      cleanText(review?.authorAttribution?.displayName, 120) ||
-      "Google customer";
-    const sourceUrl =
-      safeGoogleUrl(review?.googleMapsUri) ||
-      safeGoogleUrl(review?.authorAttribution?.uri) ||
-      placeUrl;
-    const id =
-      cleanText(review?.name, 180) ||
-      `google-${reviewer.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${index}`;
+      const reviewer =
+        cleanText(review?.authorAttribution?.displayName, 120) ||
+        "Google customer";
+      const sourceUrl =
+        safeGoogleUrl(review?.googleMapsUri) ||
+        safeGoogleUrl(review?.authorAttribution?.uri) ||
+        placeUrl;
+      const id =
+        cleanText(review?.name, 180) ||
+        `google-${reviewer.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${index}`;
+      const publishTime = Date.parse(cleanText(review?.publishTime, 60));
 
-    return [
-      {
-        id,
-        reviewer,
-        quote,
-        rating,
-        dateLabel: reviewDateLabel(review),
-        sourceUrl,
-      },
-    ];
-  });
+      return [
+        {
+          review: {
+            id,
+            reviewer,
+            quote,
+            rating,
+            dateLabel: reviewDateLabel(review),
+            sourceUrl,
+          },
+          publishTime: Number.isNaN(publishTime) ? 0 : publishTime,
+        },
+      ];
+    })
+    .sort((left, right) => right.publishTime - left.publishTime)
+    .slice(0, 3)
+    .map(({ review }) => review);
 
   const rating = Number(payload.rating);
   const reviewCount = Number(payload.userRatingCount);

@@ -1,8 +1,9 @@
 # Google Reviews Setup
 
-The reviews page can display up to five public Google reviews automatically
-through the Google Places API (New). The integration remains inactive until the
-Google Business Profile exists and these Netlify environment variables are set:
+The reviews page displays the live Google rating summary and up to three public
+written reviews automatically through the Google Places API (New). The feed
+selects the newest 4- and 5-star written reviews from the reviews Google returns
+and refreshes through a six-hour server cache.
 
 - `GOOGLE_PLACE_ID`
 - `GOOGLE_PLACES_API_KEY`
@@ -18,6 +19,9 @@ Google Business Profile exists and these Netlify environment variables are set:
 6. Redeploy the site.
 7. Open `/reviews` and confirm the Google reviews and Google attribution link.
 
-The Places API returns at most five reviews. If the client later needs a full
-review archive, replace this feed with the Google Business Profile Reviews API,
-which requires the business owner's OAuth authorization.
+The Places API returns at most five reviews selected by Google, so this is a
+current review feature rather than a complete review archive. The page discloses
+the rating filter and links each review back to Google. If the client later
+needs every review or custom moderation of the full archive, replace this feed
+with the Google Business Profile Reviews API, which requires the business
+owner's OAuth authorization and Google approval for Business Profile API access.

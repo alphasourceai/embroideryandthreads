@@ -40,7 +40,7 @@ export default function Privacy() {
         tabIndex={-1}
       >
         <article className="content-wrap privacy-content">
-          <p className="overline">Last updated July 22, 2026</p>
+          <p className="overline">Last updated July 29, 2026</p>
           <h1>Privacy Policy</h1>
           <p>
             Embroidery & Threads collects information needed to respond to
@@ -124,6 +124,17 @@ export default function Privacy() {
           <p>
             The contact form is protected by Google reCAPTCHA to reduce spam and
             abuse. Google&apos;s{" "}
+            <a href="https://policies.google.com/privacy">Privacy Policy</a> and{" "}
+            <a href="https://policies.google.com/terms">Terms of Service</a>{" "}
+            apply.
+          </p>
+          <h2>Google reviews</h2>
+          <p>
+            The reviews page may retrieve the business&apos;s aggregate rating
+            and selected public written reviews from Google Maps. Displayed
+            review information may include the public reviewer name, rating,
+            review text, date, and a link to the original Google listing.
+            Google&apos;s{" "}
             <a href="https://policies.google.com/privacy">Privacy Policy</a> and{" "}
             <a href="https://policies.google.com/terms">Terms of Service</a>{" "}
             apply.

@@ -50,3 +50,27 @@ test("omits rating-only and unsafe review records", () => {
   assert.deepEqual(feed.reviews, []);
   assert.equal(feed.googleMapsUri, "");
 });
+
+test("selects the three newest written four- and five-star reviews", () => {
+  const review = (name: string, rating: number, publishTime: string) => ({
+    name: `places/example/reviews/${name}`,
+    rating,
+    publishTime,
+    text: { text: `${name} review` },
+  });
+  const feed = normalizeGoogleReviewFeed({
+    googleMapsUri: "https://www.google.com/maps/place/example",
+    reviews: [
+      review("older", 5, "2026-01-01T12:00:00Z"),
+      review("newest", 5, "2026-04-01T12:00:00Z"),
+      review("excluded", 3, "2026-05-01T12:00:00Z"),
+      review("middle", 4, "2026-03-01T12:00:00Z"),
+      review("newer", 5, "2026-02-01T12:00:00Z"),
+    ],
+  });
+
+  assert.deepEqual(
+    feed.reviews.map(({ quote }) => quote),
+    ["newest review", "middle review", "newer review"],
+  );
+});
