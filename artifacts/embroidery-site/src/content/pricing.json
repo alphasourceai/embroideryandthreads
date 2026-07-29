@@ -21,7 +21,7 @@
           "price": "$54"
         },
         {
-          "name": "Embroidered Hats",
+          "name": "Embroidered Ball Caps",
           "price": "$30"
         },
         {
@@ -35,11 +35,6 @@
         {
           "name": "Beanie",
           "price": "$20"
-        },
-        {
-          "name": "Embroidered Ball Caps ",
-          "note": "",
-          "price": "$30"
         }
       ]
     },
