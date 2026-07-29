@@ -14,6 +14,7 @@ import siteContent from "@/content/site.json";
 import type { CustomerReview, GoogleReviewResponse } from "@/types/reviews";
 
 const INSTAGRAM_URL = "https://www.instagram.com/embroideryandthreads/";
+const GOOGLE_REVIEW_URL = "https://g.page/r/CePAAktAo91REBM/review";
 const manualReviews = siteContent.reviews as CustomerReview[];
 
 export default function Reviews() {
@@ -132,6 +133,16 @@ export default function Reviews() {
                 >
                   <Instagram aria-hidden="true" />
                   DM to Order
+                </a>
+                <a
+                  className="stitched-button stitched-button-ghost"
+                  href={GOOGLE_REVIEW_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="reviews-button-google-review"
+                >
+                  <Star aria-hidden="true" />
+                  Leave a Google Review
                 </a>
                 {googleFeed?.googleMapsUri && (
                   <a
