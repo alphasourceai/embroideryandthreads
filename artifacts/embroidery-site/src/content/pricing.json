@@ -8,19 +8,48 @@
     {
       "name": "Apparel",
       "items": [
-        { "name": "Embroidered T-shirts", "price": "$32" },
-        { "name": "Embroidered Sweatshirts", "price": "$45" },
-        { "name": "Applique Sweatshirts", "price": "$54" },
-        { "name": "Embroidered Hats", "price": "$20" },
-        { "name": "Floral Mama Ballcap", "price": "$30" },
-        { "name": "Floral Mama T-shirt", "price": "$35" },
-        { "name": "Beanie", "price": "$20" }
+        {
+          "name": "Embroidered T-shirts",
+          "price": "$32"
+        },
+        {
+          "name": "Embroidered Sweatshirts",
+          "price": "$45"
+        },
+        {
+          "name": "Applique Sweatshirts",
+          "price": "$54"
+        },
+        {
+          "name": "Embroidered Hats",
+          "price": "$20"
+        },
+        {
+          "name": "Floral Mama Ballcap",
+          "price": "$30"
+        },
+        {
+          "name": "Floral Mama T-shirt",
+          "price": "$35"
+        },
+        {
+          "name": "Beanie",
+          "price": "$20"
+        },
+        {
+          "name": "Embroidered Ball Caps - $30",
+          "note": "",
+          "price": "30"
+        }
       ]
     },
     {
       "name": "Baby & Kids",
       "items": [
-        { "name": "Embroidered Onesies", "price": "$26" },
+        {
+          "name": "Embroidered Onesies",
+          "price": "$26"
+        },
         {
           "name": "Handmade Romper",
           "price": "$50",
@@ -31,14 +60,23 @@
           "price": "$45",
           "note": "With matching leggings and hat or headband"
         },
-        { "name": "Diaper Bag Tag", "price": "$17" }
+        {
+          "name": "Diaper Bag Tag",
+          "price": "$17"
+        }
       ]
     },
     {
       "name": "Gifts & Personalized",
       "items": [
-        { "name": "Monogram Items", "price": "$20" },
-        { "name": "Name Embroidery", "price": "$15" },
+        {
+          "name": "Monogram Items",
+          "price": "$20"
+        },
+        {
+          "name": "Name Embroidery",
+          "price": "$15"
+        },
         {
           "name": "Custom Items",
           "price": "$35",
@@ -54,31 +92,61 @@
           "price": "$90",
           "note": "Mama sweatshirt with matching romper and hat"
         },
-        { "name": "Family Sets", "price": "Custom pricing" }
+        {
+          "name": "Family Sets",
+          "price": "Custom pricing"
+        }
       ]
     },
     {
       "name": "Bags & Totes",
       "items": [
-        { "name": "Small", "price": "$20" },
-        { "name": "Medium", "price": "$30" },
-        { "name": "Large", "price": "$45" }
+        {
+          "name": "Small",
+          "price": "$20"
+        },
+        {
+          "name": "Medium",
+          "price": "$30"
+        },
+        {
+          "name": "Large",
+          "price": "$45"
+        }
       ]
     },
     {
       "name": "Custom Embroidery",
       "items": [
-        { "name": "Digitizing Fee (one-time)", "price": "$15-$35" },
-        { "name": "Left Chest Logo (simple)", "price": "$20" },
-        { "name": "Left Chest Logo (large)", "price": "$30" }
+        {
+          "name": "Digitizing Fee (one-time)",
+          "price": "$15-$35"
+        },
+        {
+          "name": "Left Chest Logo (simple)",
+          "price": "$20"
+        },
+        {
+          "name": "Left Chest Logo (large)",
+          "price": "$30"
+        }
       ]
     },
     {
       "name": "Add-ons",
       "items": [
-        { "name": "Larger Designs (over 4 inches)", "price": "+$5-$15" },
-        { "name": "Sleeve or Additional Placement", "price": "+$12" },
-        { "name": "Rush Orders", "price": "+$10-$20" }
+        {
+          "name": "Larger Designs (over 4 inches)",
+          "price": "+$5-$15"
+        },
+        {
+          "name": "Sleeve or Additional Placement",
+          "price": "+$12"
+        },
+        {
+          "name": "Rush Orders",
+          "price": "+$10-$20"
+        }
       ]
     }
   ]
