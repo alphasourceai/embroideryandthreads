@@ -143,8 +143,8 @@ export default function Privacy() {
           <p>
             Questions, requests to access or correct information, or requests to
             delete a submitted inquiry or saved draft can be sent to{" "}
-            <a href="mailto:embroideryandthreads@gmail.com">
-              embroideryandthreads@gmail.com
+            <a href="mailto:hello@embroideryandthreads.com">
+              hello@embroideryandthreads.com
             </a>
             .
           </p>

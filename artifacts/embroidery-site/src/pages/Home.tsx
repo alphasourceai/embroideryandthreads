@@ -870,13 +870,13 @@ export default function Home() {
                   </span>
                 </a>
                 <a
-                  href="mailto:embroideryandthreads@gmail.com"
+                  href="mailto:hello@embroideryandthreads.com"
                   data-testid="footer-link-email"
                 >
                   <Mail aria-hidden="true" />
                   <span>
                     <strong>Email</strong>
-                    embroideryandthreads@gmail.com
+                    hello@embroideryandthreads.com
                   </span>
                 </a>
                 <a href="sms:+17204651414" data-testid="footer-link-phone">
