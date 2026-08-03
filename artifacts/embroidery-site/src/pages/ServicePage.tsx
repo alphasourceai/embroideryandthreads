@@ -240,8 +240,8 @@ export default function ServicePage({ serviceSlug }: ServicePageProps) {
                 <span>03</span>
                 <h3>Pick up locally</h3>
                 <p>
-                  Pickup is at the Castle Rock home business. The address and
-                  instructions are provided after payment.
+                  Consultations, item drop-off, and pickup are available by
+                  appointment at 3607 Desert Ridge Pl in Castle Rock.
                 </p>
               </li>
             </ol>

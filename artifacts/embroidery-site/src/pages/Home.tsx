@@ -3,6 +3,7 @@ import ChevronLeft from "lucide-react/dist/esm/icons/chevron-left";
 import ChevronRight from "lucide-react/dist/esm/icons/chevron-right";
 import Instagram from "lucide-react/dist/esm/icons/instagram";
 import Mail from "lucide-react/dist/esm/icons/mail";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
 import Menu from "lucide-react/dist/esm/icons/menu";
 import MessageCircle from "lucide-react/dist/esm/icons/message-circle";
 import X from "lucide-react/dist/esm/icons/x";
@@ -47,7 +48,7 @@ const PROCESS_STEPS = [
     icon: "/logo-machine.jpg",
     title: "Local Pickup",
     description:
-      "I'll get to stitching! Once it's ready, I'll package it for pickup at my Castle Rock home studio. Address and instructions are shared after payment.",
+      "I'll get to stitching! Consultations, item drop-off, and pickup are available by appointment at my Castle Rock home studio at 3607 Desert Ridge Pl.",
   },
 ];
 
@@ -667,7 +668,8 @@ export default function Home() {
                 <p>
                   I'm currently taking custom orders in the Castle Rock area.
                   I'm not shipping at this time — reach out on Instagram or use
-                  the contact form below and we'll work out a local pickup.
+                  the contact form below to schedule a consultation, item
+                  drop-off, or local pickup at my Castle Rock studio.
                 </p>
                 <span className="script-accent story-signature">
                   made with love, every time
@@ -887,6 +889,19 @@ export default function Home() {
                   </span>
                 </a>
               </div>
+
+              <a
+                className="contact-location"
+                href="https://www.google.com/maps/search/?api=1&query=3607+Desert+Ridge+Pl+Castle+Rock+CO+80108"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <MapPin aria-hidden="true" />
+                <span>
+                  <strong>Studio visits by appointment</strong>
+                  3607 Desert Ridge Pl, Castle Rock, CO 80108
+                </span>
+              </a>
 
               <form
                 ref={contactFormRef}

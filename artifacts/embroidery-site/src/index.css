@@ -1084,6 +1084,42 @@ img {
   overflow-wrap: normal;
 }
 
+.contact-location {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: -18px auto 38px;
+  color: var(--soft);
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: left;
+  text-decoration: none;
+}
+
+.contact-location:hover {
+  color: var(--rose-deep);
+}
+
+.contact-location svg {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  color: var(--rose-deep);
+}
+
+.contact-location span {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-location strong {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
 .storybook-form {
   display: grid;
   gap: 20px;
@@ -3212,6 +3248,12 @@ img {
     flex-direction: row;
     justify-content: center;
     text-align: left;
+  }
+
+  .contact-location {
+    align-items: flex-start;
+    margin-top: -10px;
+    padding: 0 16px;
   }
 
   .pricing-category-grid {
